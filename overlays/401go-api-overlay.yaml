@@ -1,0 +1,118 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the 401GO API
+  version: 1.0.0
+extends: openapi/401go-openapi-original.json
+x-generated: '2026-08-02'
+x-method: generated
+x-source: >-
+  Derived from the verbatim spec at https://app.401go.com/api/schema/ plus the 401GO developer
+  documentation at https://developer.401go.com/. Captures API Evangelist enhancements without
+  mutating the harvested original.
+actions:
+- target: $.info
+  description: >-
+    Add contact, licence-free terms pointer, a real description, and API Evangelist metadata.
+    The upstream info block carries only title and version.
+  update:
+    description: >-
+      The 401GO partner REST API for retirement plan administration. Set up 401(k) plans, sync
+      participant census, read plan provisions and employer match formulas, retrieve deferral
+      elections and loan deductions, and submit payroll contribution files. Also exposes
+      participant-facing investments, portfolios, beneficiaries, disbursements, loans,
+      rollovers and retirement planning projections.
+    contact:
+      name: 401GO Partner Support
+      email: partnersupport@401go.com
+      url: https://developer.401go.com/
+    termsOfService: https://401go.com/terms-and-conditions/
+    x-apievangelist-slug: 401go
+    x-apievangelist-harvested: '2026-08-02'
+    x-apievangelist-spec-source: https://app.401go.com/api/schema/
+- target: $
+  description: >-
+    Add the servers array. The upstream document declares no servers, so a client cannot
+    resolve a base URL from the spec alone.
+  update:
+    servers:
+    - url: https://app.401go.com/api
+      description: Production
+- target: $
+  description: >-
+    Declare the tag objects. Ten tags are used across the 72 operations but none are declared
+    at the document root, so the groupings have no descriptions.
+  update:
+    tags:
+    - {name: Affiliates & Firms, description: Advisor firms, advisors, fund lineups, pooled plans and pricing tiers.}
+    - {name: Companies & Plans, description: Companies, 401(k) plan setup, plan provisions and employer match formulas.}
+    - {name: Participants, description: Participant census records, setup state and lifecycle events.}
+    - {name: Contributions & Payroll, description: Payroll file submission, deferral elections, match and year-to-date totals.}
+    - {name: Investments & Portfolios, description: Investment options, portfolio allocations, rebalancing and performance history.}
+    - {name: Money Movement, description: Disbursements, loan requests, rollovers and money movement history.}
+    - {name: Beneficiaries, description: Participant beneficiary designations.}
+    - {name: Retirement Planning, description: Advisor models, planning defaults and projected balance estimates.}
+    - {name: Notifications, description: Participant notifications and attachments.}
+    - {name: Documents, description: Participant document listing and signed download URLs.}
+- target: $
+  description: Apply security globally — the upstream document declares no root-level security.
+  update:
+    security:
+    - oauth2: []
+    - knoxApiToken: []
+- target: $.components.securitySchemes.oauth2
+  description: >-
+    Annotate the OAuth surface with the real authorization-server metadata published at
+    app.401go.com/api/o/.well-known/openid-configuration. The upstream scheme is declared as a
+    bare http/bearer scheme, which hides the flows, endpoints and 12 scopes from tooling.
+  update:
+    x-oauth-flows:
+      authorizationCode:
+        authorizationUrl: https://app.401go.com/api/o/authorize
+        tokenUrl: https://app.401go.com/api/o/token
+        refreshUrl: https://app.401go.com/api/o/token
+      clientCredentials:
+        tokenUrl: https://app.401go.com/api/o/token
+    x-openid-configuration: https://app.401go.com/api/o/.well-known/openid-configuration
+    x-scopes: [openid, participant:read, participant:write, participant:billing, company:read,
+      company:write, plan:read, plan:write, affiliate_firm:read, affiliate_firm:write,
+      affiliate:read, affiliate:write]
+    x-access-token-ttl-seconds: 3600
+    x-refresh-token-ttl-seconds: 2592000
+    x-docs: https://developer.401go.com/docs/authentication
+- target: $.info
+  description: >-
+    Record the cross-cutting conventions the spec cannot express — the api-version date header,
+    the custom error envelope, and the endpoint+method allow list that gates every call.
+  update:
+    x-versioning:
+      scheme: header-date
+      header: api-version
+      format: YYYY-MM-DD
+      granularity: per-endpoint
+      docs: https://developer.401go.com/docs/versioning
+    x-error-envelope:
+      format: custom
+      fields: [user_error_message, developer_error_detail]
+      rfc9457: false
+      docs: https://developer.401go.com/docs/api-errors
+    x-authorization-model:
+      note: >-
+        Every client is granted an explicit endpoint + HTTP-method allow list. A call to an
+        unlisted endpoint/method returns 403 even with a valid, correctly scoped token.
+      docs: https://developer.401go.com/docs/api-endpoint-and-method-access
+    x-idempotency:
+      header: Idempotent-Key
+      retention_hours: 24
+      operations: [companies_submit_payroll_create, participants_beneficiaries_create]
+- target: $.paths['/companies/{company_id}/submit-payroll/'].post
+  description: Add the missing operation summary for the marquee payroll submission operation.
+  update:
+    summary: Submit a payroll contribution file for a company
+- target: $.paths['/companies/{company_id}/participants/'].get
+  description: Add the missing operation summary for the census read operation.
+  update:
+    summary: List participants for a company, with current deferrals and loan payments
+- target: $.paths['/plan-setup/'].post
+  description: Add the missing operation summary for plan creation.
+  update:
+    summary: Create a new company and 401(k) plan

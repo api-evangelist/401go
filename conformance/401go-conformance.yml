@@ -1,0 +1,114 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/401go-openapi-original.json
+searched:
+- https://app.401go.com/api/o/.well-known/openid-configuration
+- https://developer.401go.com/docs/authentication
+- https://developer.401go.com/docs/single-sign-on-sso-with-openid-connect-oidc
+- https://developer.401go.com/docs/api-errors
+- https://developer.401go.com/docs/versioning
+
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: >-
+    Machine-readable OpenAPI 3.0.3 served live at https://app.401go.com/api/schema/ as
+    application/vnd.oai.openapi+json — 50 paths, 72 operations, 93 component schemas.
+- id: oauth2
+  conforms: true
+  evidence: >-
+    Authorization code and client credentials grants documented; authorize/token endpoints at
+    https://app.401go.com/api/o/. Refresh token grant supported.
+- id: oauth2-pkce
+  conforms: true
+  evidence: code_challenge_methods_supported ["plain", "S256"] in the OIDC discovery document
+- id: rfc8414-authorization-server-metadata
+  conforms: partial
+  evidence: >-
+    Authorization server metadata is served, but at /api/o/.well-known/openid-configuration
+    rather than at the host root; /.well-known/oauth-authorization-server returns 404.
+- id: oidc-core
+  conforms: true
+  evidence: >-
+    OpenID Connect Authorization Code Flow with the openid scope; id_token issued; userinfo
+    endpoint at https://app.401go.com/api/o/userinfo/; RS256 and HS256 id_token signing.
+- id: oidc-discovery
+  conforms: true
+  evidence: https://app.401go.com/api/o/.well-known/openid-configuration returns 200 JSON
+- id: rfc7517-jwks
+  conforms: true
+  evidence: jwks_uri https://app.401go.com/api/o/.well-known/jwks.json declared in discovery
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    401GO publishes a custom error envelope
+    ({user_error_message, developer_error_detail}) served as application/json; no
+    application/problem+json media type appears anywhere in the spec.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on app. and developer., 500 on 401go.com
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: no Sunset or Deprecation header support documented; no deprecation policy published
+- id: rfc8615-well-known-uris
+  conforms: partial
+  evidence: >-
+    The only well-known document served is the OIDC configuration, and it sits under the
+    /api/o/ prefix rather than the host root.
+- id: idempotency-key
+  conforms: partial
+  evidence: >-
+    An Idempotent-Key request header with 24-hour retention is declared, but on only 2 of 72
+    operations, and the header is spelled Idempotent-Key rather than the IETF draft's
+    Idempotency-Key.
+- id: pagination
+  conforms: true
+  evidence: >-
+    Page-number pagination via page/page_size query params with a
+    count/next/previous/results envelope on 22 operations; 19 Paginated*List schemas declared.
+- id: json-api
+  conforms: false
+  evidence: responses are plain application/json, not the JSON:API media type or document structure
+- id: odata
+  conforms: false
+- id: scim2
+  conforms: false
+- id: fhir-r4
+  conforms: false
+- id: fapi
+  conforms: false
+  evidence: >-
+    No FAPI security profile is claimed; token_endpoint_auth_methods are client_secret_post
+    and client_secret_basic (no private_key_jwt or mTLS), and mutualTLS is not a declared
+    security scheme.
+- id: mtls
+  conforms: false
+- id: asyncapi
+  conforms: false
+  evidence: no event, streaming or webhook surface is published; zero webhook/callback references in the spec
+- id: mcp
+  conforms: partial
+  evidence: >-
+    A JSON-RPC MCP endpoint responds at https://developer.401go.com/mcp, but tools/list returns
+    HTTP 401 {"code":-32001,"message":"Authorization required"} — see mcp/401go-mcp.yml.
+- id: a2a
+  conforms: false
+  evidence: no agent card at /.well-known/agent-card.json or /.well-known/agent.json on any host
+
+regulatory_context:
+  note: >-
+    401GO operates as a US retirement plan recordkeeper and TPA. The regimes below govern the
+    business; they are recorded as context, NOT as a claimed or verified certification. 401GO
+    publishes no trust center, no SOC 2 / ISO 27001 report, and no compliance page.
+  regimes:
+  - {id: erisa, applies: true, published_attestation: false}
+  - {id: secure-2.0, applies: true, published_attestation: false, note: 401GO publishes extensive SECURE 2.0 educational content on its blog}
+  - {id: irs-401k, applies: true, published_attestation: false}
+  - {id: soc2, applies: likely, published_attestation: false, note: no SOC 2 report or trust center found on any 401GO host}
+
+compliance_published: false
+compliance_note: >-
+  No named certification (SOC 2, ISO 27001, PCI DSS, HIPAA, FedRAMP) is published on any 401GO
+  host. The marketing site references third-party penetration testing, employee background
+  checks and password enforcement in prose, but no attestation, report, or trust center is
+  available. No Compliance pointer is emitted.

@@ -1,0 +1,88 @@
+generated: '2026-08-02'
+method: searched
+source: https://app.401go.com/api/o/.well-known/openid-configuration
+docs: https://developer.401go.com/docs/authentication
+note: >-
+  The published OpenAPI declares its OAuth surface as an http/bearer scheme rather than an
+  oauth2 scheme, so the mechanical derive pass finds no scopes. The real authorization server
+  metadata is published at app.401go.com/api/o/.well-known/openid-configuration, and the
+  scopes below are its verbatim scopes_supported list. 401GO layers a second, non-OAuth
+  authorization control on top: a per-client endpoint + HTTP-method allow list negotiated at
+  onboarding, documented at
+  https://developer.401go.com/docs/api-endpoint-and-method-access. Holding a scope is
+  therefore necessary but not sufficient — an unlisted endpoint/method returns 403.
+issuer: https://app.401go.com/api/o
+schemes:
+- name: oauth2
+  source: https://app.401go.com/api/o/.well-known/openid-configuration
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://app.401go.com/api/o/authorize
+    tokenUrl: https://app.401go.com/api/o/token
+    pkce: true
+    code_challenge_methods: [plain, S256]
+  - flow: clientCredentials
+    tokenUrl: https://app.401go.com/api/o/token
+    docs: https://developer.401go.com/docs/client-credentials-flow
+    note: restricted to approved partners; credentials distributed by secure email
+  token_endpoint_auth_methods: [client_secret_post, client_secret_basic]
+  access_token_lifetime: 3600
+  refresh_token_lifetime: 2592000
+scopes:
+- scope: openid
+  description: OpenID Connect SSO. By default grants access to employee (participant)
+    identity only; pair with company:read to use SSO for a company admin.
+  flows: [authorizationCode]
+  sources: [openid-configuration, docs]
+- scope: participant:read
+  description: Read participant (employee) data — census record, deferrals, totals,
+    portfolio, beneficiaries, loans, disbursements, rollovers, notifications, documents.
+  flows: [authorizationCode, clientCredentials]
+  sources: [openid-configuration, docs]
+- scope: participant:write
+  description: Create and update participant data — participant records, deferral elections,
+    beneficiaries, portfolio allocations, loan and disbursement and rollover requests.
+  flows: [authorizationCode, clientCredentials]
+  sources: [openid-configuration, docs]
+- scope: participant:billing
+  description: Access participant billing-related data.
+  flows: [authorizationCode, clientCredentials]
+  sources: [openid-configuration]
+- scope: company:read
+  description: Read company data — company list, plan provisions, employer match formulas,
+    investment options, company affiliates, participant census.
+  flows: [authorizationCode, clientCredentials]
+  sources: [openid-configuration, docs]
+- scope: company:write
+  description: Write company-scoped data, including payroll submission.
+  flows: [authorizationCode, clientCredentials]
+  sources: [openid-configuration]
+- scope: plan:read
+  description: Read 401(k) plan configuration.
+  flows: [authorizationCode, clientCredentials]
+  sources: [openid-configuration]
+- scope: plan:write
+  description: Create and update 401(k) plans via the plan-setup endpoints.
+  flows: [authorizationCode, clientCredentials]
+  sources: [openid-configuration]
+- scope: affiliate_firm:read
+  description: Read affiliate firm data — affiliates, fund lineups, pooled plans, pricing tiers.
+  flows: [authorizationCode, clientCredentials]
+  sources: [openid-configuration]
+- scope: affiliate_firm:write
+  description: Write affiliate firm data.
+  flows: [authorizationCode, clientCredentials]
+  sources: [openid-configuration]
+- scope: affiliate:read
+  description: Read individual affiliate (advisor) data, including pricing tiers.
+  flows: [authorizationCode, clientCredentials]
+  sources: [openid-configuration]
+- scope: affiliate:write
+  description: Write individual affiliate (advisor) data.
+  flows: [authorizationCode, clientCredentials]
+  sources: [openid-configuration]
+x-evidence:
+  fetched: '2026-08-02'
+  url: https://app.401go.com/api/o/.well-known/openid-configuration
+  http_status: 200
+  scopes_found: 12

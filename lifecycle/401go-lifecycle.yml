@@ -1,0 +1,84 @@
+generated: '2026-08-02'
+method: searched
+source: https://developer.401go.com/docs/versioning
+api: 401GO API
+
+versioning:
+  scheme: header-date
+  header: api-version
+  format: ISO date string (YYYY-MM-DD)
+  granularity: per-endpoint
+  current: null
+  current_note: >-
+    401GO publishes no version list or "current version" marker. Versions are addressed by
+    date, and the effective default is the version current on the date the calling application
+    was registered. The OpenAPI info.version is 1.0.0 but is not the addressable API version.
+  default_behavior: >-
+    Omitting the header pins the client to the version that was current when its application
+    was registered, so existing integrations retain backwards compatibility indefinitely.
+  resolution: >-
+    If the supplied date falls between two published versions, the API serves the latest
+    version older than or equal to the supplied date.
+  guidance: 401GO recommends always building to the latest version of each endpoint.
+  docs: https://developer.401go.com/docs/versioning
+
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    No deprecation or sunset policy is published, and no RFC 8594 Sunset/Deprecation header
+    support is documented. The date-pinned versioning scheme is the de facto compatibility
+    guarantee — old endpoint versions are retained rather than deprecated — but no retirement
+    window, notice period, or sunset signal is stated anywhere in the developer docs.
+
+deprecated_operations: []
+deprecated_operations_note: >-
+  Zero of the 72 operations in the published OpenAPI carry deprecated: true.
+
+status_page:
+  url: null
+  published: false
+  probed:
+  - {url: 'https://status.401go.com', result: NXDOMAIN}
+  - {url: 'https://401go.statuspage.io', result: 200 but resolves to the Statuspage marketing site, not a 401GO status page}
+  - {url: 'https://401go.instatus.com', result: 200 but a generic Instatus shell, not a 401GO status page}
+  note: >-
+    No status page or uptime dashboard was found on any 401GO host or on the common hosted
+    status providers. Incident communication appears to run through the assigned partner
+    developer contact.
+
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    No public SLA or uptime commitment is published on the developer portal or the marketing
+    site. Terms are at https://401go.com/terms-and-conditions/.
+
+changelog:
+  url: null
+  published: false
+  note: >-
+    The ReadMe-hosted developer portal exposes no /changelog. Individual doc pages carry an
+    updatedAt timestamp in their markdown frontmatter, which is the only change signal
+    available. Most recent observed updates - payroll-integration 2026-05-06,
+    getting-started 2026-06-25, api-endpoint-and-method-access 2026-04-20,
+    authentication 2026-04-22, versioning 2025-08-15, api-errors 2025-06-23.
+
+release_process:
+  documented: true
+  stages:
+  - {stage: 1, name: Contact, detail: 'Scopes, timelines and requirements defined with 401GO; a developer contact is assigned; mutual beta clients identified.'}
+  - {stage: 2, name: Sandbox, detail: Partner receives sandbox access and builds against it.}
+  - {stage: 3, name: Verification & Testing, detail: 401GO verifies functionality and compliance with its standards.}
+  - {stage: 4, name: Beta, detail: Production credentials issued; integration runs with a select group of clients.}
+  - {stage: 5, name: Full Release, detail: Integration made available to all interested users.}
+  source: https://developer.401go.com/docs/getting-started
+
+gaps:
+- No public status page.
+- No published deprecation or sunset policy.
+- No changelog.
+- No SLA or uptime target.
+- No published list of available api-version dates, so a client cannot discover which versions exist.

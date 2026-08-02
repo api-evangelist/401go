@@ -1,0 +1,44 @@
+generated: '2026-08-02'
+method: searched
+source: registry and repository searches performed 2026-08-02
+
+packages: []
+
+registries_probed:
+- {registry: npm, query: '401go', result: no packages}
+- {registry: pypi, queries: [401go, go401, fourohonego], result: 404 on all}
+- {registry: rubygems, result: no first-party gem found}
+- {registry: packagist, result: no first-party package found}
+- {registry: nuget, result: no first-party package found}
+- {registry: maven-central, result: no first-party artifact found}
+- {registry: pkg.go.dev, result: no first-party module found}
+- {registry: crates.io, result: no first-party crate found}
+
+source_repositories:
+- host: github.com
+  org: https://github.com/401GO
+  exists: true
+  created: '2025-06-30'
+  public_repos: 0
+  note: >-
+    A GitHub organization named 401GO exists but publishes zero public repositories, has no
+    description and no linked website. It could not be confirmed as first-party and carries no
+    code, so no GitHubOrganization pointer is emitted.
+
+docs_checked:
+- https://developer.401go.com/llms.txt
+- https://developer.401go.com/docs/getting-started
+- https://developer.401go.com/docs/authentication
+- https://developer.401go.com/docs/payroll-integration
+
+conclusion: >-
+  401GO ships no first-party client libraries or SDKs in any public package registry, and
+  publishes no source code. Integrators call the REST API directly, using the ReadMe reference
+  console's generated code samples. No SDKs pointer is emitted — there is nothing to point at.
+
+related_but_not_first_party:
+  note: >-
+    Third-party unified-API vendors intermediate 401GO for payroll data; these are other
+    companies' products, not 401GO packages, and are recorded here only as integration context.
+  vendors:
+  - {name: Finch, url: 'https://www.tryfinch.com/', role: expanded 401GO's payroll integration network}

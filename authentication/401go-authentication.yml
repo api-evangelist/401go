@@ -1,0 +1,131 @@
+generated: '2026-08-02'
+method: searched
+source: openapi/401go-openapi-original.json
+docs: https://developer.401go.com/docs/authentication
+additional_sources:
+- https://developer.401go.com/docs/client-credentials-flow
+- https://developer.401go.com/docs/single-sign-on-sso-with-openid-connect-oidc
+- https://developer.401go.com/docs/api-endpoint-and-method-access
+- https://app.401go.com/api/o/.well-known/openid-configuration
+note: >-
+  Upgraded from derived to searched. The published OpenAPI understates the auth model: it
+  declares the OAuth surface as a bare http/bearer scheme with no flows, URLs or scopes, so a
+  spec-only derivation loses the entire authorization-code/client-credentials/OIDC picture and
+  all 12 scopes. Those are recovered here from the docs and the live authorization-server
+  metadata.
+
+summary:
+  types: [oauth2, openIdConnect, apiKey]
+  primary: oauth2
+  oauth2_flows: [authorizationCode, clientCredentials, refreshToken]
+  api_key_in: [header]
+  mtls: false
+  spec_declared_types: [apiKey, http]
+
+schemes:
+- name: oauth2
+  type: oauth2
+  preferred: true
+  spec_declaration:
+    type: http
+    scheme: bearer
+    description: >-
+      OAuth 2.0 Bearer based with an existing token. Enter a token retrieved via the regular
+      OAuth flow elsewhere.
+    note: declared as http/bearer in the spec; the real model is full OAuth 2.0
+  header: 'Authorization: Bearer <access_token>'
+  issuer: https://app.401go.com/api/o
+  endpoints:
+    authorization: https://app.401go.com/api/o/authorize
+    token: https://app.401go.com/api/o/token
+    userinfo: https://app.401go.com/api/o/userinfo
+    jwks: https://app.401go.com/api/o/.well-known/jwks.json
+    discovery: https://app.401go.com/api/o/.well-known/openid-configuration
+  flows:
+  - flow: authorizationCode
+    preferred: true
+    parameters: [response_type=code, client_id, redirect_uri, scope, state]
+    exchange_parameters: [grant_type=authorization_code, code, redirect_uri, client_id, client_secret]
+    pkce: true
+    code_challenge_methods: [plain, S256]
+    docs: https://developer.401go.com/docs/authentication
+    note: >-
+      If a user has multiple accounts (participant, company, advisor) they must select which
+      account to grant access to before the code is issued.
+  - flow: clientCredentials
+    restricted: true
+    restriction: approved partners only; credentials distributed by secure email
+    client_auth: 'Authorization: Basic base64(client_id:client_secret)'
+    content_type: application/x-www-form-urlencoded
+    parameters: [grant_type=client_credentials, scope]
+    docs: https://developer.401go.com/docs/client-credentials-flow
+    note: >-
+      Entities the client credentials may access are fixed during onboarding; expanding them
+      requires a request to 401GO.
+  - flow: refreshToken
+    parameters: [grant_type=refresh_token, refresh_token, client_id, client_secret]
+    token_endpoint: https://app.401go.com/api/o/token
+  token_endpoint_auth_methods: [client_secret_post, client_secret_basic]
+  access_token_lifetime_seconds: 3600
+  refresh_token_lifetime_seconds: 2592000
+  sources: [https://developer.401go.com/docs/authentication, https://app.401go.com/api/o/.well-known/openid-configuration]
+- name: openIdConnect
+  type: openIdConnect
+  openIdConnectUrl: https://app.401go.com/api/o/.well-known/openid-configuration
+  scope: openid
+  id_token_signing_algs: [RS256, HS256]
+  subject_types: [public]
+  claims_supported: [sub]
+  userinfo_claims_observed: [sub, role, name, company_name, dob, email, phone_number]
+  roles: [participant, company_admin]
+  note: >-
+    The openid scope alone grants employee (participant) access. SSO for a company admin
+    requires openid plus company:read. company_name is populated only for company_admin; dob
+    only for participant.
+  docs: https://developer.401go.com/docs/single-sign-on-sso-with-openid-connect-oidc
+  sources: [https://app.401go.com/api/o/.well-known/openid-configuration]
+- name: knoxApiToken
+  type: apiKey
+  in: header
+  parameter: Authorization
+  format: 'Token <token>'
+  description: Token-based authentication with required prefix "Token" (Django REST Knox).
+  declared_on_operations: 50
+  documented_in_docs: false
+  note: >-
+    Declared in the OpenAPI on 50 of 72 operations but never mentioned in the developer
+    documentation. It appears to serve 401GO's own first-party clients rather than partners;
+    partner integrations should use OAuth 2.0.
+  sources: [openapi/401go-openapi-original.json]
+
+layered_authorization:
+  model: endpoint + HTTP-method allow list
+  enforced_in_addition_to: [oauth scopes]
+  behavior: >-
+    Each API client is explicitly granted permission for specific endpoint + HTTP-method
+    combinations. A request to a combination not on the client's allow list returns 403
+    Forbidden even with a valid, correctly scoped token. Permissions are per combination, not
+    per endpoint — GET on a path may be allowed while POST on the same path is not.
+  granted_at: partner onboarding
+  expand_via: https://forms.gle/KQm63UQyytqTdVDe8
+  docs: https://developer.401go.com/docs/api-endpoint-and-method-access
+
+scopes:
+  count: 12
+  file: scopes/401go-scopes.yml
+  source: https://app.401go.com/api/o/.well-known/openid-configuration
+
+security_application:
+  global_security_declared: false
+  note: >-
+    The spec declares no root-level security object; security is applied per operation. All 72
+    operations require oauth2; 50 also accept knoxApiToken.
+  operations_requiring_oauth2: 72
+  operations_accepting_knox: 50
+
+gaps:
+- The OpenAPI declares oauth2 as http/bearer, so no flows, endpoints or scopes are machine-readable from the spec.
+- No root-level security object in the spec.
+- Authorization-server metadata is not at the RFC 8414 well-known root path.
+- knoxApiToken is declared in the spec but undocumented.
+- No mTLS, private_key_jwt, or FAPI-grade client authentication.

@@ -1,23 +1,146 @@
 aid: 401go
-name: 401Go
-description: '401Go is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+name: 401GO
+description: 401GO is a Utah-based retirement technology provider that delivers fast, low-cost
+  401(k), Solo 401(k), Cash Balance and IRA plans to small and medium-sized businesses, sole
+  proprietors, financial advisors, payroll bureaus and HCM platforms. The 401GO API is a
+  partner-oriented REST API on app.401go.com that lets payroll providers and benefits platforms
+  programmatically set up plans, sync participant census data, read plan provisions and employer
+  match formulas, retrieve deferral elections and loan deductions, and submit payroll
+  contribution files — the 360-degree payroll integration 401GO markets to HCM partners. The
+  same API also exposes participant-facing surfaces for investments and portfolios, rebalancing,
+  beneficiaries, disbursements, loan requests, rollovers, retirement-planning projections,
+  notifications and documents. Access is OAuth 2.0 (authorization code and client credentials)
+  with OpenID Connect SSO, and is further gated by a per-client endpoint-plus-HTTP-method allow
+  list negotiated during partner onboarding.
+image: https://401go.com/wp-content/uploads/2024/10/cropped-favicon-192x192.png
 url: https://raw.githubusercontent.com/api-evangelist/401go/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: enrichment
 specificationVersion: '0.20'
 created: '2026-08-02'
 modified: '2026-08-02'
 tags:
 - Company
-apis: []
+- Retirement
+- 401k
+- Financial Services
+- Fintech
+- Payroll
+- Human Resources
+- Benefits
+- Investments
+- Wealth Management
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: 401go:401go-api
+  name: 401GO API
+  description: The 401GO partner REST API. 72 operations across 50 paths covering affiliate
+    firms and advisors, companies and 401(k) plan setup, plan provisions and employer match
+    formulas, participant census, payroll submission, deferrals, investments and portfolios,
+    beneficiaries, disbursements, loan requests, rollovers, money-movement history,
+    retirement-planning estimates, notifications and participant documents. OAuth 2.0 bearer
+    or Knox token auth, page/page_size pagination, and header-based per-endpoint date
+    versioning via the api-version header.
+  humanURL: https://developer.401go.com/
+  baseURL: https://app.401go.com/api
+  tags:
+  - Retirement
+  - 401k
+  - Payroll
+  - Participants
+  - Investments
+  properties:
+  - type: OpenAPI
+    url: openapi/401go-openapi-original.json
+  - type: Documentation
+    url: https://developer.401go.com/docs/getting-started
+  - type: APIReference
+    url: https://developer.401go.com/reference/companies_list
+  - type: GettingStarted
+    url: https://developer.401go.com/docs/getting-started
+  - type: Authentication
+    url: https://developer.401go.com/docs/authentication
+  - type: Overlay
+    url: overlays/401go-api-overlay.yaml
+  - type: DataModel
+    url: data-model/401go-data-model.yml
+  - type: ToolCrosswalk
+    url: mcp/401go-tool-crosswalk.yml
 common:
 - type: Website
-  url: https://forgeglobal.com/401go_stock/
+  url: https://401go.com/
+- type: DeveloperPortal
+  url: https://developer.401go.com/
+- type: Documentation
+  url: https://developer.401go.com/docs/getting-started
+- type: APIReference
+  url: https://developer.401go.com/reference/companies_list
+- type: GettingStarted
+  url: https://developer.401go.com/docs/getting-started
+- type: Support
+  url: https://401go.com/contact/
+- type: Blog
+  url: https://401go.com/resources/blog/
+- type: BlogRSS
+  url: https://401go.com/resources/blog/feed/
+- type: Pricing
+  url: https://401go.com/401k-pricing/
+- type: SignUp
+  url: https://app.401go.com/plandesign/signup/
+- type: Login
+  url: https://app.401go.com/accounts/login
+- type: TermsOfService
+  url: https://401go.com/terms-and-conditions/
+- type: PrivacyPolicy
+  url: https://401go.com/privacy-policy/
+- type: OpenAPI
+  url: openapi/401go-openapi-original.json
+- type: Authentication
+  url: authentication/401go-authentication.yml
+- type: OAuthScopes
+  url: scopes/401go-scopes.yml
+- type: OpenIDConnect
+  url: well-known/401go-openid-configuration.json
+- type: WellKnown
+  url: well-known/401go-well-known.yml
+- type: Conventions
+  url: conventions/401go-conventions.yml
+- type: Idempotency
+  url: conventions/401go-conventions.yml
+- type: ErrorCatalog
+  url: errors/401go-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/401go-lifecycle.yml
+- type: Conformance
+  url: conformance/401go-conformance.yml
+- type: DataModel
+  url: data-model/401go-data-model.yml
+- type: Sandbox
+  url: sandbox/401go-sandbox.yml
+- type: MCPServer
+  url: mcp/401go-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/401go-tool-crosswalk.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/401go-llms.txt
+- type: Overlay
+  url: overlays/401go-api-overlay.yaml
+- type: Packages
+  url: packages/401go-packages.yml
+- type: DomainSecurity
+  url: security/401go-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/401go-agentic-access.yml
+x-enrichment:
+  date: '2026-08-02'
+  status: enriched
+  artifacts_added: 24
+  pass: local-v1

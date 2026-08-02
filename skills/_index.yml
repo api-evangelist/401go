@@ -1,0 +1,76 @@
+generated: '2026-08-02'
+method: generated
+source: openapi/401go-openapi-original.json + https://developer.401go.com/
+api: 401GO API
+base_url: https://app.401go.com/api
+note: >-
+  401GO publishes no AGENTS.md or provider-authored agent skills. These are API Evangelist
+  packaged skills, generated from the live OpenAPI at https://app.401go.com/api/schema/ and the
+  401GO developer documentation. Every operationId referenced was verified verbatim against the
+  spec. They mirror 401GO's marquee flows: partner payroll integration, plan onboarding, census
+  sync, participant investing, and participant money movement.
+
+skills:
+- file: 401go-payroll-contribution-run.md
+  name: Run a 401GO payroll contribution cycle
+  description: >-
+    Read deferral elections and loan deductions, calculate contributions against gross pay, and
+    submit the payroll file idempotently with an Idempotent-Key.
+  api: openapi/401go-openapi-original.json
+  operations: [companies_list, companies_plan_provisions_retrieve, companies_matches_retrieve,
+    companies_participants_list, participants_deferrals_retrieve, companies_submit_payroll_create,
+    participants_payroll_lines_list]
+  scopes: [company:read, company:write, participant:read]
+- file: 401go-onboard-company-plan.md
+  name: Set up a new company and 401(k) plan in 401GO
+  description: >-
+    Resolve the affiliate firm, pooled plan, pricing tier and fund lineup ids, then create the
+    company and plan under 401GO's plan-type match rules.
+  api: openapi/401go-openapi-original.json
+  operations: [affiliate_firms_list, affiliate_firms_affiliates_list, affiliate_firms_pooled_plans_list,
+    affiliate_firms_pricing_tiers_list, affiliate_firms_fund_lineups_list, affiliates_pricing_tiers_list,
+    plan_setup_create, plan_setup_update, companies_plan_provisions_retrieve, companies_matches_retrieve,
+    companies_company_affiliates_retrieve]
+  scopes: [affiliate_firm:read, affiliate:read, plan:write, plan:read, company:read]
+- file: 401go-sync-participant-census.md
+  name: Sync employee census into 401GO
+  description: >-
+    Create and update participants against the SSN-keyed upsert, handle the email-change
+    additional-login side effect, and read setup and eligibility events.
+  api: openapi/401go-openapi-original.json
+  operations: [companies_participants_list, companies_participants_create, companies_participants_retrieve,
+    companies_participants_update, companies_participants_partial_update, participants_participant_setup_retrieve,
+    participants_events_retrieve, participants_events_create]
+  scopes: [company:read, participant:read, participant:write]
+- file: 401go-participant-portfolio-management.md
+  name: Manage a participant's 401GO investment portfolio
+  description: >-
+    Set target allocations correctly (omission liquidates, 0% may not), respect trading windows,
+    and trigger or cancel a rebalance.
+  api: openapi/401go-openapi-original.json
+  operations: [participants_investment_options_list, companies_investment_options_list, investments_retrieve,
+    participants_portfolio_list, participants_portfolio_create, participants_portfolio_settings_retrieve,
+    participants_portfolio_settings_create, participants_start_participant_rebalance_create,
+    participants_cancel_participant_rebalance_create, participants_investment_history_list,
+    participants_investment_performance_list, participants_advisor_models_retrieve, participants_advisor_models_create]
+  scopes: [participant:read, participant:write]
+- file: 401go-participant-money-movement.md
+  name: Handle 401GO participant money movement — loans, disbursements and rollovers
+  description: >-
+    Call the -info endpoints before asking, sign loan requests, use the split pre-tax/post-tax
+    disbursement field pattern, and reconcile against money-movement history.
+  api: openapi/401go-openapi-original.json
+  operations: [participants_loan_requests_info_retrieve, participants_loan_requests_create,
+    participants_loan_requests_signature_update, participants_loan_requests_list, participants_loan_requests_retrieve,
+    participants_loan_requests_update, participants_loan_requests_destroy, participants_disbursements_info_retrieve,
+    participants_disbursements_create, participants_disbursements_list, participants_disbursements_retrieve,
+    participants_disbursements_update, participants_disbursements_destroy, participants_rollovers_create,
+    participants_rollovers_list, participants_rollovers_retrieve, participants_rollovers_update,
+    participants_rollovers_destroy, participants_money_movement_history_list, participants_totals_retrieve]
+  scopes: [participant:read, participant:write]
+
+coverage:
+  skills: 5
+  operations_referenced: 55
+  operations_total: 72
+  uncovered_domains: [Notifications, Documents, Beneficiaries, Retirement Planning]

@@ -1,0 +1,64 @@
+generated: '2026-08-02'
+method: searched
+source: https://developer.401go.com/docs/getting-started
+
+available: true
+access: gated
+public_self_serve: false
+
+environments:
+- name: sandbox
+  url: null
+  url_note: >-
+    No sandbox base URL is published. It is issued to a partner after onboarding. sandbox.401go.com
+    resolves (ghs.googlehosted.com) but is not documented as the API sandbox host.
+  credentials: issued by 401GO after onboarding
+  purpose: build and test an integration before production credentials are issued
+- name: production
+  url: https://app.401go.com/api
+  credentials: >-
+    Production client credentials are issued only after 401GO verifies the integration's
+    functionality and compliance, at the start of the beta phase.
+
+how_to_get_access:
+  contact: partnersupport@401go.com
+  steps:
+  - Contact 401GO to define scopes, timelines and requirements; a developer contact is assigned.
+  - Request endpoint + HTTP-method level access for the operations your use case needs.
+  - Receive sandbox access and build/test the integration.
+  - 401GO verifies functionality and compliance with its standards.
+  - Production credentials are issued; the integration enters a beta phase with select clients.
+  - Full release to all interested users.
+  access_request_form: https://forms.gle/KQm63UQyytqTdVDe8
+  docs: https://developer.401go.com/docs/getting-started
+
+test_vs_live_separation:
+  key_prefixes: []
+  mode_flag: null
+  note: >-
+    401GO does not publish a test/live key-prefix or mode convention. Separation is by
+    environment and by separately-issued credential sets, not by a key namespace.
+
+magic_test_values: []
+test_clocks: null
+fixture_tooling: null
+simulation_triggers: []
+values_note: >-
+  No test identifiers, test SSNs, test participant ids, seeded companies, decline/failure
+  simulation values, or fixture tooling are published anywhere in the developer docs. NOTHING
+  is invented here — the sandbox exists and is documented, but its test data surface is not
+  public.
+
+interactive_console:
+  url: https://developer.401go.com/reference/companies_list
+  type: ReadMe API Explorer
+  note: >-
+    Each of the 72 reference pages on the ReadMe-hosted portal renders a try-it console with a
+    request builder and code samples. Requires your own credentials — there is no anonymous
+    demo key.
+
+gaps:
+- No published sandbox base URL.
+- No self-serve sandbox signup; access requires a partner conversation.
+- No published test data, magic values, or fixtures.
+- No time simulation or event-trigger tooling.

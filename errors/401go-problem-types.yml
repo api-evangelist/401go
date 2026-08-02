@@ -1,0 +1,119 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/401go-openapi-original.json
+docs: https://developer.401go.com/docs/api-errors
+format: custom
+rfc9457: false
+content_type: application/json
+
+envelope:
+  description: >-
+    401GO uses one predictable error shape across every error type. A single error is an object
+    with a user-safe message and a nullable developer-only detail.
+  shape:
+    user_error_message: string — safe to show to end users
+    developer_error_detail: string|null — extra context for developers only
+  field_scoped_errors: >-
+    Errors caused by submitted data are keyed by field name and nest to mirror the submitted
+    JSON structure, each leaf carrying the same two-field pair. A response may mix a top-level
+    error with field-scoped errors.
+  example_single: |
+    {
+        "developer_error_detail": "The requested item does not match the expected type for this endpoint.",
+        "user_error_message": "Invalid operation, please reach out to support."
+    }
+  example_field_scoped: |
+    {
+        "loan_duration": {
+            "developer_error_detail": "cannot be more than 5 years if is_primary_residence is False",
+            "user_error_message": "Cannot be for more than 5 years"
+        },
+        "address": {
+            "city": {
+                "developer_error_detail": null,
+                "user_error_message": "This field is required."
+            }
+        }
+    }
+
+problems:
+- status: 400
+  title: Bad Request
+  description: Invalid input — malformed request body or failed field validation.
+  envelope: field-scoped or single
+  declared_on_operations: 28
+  remediation: >-
+    Read the field-scoped user_error_message/developer_error_detail pairs; they identify the
+    exact submitted field and constraint that failed.
+- status: 401
+  title: Unauthorized
+  description: 'Unauthorized: Missing or invalid authentication.'
+  declared_on_operations: 67
+  remediation: >-
+    Supply a valid Authorization header. Bearer access tokens expire after 60 minutes — refresh
+    with grant_type=refresh_token, or re-request via client credentials.
+- status: 403
+  title: Forbidden
+  description: 'Forbidden: Insufficient permissions.'
+  declared_on_operations: 67
+  remediation: >-
+    Two distinct causes. Either the token lacks the required OAuth scope, or the calling client
+    is not on the endpoint + HTTP-method allow list for this operation. Request additional
+    endpoint/method access via the partner form.
+  docs: https://developer.401go.com/docs/api-endpoint-and-method-access
+- status: 404
+  title: Not Found
+  description: The addressed resource does not exist or is not visible to this token.
+  declared_on_operations: 2
+- status: 204
+  title: No Content
+  description: Successful delete with no response body (not an error; recorded for completeness).
+  declared_on_operations: 4
+
+oauth_errors:
+  source: https://developer.401go.com/docs/single-sign-on-sso-with-openid-connect-oidc
+  note: >-
+    Authorization-server errors are returned per OAuth 2.0 with an error parameter rather than
+    the API error envelope.
+  codes:
+  - code: invalid_request
+    meaning: Missing or invalid parameters.
+  - code: unauthorized_client
+    meaning: Client is not authorized for this request.
+  - code: invalid_grant
+    meaning: Invalid authorization code.
+
+domain_validation_rules:
+  note: >-
+    The plan-setup operations publish an unusually rich set of cross-field validation rules
+    whose violations surface as 400 field-scoped errors. Captured here because they are the
+    dominant source of 4xx on the plan setup flow.
+  source: https://developer.401go.com/reference/plan_setup_create
+  rules:
+  - Mutually exclusive - pooled_plan and acting_338; provide at most one.
+  - Mutually exclusive - employer_match_tiers and non_elective_contribution; provide at most one.
+  - Provide both or neither - plan_type and plan_effective_date.
+  - Provide both or neither - payroll_frequency and next_payroll_date.
+  - grandfather_existing_employees requires plan_effective_date.
+  - billing_tier and fund_lineup each require acting_338 or pooled_plan.
+  - automatic_escalation_cap requires a non-zero automatic_enrollment_percentage.
+  - safe_harbor_exclude_hce_and_key is only valid for safe harbor plan types.
+  - vesting_schedule requires plan_type.
+  - Basic Safe Harbor match must follow the standard formula exactly - 100% of the first 3%, then 50% of the next 2%.
+  - Enhanced Safe Harbor - one match tier; total match a whole number between 4% and 6%.
+  - Safe Harbor Non-Elective - use non_elective_contribution (3-6%); do not provide employer_match_tiers.
+  - QACA Safe Harbor - total match between 3.5% and 6%.
+  - Traditional / Starter K / Solo K - one match tier; total match a whole number between 0% and 10%.
+  - EIN must be new to the platform; an existing EIN is rejected. Takeover plans are not supported via API.
+  - PUT only on plan-setup update; PATCH partial updates are not supported.
+  - Plan updates are blocked if the plan was modified in the web portal after API setup, or if the plan is or was active.
+
+coverage:
+  operations_total: 72
+  operations_with_4xx: 67
+  distinct_status_codes: [200, 201, 204, 400, 401, 403, 404]
+gaps:
+- No 429 (rate limit) response is declared on any operation.
+- No 5xx responses are declared on any operation.
+- Error response bodies are not schematized in the OpenAPI — 401/403/404 carry a description only, with no content schema, so the documented envelope is not machine-readable from the spec.
+- The API does not use application/problem+json (RFC 9457).

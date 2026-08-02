@@ -1,0 +1,96 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/401go-openapi-original.json
+mcp_source: mcp/401go-mcp.yml
+
+surfaces:
+  openapi:
+    file: openapi/401go-openapi-original.json
+    live: https://app.401go.com/api/schema/
+    version: 3.0.3
+    paths: 50
+    operations: 72
+    gated: false
+    note: the spec document is anonymously fetchable; the operations themselves require OAuth
+  graphql:
+    endpoint: null
+    note: 401GO publishes no GraphQL surface
+  mcp:
+    url: https://developer.401go.com/mcp
+    gated: true
+    gate_evidence: 'tools/list -> HTTP 401 {"code":-32001,"message":"Authorization required"}'
+    domain: documentation/reference retrieval (ReadMe SuperHub), not the 401GO business domain
+
+crosswalk: []
+crosswalk_note: >-
+  No rows. This is the honest result, not an omission. The only MCP surface 401GO exposes is
+  its docs platform's server, whose tool manifest is authorization-gated and whose tools
+  (search/fetch/list-endpoints style) operate over documentation rather than over 401GO
+  resources. There is therefore no observed MCP tool that binds to a 401GO operationId. If
+  401GO later publishes a domain MCP server, or the docs server's tools/list becomes
+  anonymously readable, this file should be re-derived with real bindings.
+
+mcp_only: []
+
+rest_only:
+  note: >-
+    Every one of the 72 REST operations is currently REST-only — there is no agent-facing tool
+    surface over the 401GO domain. Grouped by the spec's own tags.
+  groups:
+  - capability: Affiliates & Firms
+    operations: 7
+    operationIds: [affiliate_firms_list, affiliate_firms_affiliates_list, affiliate_firms_fund_lineups_list,
+      affiliate_firms_pooled_plans_list, affiliate_firms_pricing_tiers_list, affiliates_pricing_tiers_list,
+      companies_company_affiliates_retrieve]
+  - capability: Companies & Plans
+    operations: 6
+    operationIds: [companies_list, companies_investment_options_list, companies_matches_retrieve,
+      companies_plan_provisions_retrieve, plan_setup_create, plan_setup_update]
+  - capability: Participants
+    operations: 8
+    operationIds: [companies_participants_list, companies_participants_create, companies_participants_retrieve,
+      companies_participants_update, companies_participants_partial_update, participants_events_retrieve,
+      participants_events_create, participants_participant_setup_retrieve]
+  - capability: Contributions & Payroll
+    operations: 6
+    operationIds: [companies_submit_payroll_create, participants_deferrals_retrieve, participants_deferrals_create,
+      participants_matches_retrieve, participants_payroll_lines_list, participants_totals_retrieve]
+  - capability: Investments & Portfolios
+    operations: 10
+    operationIds: [investments_retrieve, participants_cancel_participant_rebalance_create,
+      participants_investment_history_list, participants_investment_options_list, participants_investment_performance_list,
+      participants_portfolio_list, participants_portfolio_create, participants_portfolio_settings_retrieve,
+      participants_portfolio_settings_create, participants_start_participant_rebalance_create]
+  - capability: Money Movement
+    operations: 19
+    operationIds: [participants_disbursements_list, participants_disbursements_create, participants_disbursements_info_retrieve,
+      participants_disbursements_retrieve, participants_disbursements_update, participants_disbursements_destroy,
+      participants_loan_requests_list, participants_loan_requests_create, participants_loan_requests_info_retrieve,
+      participants_loan_requests_signature_update, participants_loan_requests_retrieve, participants_loan_requests_update,
+      participants_loan_requests_destroy, participants_money_movement_history_list, participants_rollovers_list,
+      participants_rollovers_create, participants_rollovers_retrieve, participants_rollovers_update,
+      participants_rollovers_destroy]
+  - capability: Beneficiaries
+    operations: 7
+    operationIds: [participants_beneficiaries_list, participants_beneficiaries_create, participants_beneficiaries_partial_update,
+      participants_beneficiaries_retrieve, participants_beneficiaries_update, participants_beneficiaries_partial_update_2,
+      participants_beneficiaries_destroy]
+  - capability: Retirement Planning
+    operations: 4
+    operationIds: [participants_advisor_models_retrieve, participants_advisor_models_create,
+      participants_retirement_planning_defaults_retrieve, participants_retirement_planning_estimate_list]
+  - capability: Notifications
+    operations: 3
+    operationIds: [participants_notifications_list, participants_notifications_partial_update,
+      participants_notifications_attachment_retrieve]
+  - capability: Documents
+    operations: 2
+    operationIds: [list_participant_documents, get_signed_participant_document_url]
+
+coverage:
+  tools_named: 0
+  tools_bound: 0
+  mcp_only: 0
+  rest_operations_total: 72
+  rest_operations_with_tool: 0
+  rest_coverage_percent: 0

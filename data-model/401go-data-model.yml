@@ -1,0 +1,269 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/401go-openapi-original.json
+searched: https://developer.401go.com/reference/companies_list
+
+identifiers:
+  primary_key_field: object_id
+  form: opaque string, no type prefix
+  note: >-
+    401GO uses a single untyped object_id field on every resource rather than prefixed ids.
+    Participant identifiers are documented as "encrypted participant identifier". Because ids
+    are untyped, an id alone does not reveal its entity — the entity is implied by the path.
+  path_parameters: [affiliate_firm_id, affiliate_id, company_id, participant_id, investment_id,
+    beneficiary_id, loan_request_id, disbursement_id, rollover_id, notification_id, attachment_id,
+    document_name]
+
+derivation_note: >-
+  The published spec inlines every schema rather than using $ref between component schemas, so
+  the entity graph is derived from the URI hierarchy (which encodes containment directly) plus
+  the documented id-handoff rules on the plan-setup operation, not from $ref edges.
+
+entities:
+- name: AffiliateFirm
+  schema: AffiliateFirm
+  root_path: /affiliate-firms/
+  description: An advisor firm (including 3(38) fiduciary firms) that 401GO works with.
+  domain: Affiliates & Firms
+- name: Affiliate
+  schema: Affiliate
+  root_path: /affiliate-firms/{affiliate_firm_id}/affiliates/
+  description: An individual advisor belonging to an affiliate firm. Carries a CRD number where available.
+  domain: Affiliates & Firms
+- name: BrokerDealer
+  schema: BrokerDealer
+  description: Broker-dealer attached to a company's advisory relationship.
+  domain: Affiliates & Firms
+- name: PooledPlan
+  schema: PooledPlan
+  root_path: /affiliate-firms/{affiliate_firm_id}/pooled-plans/
+  description: A pooled employer plan offered by an affiliate firm.
+  domain: Affiliates & Firms
+- name: Firm338Investment
+  schema: Firm338Investment
+  root_path: /affiliate-firms/{affiliate_firm_id}/fund-lineups/
+  description: A fund lineup published by a 3(38) affiliate firm. Only available for 338 firms.
+  domain: Affiliates & Firms
+- name: PartnerPricingTier
+  schema: PartnerPricingTier
+  root_path: /affiliate-firms/{affiliate_firm_id}/pricing-tiers/
+  description: A pricing tier offered by an affiliate firm or an individual affiliate. Composed of AumTier and DollarPerHeadTier.
+  domain: Affiliates & Firms
+- name: Company
+  schema: Company
+  root_path: /companies/
+  description: An employer sponsoring a 401GO plan. Status is SETUP_PENDING or SETUP_COMPLETE.
+  domain: Companies & Plans
+- name: PlanSetup
+  schema: PlanSetup
+  root_path: /plan-setup/
+  description: >-
+    The plan creation/update resource. POST creates a company and 401(k) plan together and
+    returns the object_id used as the company_id for every downstream call.
+  domain: Companies & Plans
+- name: PlanProvisions
+  schema: PlanProvisions
+  root_path: /companies/{company_id}/plan-provisions/
+  description: Eligibility, vesting, auto-enrollment, entry dates, contribution and loan settings for a company's plan.
+  domain: Companies & Plans
+- name: PlanContribution
+  schema: PlanContribution
+  root_path: /companies/{company_id}/matches/
+  description: Employer match tiers, discretionary matches and non-elective contributions.
+  domain: Companies & Plans
+- name: CompanyAffiliates
+  schema: CompanyAffiliates
+  root_path: /companies/{company_id}/company-affiliates/
+  description: Broker-dealer, advisor and advisor-firm data for a company. Fields may be null.
+  domain: Companies & Plans
+- name: Participant
+  schema: Participant
+  root_path: /companies/{company_id}/participants/
+  description: >-
+    An employee enrolled in (or eligible for) a company's plan. Keyed on SSN for upsert —
+    creating a participant whose SSN already exists updates that employee. Embeds Address,
+    Deferrals and Loan.
+  domain: Participants
+- name: Address
+  schema: Address
+  description: Nested participant address. Value object, not independently addressable.
+  domain: Participants
+- name: ParticipantSetup
+  schema: ParticipantSetup
+  root_path: /participants/{participant_id}/participant-setup/
+  description: Plan data for a participant plus whether deferral elections have been set.
+  domain: Participants
+- name: Events
+  schema: Events
+  root_path: /participants/{participant_id}/events/
+  description: Participant lifecycle event types. The 'completed setup' event indicates the participant dashboard is accessible.
+  domain: Participants
+- name: PayrollFile
+  schema: PayrollFile
+  root_path: /companies/{company_id}/submit-payroll/
+  description: >-
+    A submitted payroll for a company — check_date, optional pay period, off-cycle flag, and an
+    array of payroll lines. Returns a calculated ach_date and derived contribution percentages.
+  domain: Contributions & Payroll
+- name: PayrollLine
+  schema: PayrollLine
+  description: >-
+    One participant's row on a payroll file — hours, gross pay, pre-tax and post-tax amounts,
+    company contribution, YTD write-through fields, and other additions.
+  domain: Contributions & Payroll
+- name: OtherPayrollLineAdditions
+  schema: OtherPayrollLineAdditions
+  description: An additional deduction on a payroll line. other_type is 'Loan Principal' or 'Loan Interest'.
+  domain: Contributions & Payroll
+- name: Deferrals
+  schema: Deferrals
+  root_path: /participants/{participant_id}/deferrals/
+  description: A participant's current deferral elections, eligibility and max-reached state.
+  domain: Contributions & Payroll
+- name: Totals
+  schema: Totals
+  root_path: /participants/{participant_id}/totals/
+  description: Year-to-date contribution totals, balances, income, loans and annual contribution limits.
+  domain: Contributions & Payroll
+- name: Investment
+  schema: Investment
+  root_path: /investments/{investment_id}/
+  description: An investment fund available on the platform.
+  domain: Investments & Portfolios
+- name: PortfolioInvestment
+  schema: PortfolioInvestment
+  root_path: /participants/{participant_id}/portfolio/
+  description: >-
+    A holding in a participant's portfolio. State is ACTIVE or PENDING_SALE; removed
+    investments enter PENDING_SALE until liquidation completes.
+  domain: Investments & Portfolios
+- name: PortfolioSettings
+  schema: PortfolioSettings
+  root_path: /participants/{participant_id}/portfolio-settings/
+  description: Auto-rebalance flag, rebalance percent, self-direct opt-in, and trading window state.
+  domain: Investments & Portfolios
+- name: InvestmentTransaction
+  schema: InvestmentTransaction
+  root_path: /participants/{participant_id}/investment-history/
+  description: An investment transaction. Status is pending, confirmed, failed or dividend.
+  domain: Investments & Portfolios
+- name: PortfolioHistory
+  schema: PortfolioHistory
+  root_path: /participants/{participant_id}/investment-performance/
+  description: One portfolio snapshot per day between two dates.
+  domain: Investments & Portfolios
+- name: Disbursement
+  schema: Disbursement
+  root_path: /participants/{participant_id}/disbursements/
+  description: >-
+    A withdrawal request. Supports split pre-tax/post-tax disbursements with separate memos and
+    payment addresses per tax bucket.
+  domain: Money Movement
+- name: LoanRequest
+  schema: LoanRequest
+  root_path: /participants/{participant_id}/loan-requests/
+  description: A participant loan request, signed via a separate signature submission operation.
+  domain: Money Movement
+- name: Loan
+  schema: Loan
+  description: An active loan carried on the participant record, exposing todays_payment for payroll deduction.
+  domain: Money Movement
+- name: ParticipantRollover
+  schema: ParticipantRollover
+  root_path: /participants/{participant_id}/rollovers/
+  description: An incoming or outgoing rollover request.
+  domain: Money Movement
+- name: IndividualMovement
+  schema: IndividualMovement
+  root_path: /participants/{participant_id}/money-movement-history/
+  description: >-
+    A money movement transaction. account_type is Pre-tax, Post-tax, Vested Contribution or
+    Non-vested Contribution.
+  domain: Money Movement
+- name: Beneficiary
+  schema: Beneficiary
+  root_path: /participants/{participant_id}/beneficiaries/
+  description: A participant beneficiary designation. Bulk create/update is all-or-nothing.
+  domain: Beneficiaries
+- name: RetirementEstimate
+  schema: RetirementEstimate
+  root_path: /participants/{participant_id}/retirement-planning-estimate/
+  description: Projected balance and target savings, computed from RetirementDefaults plus overrides.
+  domain: Retirement Planning
+- name: ParticipantNotification
+  schema: ParticipantNotification
+  root_path: /participants/{participant_id}/notifications/
+  description: A participant notification, optionally carrying an Attachment.
+  domain: Notifications
+- name: DocumentList
+  schema: DocumentList
+  root_path: /participants/{participant_id}/participant-documents/
+  description: Participant document listing; individual documents are fetched via a 30-minute signed URL.
+  domain: Documents
+
+relationships:
+- {from: AffiliateFirm, to: Affiliate, type: has_many, via: 'path /affiliate-firms/{affiliate_firm_id}/affiliates/'}
+- {from: AffiliateFirm, to: PooledPlan, type: has_many, via: 'path /affiliate-firms/{affiliate_firm_id}/pooled-plans/'}
+- {from: AffiliateFirm, to: Firm338Investment, type: has_many, via: 'path /affiliate-firms/{affiliate_firm_id}/fund-lineups/'}
+- {from: AffiliateFirm, to: PartnerPricingTier, type: has_many, via: 'path /affiliate-firms/{affiliate_firm_id}/pricing-tiers/'}
+- {from: Affiliate, to: PartnerPricingTier, type: has_many, via: 'path /affiliates/{affiliate_id}/pricing-tiers/'}
+- {from: PlanSetup, to: Affiliate, type: belongs_to, via: 'field acting_338 (id from the Affiliate Firms > Affiliates endpoint)'}
+- {from: PlanSetup, to: PooledPlan, type: belongs_to, via: 'field pooled_plan (id from the Affiliate Firms > Pooled Plans endpoint)'}
+- {from: PlanSetup, to: PartnerPricingTier, type: belongs_to, via: 'field billing_tier (id from a Pricing Tiers endpoint)'}
+- {from: PlanSetup, to: Firm338Investment, type: belongs_to, via: 'field fund_lineup (id from the Affiliate Firms > Fund Lineups endpoint)'}
+- {from: PlanSetup, to: Company, type: has_one, via: 'the object_id returned by plan_setup_create is the company_id'}
+- {from: Company, to: PlanProvisions, type: has_one, via: 'path /companies/{company_id}/plan-provisions/'}
+- {from: Company, to: PlanContribution, type: has_one, via: 'path /companies/{company_id}/matches/'}
+- {from: Company, to: CompanyAffiliates, type: has_one, via: 'path /companies/{company_id}/company-affiliates/'}
+- {from: Company, to: Investment, type: has_many, via: 'path /companies/{company_id}/investment-options/'}
+- {from: Company, to: Participant, type: has_many, via: 'path /companies/{company_id}/participants/'}
+- {from: Company, to: PayrollFile, type: has_many, via: 'path /companies/{company_id}/submit-payroll/'}
+- {from: CompanyAffiliates, to: BrokerDealer, type: has_one, via: field broker_dealer}
+- {from: CompanyAffiliates, to: Affiliate, type: has_one, via: 'field advisor (nullable when the company works with a firm but no named advisor)'}
+- {from: Participant, to: Address, type: has_one, via: field address}
+- {from: Participant, to: Deferrals, type: has_one, via: 'field deferrals, and path /participants/{participant_id}/deferrals/'}
+- {from: Participant, to: Loan, type: has_many, via: 'field loans on the participant record'}
+- {from: Participant, to: Events, type: has_many, via: 'path /participants/{participant_id}/events/'}
+- {from: Participant, to: ParticipantSetup, type: has_one, via: 'path /participants/{participant_id}/participant-setup/'}
+- {from: Participant, to: Totals, type: has_one, via: 'path /participants/{participant_id}/totals/'}
+- {from: Participant, to: PayrollLine, type: has_many, via: 'path /participants/{participant_id}/payroll-lines/'}
+- {from: Participant, to: PortfolioInvestment, type: has_many, via: 'path /participants/{participant_id}/portfolio/'}
+- {from: Participant, to: PortfolioSettings, type: has_one, via: 'path /participants/{participant_id}/portfolio-settings/'}
+- {from: Participant, to: InvestmentTransaction, type: has_many, via: 'path /participants/{participant_id}/investment-history/'}
+- {from: Participant, to: PortfolioHistory, type: has_many, via: 'path /participants/{participant_id}/investment-performance/'}
+- {from: Participant, to: Investment, type: has_many, via: 'path /participants/{participant_id}/investment-options/'}
+- {from: Participant, to: Beneficiary, type: has_many, via: 'path /participants/{participant_id}/beneficiaries/'}
+- {from: Participant, to: Disbursement, type: has_many, via: 'path /participants/{participant_id}/disbursements/'}
+- {from: Participant, to: LoanRequest, type: has_many, via: 'path /participants/{participant_id}/loan-requests/'}
+- {from: Participant, to: ParticipantRollover, type: has_many, via: 'path /participants/{participant_id}/rollovers/'}
+- {from: Participant, to: IndividualMovement, type: has_many, via: 'path /participants/{participant_id}/money-movement-history/'}
+- {from: Participant, to: ParticipantNotification, type: has_many, via: 'path /participants/{participant_id}/notifications/'}
+- {from: Participant, to: DocumentList, type: has_many, via: 'path /participants/{participant_id}/participant-documents/'}
+- {from: Participant, to: RetirementEstimate, type: has_one, via: 'path /participants/{participant_id}/retirement-planning-estimate/'}
+- {from: PayrollFile, to: PayrollLine, type: has_many, via: field payroll_lines}
+- {from: PayrollLine, to: Participant, type: belongs_to, via: field participant_id}
+- {from: PayrollLine, to: OtherPayrollLineAdditions, type: has_many, via: field other_additions}
+- {from: PlanContribution, to: PlanMatchPercentage, type: has_many, via: field plan_matches}
+- {from: PortfolioInvestment, to: Investment, type: belongs_to, via: investment id}
+- {from: ParticipantNotification, to: Attachment, type: has_one, via: 'attachment id, fetched as a 30-minute signed URL'}
+- {from: PartnerPricingTier, to: AumTier, type: has_many, via: nested tier structure}
+- {from: PartnerPricingTier, to: DollarPerHeadTier, type: has_many, via: nested tier structure}
+
+roots:
+- AffiliateFirm
+- Company
+- Investment
+central_entity: Participant
+central_entity_note: >-
+  Participant is the hub of the model — 55 of the 72 operations take participant_id as a path
+  parameter, and 9 of the 10 tag domains hang off it.
+
+counts:
+  entities: 34
+  relationships: 46
+  component_schemas: 93
+  paths: 50
+  operations: 72
+
+render: null
+render_note: no subway/ visual exists for this repo yet

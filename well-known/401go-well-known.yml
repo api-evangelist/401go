@@ -1,0 +1,72 @@
+generated: '2026-08-02'
+method: searched
+source: live probes of every 401GO host on 2026-08-02
+note: >-
+  401GO serves no documents at the RFC 8615 root /.well-known/ path on any host. Its OpenID
+  Connect discovery document is published, but under the OAuth provider's own path prefix
+  (/api/o/.well-known/openid-configuration) rather than at the host root, so a root-path
+  probe misses it. Recorded here so the discovery surface is not scored as absent.
+hosts:
+- host: https://app.401go.com
+  documents:
+  - path: /api/o/.well-known/openid-configuration
+    status: 200
+    content_type: application/json
+    file: 401go-openid-configuration.json
+    spec: OpenID Connect Discovery 1.0
+  - path: /api/o/.well-known/jwks.json
+    status: 200
+    note: referenced as jwks_uri by the discovery document; not mirrored here
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://developer.401go.com
+  documents:
+  - path: /llms.txt
+    status: 200
+    content_type: text/plain
+    file: ../llms/401go-llms.txt
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://401go.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 500
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 500
+  - path: /.well-known/agent.json
+    status: 500
+summary:
+  security_txt: false
+  openid_configuration: true
+  oauth_authorization_server: false
+  api_catalog: false
+  ai_plugin: false
+  agent_card: false
+x-evidence:
+  fetched: '2026-08-02'
+  oidc_url: https://app.401go.com/api/o/.well-known/openid-configuration
+  oidc_http_status: 200

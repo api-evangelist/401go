@@ -1,0 +1,145 @@
+generated: '2026-08-02'
+method: searched
+source: https://developer.401go.com/docs/getting-started
+derived_from: openapi/401go-openapi-original.json
+api: 401GO API
+base_url: https://app.401go.com/api
+
+authentication:
+  style: oauth2-bearer
+  header: 'Authorization: Bearer <access_token>'
+  flows: [authorizationCode, clientCredentials]
+  alternate:
+    name: knoxApiToken
+    header: 'Authorization: Token <token>'
+    note: declared in the OpenAPI as an apiKey scheme on 50 of 72 operations
+  access_token_ttl_seconds: 3600
+  refresh_token_ttl_seconds: 2592000
+  docs: https://developer.401go.com/docs/authentication
+  see_also: authentication/401go-authentication.yml
+
+authorization:
+  model: scope + per-client endpoint/method allow list
+  note: >-
+    Beyond OAuth scopes, every API client is explicitly granted permission for specific
+    endpoint + HTTP-method combinations. A request to an endpoint/method pair that is not on
+    the client's allow list returns 403 Forbidden even with a valid token and scope. Access is
+    requested during partner onboarding and expanded via a request form.
+  docs: https://developer.401go.com/docs/api-endpoint-and-method-access
+  request_form: https://forms.gle/KQm63UQyytqTdVDe8
+
+idempotency:
+  supported: true
+  header: Idempotent-Key
+  location: header
+  value: client-supplied opaque string
+  retention: 24 hours
+  scope: per request
+  spec_evidence: >-
+    Declared as a header parameter in the OpenAPI with the description "Supply a key to safely
+    retry requests without the server duplicating the action. Will be remembered for 24 hours."
+  operations:
+  - companies_submit_payroll_create
+  - participants_beneficiaries_create
+  coverage_note: >-
+    Idempotency is real but narrow — it is declared on 2 of the 15 write operations in the
+    published spec, covering the two highest-consequence non-reversible creates (payroll
+    contribution submission and beneficiary creation). Other POST/PUT/PATCH operations do not
+    advertise an Idempotent-Key parameter.
+
+pagination:
+  style: page-number
+  params:
+  - name: page
+    in: query
+    description: A page number within the paginated result set.
+  - name: page_size
+    in: query
+    description: Number of results to return per page.
+  response_fields:
+    count: total number of results across all pages
+    next: absolute URL of the next page, null on the last page
+    previous: absolute URL of the previous page, null on the first page
+    results: array of records for the current page
+  envelope: >-
+    Paginated collections return an object with count/next/previous/results. Nineteen
+    Paginated*List response schemas are declared in components.schemas.
+  operations_with_pagination: 22
+  note: >-
+    Pagination is opt-in on several endpoints — the docs for investment-history and
+    investment-options state you can "optionally paginate by including
+    page={page_num}&page_size={page_size} in the query string".
+
+versioning:
+  scheme: header-date
+  header: api-version
+  format: ISO date string (YYYY-MM-DD)
+  granularity: per-endpoint
+  default: >-
+    If the header is omitted the API uses the version that was current on the date the calling
+    application was registered, so existing integrations retain backwards compatibility.
+  resolution: >-
+    If the supplied date falls between two published versions, the API serves the latest
+    version older than or equal to the given date.
+  docs: https://developer.401go.com/docs/versioning
+  see_also: lifecycle/401go-lifecycle.yml
+
+error_envelope:
+  format: custom
+  rfc9457: false
+  content_type: application/json
+  fields:
+    user_error_message: A message safe to display to end users.
+    developer_error_detail: >-
+      Nullable message with extra context that may contain variable names or descriptive
+      information intended only for developers.
+  field_errors: >-
+    Validation errors are keyed by the submitted field name and nest to match the shape of the
+    submitted JSON, with each leaf carrying the same
+    {user_error_message, developer_error_detail} pair.
+  docs: https://developer.401go.com/docs/api-errors
+  see_also: errors/401go-problem-types.yml
+
+identifiers:
+  primary_key_field: object_id
+  form: opaque string
+  note: >-
+    Every resource is addressed by an opaque object_id rather than a numeric key; participant
+    identifiers are documented as "encrypted participant identifier". Several plan-setup fields
+    accept opaque ids that must first be retrieved from other endpoints (acting_338,
+    pooled_plan, billing_tier, fund_lineup).
+
+request_tracing:
+  request_id_header: null
+  note: no request-id or correlation-id header is documented or declared in the spec
+
+rate_limiting:
+  documented: false
+  headers: []
+  note: >-
+    No rate-limit policy or rate-limit response headers are published in the docs or declared
+    in the OpenAPI as of 2026-08-02.
+
+field_expansion:
+  supported: false
+  note: >-
+    No expand/fields/include parameter is declared. Related data is instead returned inline —
+    for example the participants list embeds current deferrals and loan payments.
+
+metadata:
+  supported: false
+  note: no customer-defined metadata field is exposed on any resource
+
+media_types:
+  request: [application/json, application/x-www-form-urlencoded]
+  response: [application/json]
+  note: >-
+    Token endpoints use application/x-www-form-urlencoded; all API resource endpoints use
+    application/json exclusively (66 declared response bodies, all application/json).
+
+cross_links:
+  errors: errors/401go-problem-types.yml
+  lifecycle: lifecycle/401go-lifecycle.yml
+  authentication: authentication/401go-authentication.yml
+  scopes: scopes/401go-scopes.yml
+  sandbox: sandbox/401go-sandbox.yml
