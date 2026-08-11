@@ -38,26 +38,16 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 apis:
-- aid: 401go:401go-api
-  name: 401GO API
-  description: The 401GO partner REST API. 72 operations across 50 paths covering affiliate
-    firms and advisors, companies and 401(k) plan setup, plan provisions and employer match
-    formulas, participant census, payroll submission, deferrals, investments and portfolios,
-    beneficiaries, disbursements, loan requests, rollovers, money-movement history,
-    retirement-planning estimates, notifications and participant documents. OAuth 2.0 bearer
-    or Knox token auth, page/page_size pagination, and header-based per-endpoint date
-    versioning via the api-version header.
+- aid: 401go:401go-affiliates-firms-api
+  name: 401GO Affiliates & Firms API
+  description: The Affiliates & Firms API from 401GO — 7 operation(s) for affiliates & firms.
   humanURL: https://developer.401go.com/
   baseURL: https://app.401go.com/api
   tags:
-  - Retirement
-  - 401k
-  - Payroll
-  - Participants
-  - Investments
+  - Affiliates & Firms
   properties:
   - type: OpenAPI
-    url: openapi/401go-openapi-original.json
+    url: openapi/401go-affiliates-firms-api-openapi.yml
   - type: Documentation
     url: https://developer.401go.com/docs/getting-started
   - type: APIReference
@@ -66,8 +56,205 @@ apis:
     url: https://developer.401go.com/docs/getting-started
   - type: Authentication
     url: https://developer.401go.com/docs/authentication
-  - type: Overlay
-    url: overlays/401go-api-overlay.yaml
+  - type: DataModel
+    url: data-model/401go-data-model.yml
+  - type: ToolCrosswalk
+    url: mcp/401go-tool-crosswalk.yml
+- aid: 401go:401go-beneficiaries-api
+  name: 401GO Beneficiaries API
+  description: The Beneficiaries API from 401GO — 2 operation(s) for beneficiaries.
+  humanURL: https://developer.401go.com/
+  baseURL: https://app.401go.com/api
+  tags:
+  - Beneficiaries
+  properties:
+  - type: OpenAPI
+    url: openapi/401go-beneficiaries-api-openapi.yml
+  - type: Documentation
+    url: https://developer.401go.com/docs/getting-started
+  - type: APIReference
+    url: https://developer.401go.com/reference/companies_list
+  - type: GettingStarted
+    url: https://developer.401go.com/docs/getting-started
+  - type: Authentication
+    url: https://developer.401go.com/docs/authentication
+  - type: DataModel
+    url: data-model/401go-data-model.yml
+  - type: ToolCrosswalk
+    url: mcp/401go-tool-crosswalk.yml
+- aid: 401go:401go-companies-plans-api
+  name: 401GO Companies & Plans API
+  description: The Companies & Plans API from 401GO — 6 operation(s) for companies & plans.
+  humanURL: https://developer.401go.com/
+  baseURL: https://app.401go.com/api
+  tags:
+  - Companies & Plans
+  properties:
+  - type: OpenAPI
+    url: openapi/401go-companies-plans-api-openapi.yml
+  - type: Documentation
+    url: https://developer.401go.com/docs/getting-started
+  - type: APIReference
+    url: https://developer.401go.com/reference/companies_list
+  - type: GettingStarted
+    url: https://developer.401go.com/docs/getting-started
+  - type: Authentication
+    url: https://developer.401go.com/docs/authentication
+  - type: DataModel
+    url: data-model/401go-data-model.yml
+  - type: ToolCrosswalk
+    url: mcp/401go-tool-crosswalk.yml
+- aid: 401go:401go-contributions-payroll-api
+  name: 401GO Contributions & Payroll API
+  description: The Contributions & Payroll API from 401GO — 5 operation(s) for contributions & payroll.
+  humanURL: https://developer.401go.com/
+  baseURL: https://app.401go.com/api
+  tags:
+  - Contributions & Payroll
+  properties:
+  - type: OpenAPI
+    url: openapi/401go-contributions-payroll-api-openapi.yml
+  - type: Documentation
+    url: https://developer.401go.com/docs/getting-started
+  - type: APIReference
+    url: https://developer.401go.com/reference/companies_list
+  - type: GettingStarted
+    url: https://developer.401go.com/docs/getting-started
+  - type: Authentication
+    url: https://developer.401go.com/docs/authentication
+  - type: DataModel
+    url: data-model/401go-data-model.yml
+  - type: ToolCrosswalk
+    url: mcp/401go-tool-crosswalk.yml
+- aid: 401go:401go-documents-api
+  name: 401GO Documents API
+  description: The Documents API from 401GO — 2 operation(s) for documents.
+  humanURL: https://developer.401go.com/
+  baseURL: https://app.401go.com/api
+  tags:
+  - Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/401go-documents-api-openapi.yml
+  - type: Documentation
+    url: https://developer.401go.com/docs/getting-started
+  - type: APIReference
+    url: https://developer.401go.com/reference/companies_list
+  - type: GettingStarted
+    url: https://developer.401go.com/docs/getting-started
+  - type: Authentication
+    url: https://developer.401go.com/docs/authentication
+  - type: DataModel
+    url: data-model/401go-data-model.yml
+  - type: ToolCrosswalk
+    url: mcp/401go-tool-crosswalk.yml
+- aid: 401go:401go-investments-portfolios-api
+  name: 401GO Investments & Portfolios API
+  description: >-
+    The Investments & Portfolios API from 401GO — 8 operation(s) for investments & portfolios.
+  humanURL: https://developer.401go.com/
+  baseURL: https://app.401go.com/api
+  tags:
+  - Investments & Portfolios
+  properties:
+  - type: OpenAPI
+    url: openapi/401go-investments-portfolios-api-openapi.yml
+  - type: Documentation
+    url: https://developer.401go.com/docs/getting-started
+  - type: APIReference
+    url: https://developer.401go.com/reference/companies_list
+  - type: GettingStarted
+    url: https://developer.401go.com/docs/getting-started
+  - type: Authentication
+    url: https://developer.401go.com/docs/authentication
+  - type: DataModel
+    url: data-model/401go-data-model.yml
+  - type: ToolCrosswalk
+    url: mcp/401go-tool-crosswalk.yml
+- aid: 401go:401go-money-movement-api
+  name: 401GO Money Movement API
+  description: The Money Movement API from 401GO — 10 operation(s) for money movement.
+  humanURL: https://developer.401go.com/
+  baseURL: https://app.401go.com/api
+  tags:
+  - Money Movement
+  properties:
+  - type: OpenAPI
+    url: openapi/401go-money-movement-api-openapi.yml
+  - type: Documentation
+    url: https://developer.401go.com/docs/getting-started
+  - type: APIReference
+    url: https://developer.401go.com/reference/companies_list
+  - type: GettingStarted
+    url: https://developer.401go.com/docs/getting-started
+  - type: Authentication
+    url: https://developer.401go.com/docs/authentication
+  - type: DataModel
+    url: data-model/401go-data-model.yml
+  - type: ToolCrosswalk
+    url: mcp/401go-tool-crosswalk.yml
+- aid: 401go:401go-notifications-api
+  name: 401GO Notifications API
+  description: The Notifications API from 401GO — 3 operation(s) for notifications.
+  humanURL: https://developer.401go.com/
+  baseURL: https://app.401go.com/api
+  tags:
+  - Notifications
+  properties:
+  - type: OpenAPI
+    url: openapi/401go-notifications-api-openapi.yml
+  - type: Documentation
+    url: https://developer.401go.com/docs/getting-started
+  - type: APIReference
+    url: https://developer.401go.com/reference/companies_list
+  - type: GettingStarted
+    url: https://developer.401go.com/docs/getting-started
+  - type: Authentication
+    url: https://developer.401go.com/docs/authentication
+  - type: DataModel
+    url: data-model/401go-data-model.yml
+  - type: ToolCrosswalk
+    url: mcp/401go-tool-crosswalk.yml
+- aid: 401go:401go-participants-api
+  name: 401GO Participants API
+  description: The Participants API from 401GO — 4 operation(s) for participants.
+  humanURL: https://developer.401go.com/
+  baseURL: https://app.401go.com/api
+  tags:
+  - Participants
+  properties:
+  - type: OpenAPI
+    url: openapi/401go-participants-api-openapi.yml
+  - type: Documentation
+    url: https://developer.401go.com/docs/getting-started
+  - type: APIReference
+    url: https://developer.401go.com/reference/companies_list
+  - type: GettingStarted
+    url: https://developer.401go.com/docs/getting-started
+  - type: Authentication
+    url: https://developer.401go.com/docs/authentication
+  - type: DataModel
+    url: data-model/401go-data-model.yml
+  - type: ToolCrosswalk
+    url: mcp/401go-tool-crosswalk.yml
+- aid: 401go:401go-retirement-planning-api
+  name: 401GO Retirement Planning API
+  description: The Retirement Planning API from 401GO — 3 operation(s) for retirement planning.
+  humanURL: https://developer.401go.com/
+  baseURL: https://app.401go.com/api
+  tags:
+  - Retirement Planning
+  properties:
+  - type: OpenAPI
+    url: openapi/401go-retirement-planning-api-openapi.yml
+  - type: Documentation
+    url: https://developer.401go.com/docs/getting-started
+  - type: APIReference
+    url: https://developer.401go.com/reference/companies_list
+  - type: GettingStarted
+    url: https://developer.401go.com/docs/getting-started
+  - type: Authentication
+    url: https://developer.401go.com/docs/authentication
   - type: DataModel
     url: data-model/401go-data-model.yml
   - type: ToolCrosswalk
@@ -100,7 +287,7 @@ common:
 - type: PrivacyPolicy
   url: https://401go.com/privacy-policy/
 - type: OpenAPI
-  url: openapi/401go-openapi-original.json
+  url: openapi/_original/401go-openapi-original.json
 - type: Authentication
   url: authentication/401go-authentication.yml
 - type: OAuthScopes
