@@ -1,0 +1,1322 @@
+{
+  "item": [
+    {
+      "id": "b1b0acca-52cb-444b-8e3f-50e70563364d",
+      "name": "Retirement Planning",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5e99655d-11a7-4be6-a660-5fb460947c0b",
+          "name": "participants advisor models retrieve",
+          "request": {
+            "name": "participants advisor models retrieve",
+            "description": {},
+            "url": {
+              "path": [
+                "participants",
+                ":participant_id",
+                "advisor-models",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "participant_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "764607a4-7cfe-4a48-8968-ac203f59dcf1",
+              "name": "No response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "advisor-models",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9e15939d-039e-4ff7-a1be-fad00265100d",
+          "name": "participants advisor models create",
+          "request": {
+            "name": "participants advisor models create",
+            "description": {},
+            "url": {
+              "path": [
+                "participants",
+                ":participant_id",
+                "advisor-models",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "A page number within the paginated result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>",
+                  "description": "Number of results to return per page."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "participant_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "selected_model",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8846d67b-41f4-40a8-8945-7d17e0eba765",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "advisor-models",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "selected_model",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 123,\n  \"results\": [\n    {\n      \"investment\": {\n        \"asset_class\": \"string\",\n        \"description\": \"string\",\n        \"object_id\": \"string\",\n        \"name\": \"string\",\n        \"ticker\": null,\n        \"cusip\": \"string\",\n        \"status\": \"Unknown\"\n      },\n      \"percent\": \"-65031443.6\",\n      \"shares\": \"-0725\",\n      \"status\": \"PENDING_SALE\",\n      \"value\": \"-\"\n    },\n    {\n      \"investment\": {\n        \"asset_class\": \"string\",\n        \"description\": \"string\",\n        \"object_id\": \"string\",\n        \"name\": \"string\",\n        \"ticker\": \"string\",\n        \"cusip\": \"string\",\n        \"status\": \"Unknown\"\n      },\n      \"percent\": \"-004000\",\n      \"shares\": \"-45002814.\",\n      \"status\": \"ACTIVE\",\n      \"value\": \"19300087\"\n    }\n  ],\n  \"next\": \"http://api.example.org/accounts/?page=4\",\n  \"previous\": \"http://api.example.org/accounts/?page=2\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6a1545cf-eff1-48f6-8d6e-12adb51042ec",
+              "name": "Bad Request: Must select an advisor model.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "advisor-models",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "selected_model",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8104f607-c900-45c2-84f3-4b64b42749a5",
+              "name": "Unauthorized: Missing or invalid authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "advisor-models",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "selected_model",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c7c9de84-7a36-4fc5-b3cf-dca361acb13e",
+              "name": "Forbidden: Insufficient permissions or scopes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "advisor-models",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "selected_model",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c8128cc0-5ad2-4070-b43e-a28a56767b6a",
+              "name": "Not Found: No such advisor model.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "advisor-models",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "selected_model",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e7f3e994-1b2f-4dd7-897f-eab3023bf1a9",
+          "name": "participants retirement planning defaults retrieve",
+          "request": {
+            "name": "participants retirement planning defaults retrieve",
+            "description": {
+              "content": "Get the defaults used for the estimation. Note that the defaults returned may not be valid for getting an\nestimate, for example if `age > retirement_age`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "participants",
+                ":participant_id",
+                "retirement-planning-defaults",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "participant_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bb3fec22-9957-46da-8ed9-641b9367ed9c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "retirement-planning-defaults",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"over_50_contribution_limit\": 8363,\n  \"under_50_contribution_limit\": 3517,\n  \"age\": 87,\n  \"retirement_age\": 105,\n  \"salary\": 608,\n  \"current_savings\": 3067,\n  \"savings_percent\": \"-.\",\n  \"annual_raise\": \"2.00\",\n  \"inflation\": \"2.00\",\n  \"correct_for_inflation\": true,\n  \"investment_return\": \"5.00\",\n  \"life_expectancy\": 90,\n  \"retirement_spending\": \"70.00\",\n  \"include_contributions\": true,\n  \"include_social_security\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5eac9350-10d7-400a-9a4d-985ce767de02",
+              "name": "Unauthorized: Missing or invalid authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "retirement-planning-defaults",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "57a178f3-8bc1-4d47-98d1-7604ee086eab",
+              "name": "Forbidden: Insufficient permissions or scopes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "retirement-planning-defaults",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e4bdffd1-ca5a-43e0-9711-5f1fd7f5c23d",
+          "name": "participants retirement planning estimate list",
+          "request": {
+            "name": "participants retirement planning estimate list",
+            "description": {
+              "content": "Estimate a participant's projected balance and target savings for retirement. Will use the defaults as defined\nfrom the retirement-planning-defaults unless an override is given. Can only be used if the participant has not\nyet reached retirement, or the supplied `age` is less than `retirement_age`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "participants",
+                ":participant_id",
+                "retirement-planning-estimate",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "age",
+                  "value": "<integer>",
+                  "description": "Defaults to participant's age"
+                },
+                {
+                  "disabled": false,
+                  "key": "annual_raise",
+                  "value": "2.00",
+                  "description": "Expected annual raise"
+                },
+                {
+                  "disabled": false,
+                  "key": "correct_for_inflation",
+                  "value": "true",
+                  "description": "Display amounts as they are worth today"
+                },
+                {
+                  "disabled": false,
+                  "key": "current_savings",
+                  "value": "<integer>",
+                  "description": "Defaults to participant's current account balance"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_contributions",
+                  "value": "true",
+                  "description": "Include employer contributions to the account"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_social_security",
+                  "value": "true"
+                },
+                {
+                  "disabled": false,
+                  "key": "inflation",
+                  "value": "2.00",
+                  "description": "Expected annual inflation"
+                },
+                {
+                  "disabled": false,
+                  "key": "investment_return",
+                  "value": "5.00",
+                  "description": "Expected annual investment return"
+                },
+                {
+                  "disabled": false,
+                  "key": "life_expectancy",
+                  "value": "90"
+                },
+                {
+                  "disabled": false,
+                  "key": "retirement_age",
+                  "value": "<integer>",
+                  "description": "Defaults to participant's retirement age"
+                },
+                {
+                  "disabled": false,
+                  "key": "retirement_spending",
+                  "value": "70.00",
+                  "description": "Percentage of income needed during retirement"
+                },
+                {
+                  "disabled": false,
+                  "key": "salary",
+                  "value": "<integer>",
+                  "description": "Defaults to participant's previous year compensation or estimation based on this year"
+                },
+                {
+                  "disabled": false,
+                  "key": "savings_percent",
+                  "value": "<decimal>",
+                  "description": "Percentage of income saved"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "participant_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6147c5c2-9372-47e4-8b37-c526c8692c0c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "retirement-planning-estimate",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "age",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "annual_raise",
+                      "value": "2.00"
+                    },
+                    {
+                      "key": "correct_for_inflation",
+                      "value": "true"
+                    },
+                    {
+                      "key": "current_savings",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "include_contributions",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_social_security",
+                      "value": "true"
+                    },
+                    {
+                      "key": "inflation",
+                      "value": "2.00"
+                    },
+                    {
+                      "key": "investment_return",
+                      "value": "5.00"
+                    },
+                    {
+                      "key": "life_expectancy",
+                      "value": "90"
+                    },
+                    {
+                      "key": "retirement_age",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "retirement_spending",
+                      "value": "70.00"
+                    },
+                    {
+                      "key": "salary",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "savings_percent",
+                      "value": "<decimal>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"age\": 4745,\n    \"estimated_balance\": \"-74854706591331.34\",\n    \"social_security\": \"-737169\",\n    \"target_savings\": \"-74441\"\n  },\n  {\n    \"age\": 9593,\n    \"estimated_balance\": \"-3667032520.\",\n    \"social_security\": \"-694080123429.66\",\n    \"target_savings\": \"8856428\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae36216b-c41a-4dff-86aa-c7ec6e93813f",
+              "name": "Bad Request: invalid supplied data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "retirement-planning-estimate",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "age",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "annual_raise",
+                      "value": "2.00"
+                    },
+                    {
+                      "key": "correct_for_inflation",
+                      "value": "true"
+                    },
+                    {
+                      "key": "current_savings",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "include_contributions",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_social_security",
+                      "value": "true"
+                    },
+                    {
+                      "key": "inflation",
+                      "value": "2.00"
+                    },
+                    {
+                      "key": "investment_return",
+                      "value": "5.00"
+                    },
+                    {
+                      "key": "life_expectancy",
+                      "value": "90"
+                    },
+                    {
+                      "key": "retirement_age",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "retirement_spending",
+                      "value": "70.00"
+                    },
+                    {
+                      "key": "salary",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "savings_percent",
+                      "value": "<decimal>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "487ac131-0bcf-4515-9446-d145794f9bdf",
+              "name": "Unauthorized: Missing or invalid authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "retirement-planning-estimate",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "age",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "annual_raise",
+                      "value": "2.00"
+                    },
+                    {
+                      "key": "correct_for_inflation",
+                      "value": "true"
+                    },
+                    {
+                      "key": "current_savings",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "include_contributions",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_social_security",
+                      "value": "true"
+                    },
+                    {
+                      "key": "inflation",
+                      "value": "2.00"
+                    },
+                    {
+                      "key": "investment_return",
+                      "value": "5.00"
+                    },
+                    {
+                      "key": "life_expectancy",
+                      "value": "90"
+                    },
+                    {
+                      "key": "retirement_age",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "retirement_spending",
+                      "value": "70.00"
+                    },
+                    {
+                      "key": "salary",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "savings_percent",
+                      "value": "<decimal>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "85d2f4bd-d121-4be9-992a-077cb147146d",
+              "name": "Forbidden: Insufficient permissions or scopes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "retirement-planning-estimate",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "age",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "annual_raise",
+                      "value": "2.00"
+                    },
+                    {
+                      "key": "correct_for_inflation",
+                      "value": "true"
+                    },
+                    {
+                      "key": "current_savings",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "include_contributions",
+                      "value": "true"
+                    },
+                    {
+                      "key": "include_social_security",
+                      "value": "true"
+                    },
+                    {
+                      "key": "inflation",
+                      "value": "2.00"
+                    },
+                    {
+                      "key": "investment_return",
+                      "value": "5.00"
+                    },
+                    {
+                      "key": "life_expectancy",
+                      "value": "90"
+                    },
+                    {
+                      "key": "retirement_age",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "retirement_spending",
+                      "value": "70.00"
+                    },
+                    {
+                      "key": "salary",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "savings_percent",
+                      "value": "<decimal>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.401go.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "3b868f64-9a85-456c-a8ab-9bc501cf9bbb",
+    "name": "401GO Retirement Planning API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

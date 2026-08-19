@@ -1,0 +1,237 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "401GO Participants API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Participants",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "companies_participants_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/companies/:company_id/participants/",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a list of participants for the given company_id. This will also include the current deductions for participants (deferrals and loan payments)."
+        },
+        {
+          "info": {
+            "name": "companies_participants_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.401go.com/api/companies/:company_id/participants/",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new participant or multiple new participants for the given company_id. You cannot add deductions or set 'met_eligibility_date'.\nNote the required fields on the schema. If you attempt to add an employee that already exists (by ssn), it will attempt to update that employee."
+        },
+        {
+          "info": {
+            "name": "companies_participants_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/companies/:company_id/participants/:participant_id/",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a participant by id for the given company_id. This will also include the current deductions for a participant (deferrals and loan payments)."
+        },
+        {
+          "info": {
+            "name": "companies_participants_update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.401go.com/api/companies/:company_id/participants/:participant_id/",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update an existing participant by id for the given company_id. You cannot add deductions or update met_eligibility_date.\nIf you try to change an email, it will create an additional login for the user with the new email so it doesn't lock out their previous login"
+        },
+        {
+          "info": {
+            "name": "companies_participants_partial_update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.401go.com/api/companies/:company_id/participants/:participant_id/",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update an existing participant by id for the given company_id. You cannot add deductions or update met_eligibility_date.\nIf you try to change an email, it will create an additional login for the user with the new email so it doesn't lock out their previous login"
+        },
+        {
+          "info": {
+            "name": "participants_events_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/events/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Gets a list of the different event types that exist for a participant.\n\nTo check whether a participant's dashboard is accessible, check for the 'completed setup' event."
+        },
+        {
+          "info": {
+            "name": "participants_events_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.401go.com/api/participants/:participant_id/events/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Adds a list of the different event types for a participant.\n\nIt will not duplicate events."
+        },
+        {
+          "info": {
+            "name": "participants_participant_setup_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/participant-setup/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Gets plan data for the associated participant, and if they've set their deferral elections.\n\nChoices for 'plan_type' are 'Volume Submitter Prototype Format' (401k plans), '403B', and 'Starter-K'"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

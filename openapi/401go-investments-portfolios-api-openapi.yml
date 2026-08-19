@@ -1,0 +1,1164 @@
+openapi: 3.2.0
+info:
+  title: 401GO Investments & Portfolios API
+  version: 1.0.0
+tags:
+- name: Investments & Portfolios
+paths:
+  /investments/{investment_id}/:
+    get:
+      operationId: investments_retrieve
+      description: API endpoints for retrieving investment fund information.
+      parameters:
+      - in: path
+        name: investment_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Investments & Portfolios
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Serializer for investment funds available in 401(k) plans.
+                properties:
+                  object_id:
+                    type: string
+                    readOnly: true
+                    description: Unique identifier for the investment.
+                  name:
+                    type: string
+                    maxLength: 250
+                  ticker:
+                    type:
+                    - string
+                    - 'null'
+                    maxLength: 20
+                  description:
+                    type: string
+                  asset_class:
+                    type: string
+                    description: The asset class category of the investment.
+                  cusip:
+                    type:
+                    - string
+                    - 'null'
+                    maxLength: 9
+                  status:
+                    enum:
+                    - 1
+                    - 2
+                    - 3
+                    - 4
+                    - 50
+                    - 100
+                    type: integer
+                    description: '* `1` - Active
+
+                      * `2` - Inactive
+
+                      * `3` - Close Only
+
+                      * `4` - Halted
+
+                      * `50` - Ambiguous Isin
+
+                      * `100` - Unknown'
+                    x-spec-enum-id: c4eae5f1054b2e9d
+                    default: Unknown
+                required:
+                - asset_class
+                - description
+                - object_id
+          description: ''
+  /participants/{participant_id}/cancel-participant-rebalance/:
+    post:
+      operationId: participants_cancel_participant_rebalance_create
+      parameters:
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Investments & Portfolios
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  auto_rebalance:
+                    type: boolean
+                  is_rebalancing:
+                    type: boolean
+                    readOnly: true
+                  rebalance_percent:
+                    type: integer
+                    maximum: 32767
+                    minimum: -32768
+                  can_cancel_rebalance:
+                    type: boolean
+                    readOnly: true
+                  next_trading_window:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  self_direct_allowed:
+                    type: boolean
+                    readOnly: true
+                  opted_in_to_self_direct:
+                    type: boolean
+                required:
+                - can_cancel_rebalance
+                - is_rebalancing
+                - next_trading_window
+                - self_direct_allowed
+          description: ''
+        '400':
+          description: 'Bad Request: Rebalance already begun. Unable to cancel'
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+  /participants/{participant_id}/investment-history/:
+    get:
+      operationId: participants_investment_history_list
+      description: 'Get a list of investment transactions for the given participant id.
+
+
+        You can optionally paginate by including ''page={page_num}&page_size={page_size}'' in the query
+        string.
+
+        Possible statuses: pending, confirmed, failed, dividend.'
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Investments & Portfolios
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - count
+                - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        object_id:
+                          type: string
+                        investment:
+                          allOf:
+                          - type: object
+                            description: Serializer for investment funds available in 401(k) plans.
+                            properties:
+                              object_id:
+                                type: string
+                                readOnly: true
+                                description: Unique identifier for the investment.
+                              name:
+                                type: string
+                                maxLength: 250
+                              ticker:
+                                type:
+                                - string
+                                - 'null'
+                                maxLength: 20
+                              description:
+                                type: string
+                              asset_class:
+                                type: string
+                                description: The asset class category of the investment.
+                              cusip:
+                                type:
+                                - string
+                                - 'null'
+                                maxLength: 9
+                              status:
+                                enum:
+                                - 1
+                                - 2
+                                - 3
+                                - 4
+                                - 50
+                                - 100
+                                type: integer
+                                description: '* `1` - Active
+
+                                  * `2` - Inactive
+
+                                  * `3` - Close Only
+
+                                  * `4` - Halted
+
+                                  * `50` - Ambiguous Isin
+
+                                  * `100` - Unknown'
+                                x-spec-enum-id: c4eae5f1054b2e9d
+                                default: Unknown
+                            required:
+                            - asset_class
+                            - description
+                            - object_id
+                          readOnly: true
+                        shares:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,10}(?:\.\d{0,4})?$
+                        share_price:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,9}(?:\.\d{0,9})?$
+                        amount_paid:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,14}(?:\.\d{0,2})?$
+                        settle_date:
+                          type:
+                          - string
+                          - 'null'
+                          format: date
+                        status:
+                          type: string
+                          readOnly: true
+                        money_sources:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              money_source:
+                                type: string
+                                enum:
+                                - Employee Deferral
+                                - Discretionary Non Elective (Profit Sharing)
+                                - Safe Harbor Non Elective
+                                - Discretionary Match
+                                - Safe Harbor Match
+                                - Correction Contribution (QMAC)
+                                - Qualified Non-Elective Contribution
+                                - Rollover
+                                - Other
+                                - Individual Contribution
+                                - Conversion
+                              tax_type:
+                                type: string
+                                enum:
+                                - Pre-tax
+                                - Post-tax
+                              shares:
+                                type: string
+                                format: decimal
+                                pattern: ^-?\d{0,10}(?:\.\d{0,9})?$
+                            required:
+                            - money_source
+                            - shares
+                            - tax_type
+                          readOnly: true
+                      required:
+                      - amount_paid
+                      - investment
+                      - money_sources
+                      - object_id
+                      - share_price
+                      - shares
+                      - status
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+  /participants/{participant_id}/investment-options/:
+    get:
+      operationId: participants_investment_options_list
+      description: 'Get a list of investment options available to the given participant.
+
+
+        You can optionally paginate by including ''page={page_num}&page_size={page_size}'' in the query
+        string.'
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Investments & Portfolios
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - count
+                - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      description: Serializer for investment funds available in 401(k) plans.
+                      properties:
+                        object_id:
+                          type: string
+                          readOnly: true
+                          description: Unique identifier for the investment.
+                        name:
+                          type: string
+                          maxLength: 250
+                        ticker:
+                          type:
+                          - string
+                          - 'null'
+                          maxLength: 20
+                        description:
+                          type: string
+                        asset_class:
+                          type: string
+                          description: The asset class category of the investment.
+                        cusip:
+                          type:
+                          - string
+                          - 'null'
+                          maxLength: 9
+                        status:
+                          enum:
+                          - 1
+                          - 2
+                          - 3
+                          - 4
+                          - 50
+                          - 100
+                          type: integer
+                          description: '* `1` - Active
+
+                            * `2` - Inactive
+
+                            * `3` - Close Only
+
+                            * `4` - Halted
+
+                            * `50` - Ambiguous Isin
+
+                            * `100` - Unknown'
+                          x-spec-enum-id: c4eae5f1054b2e9d
+                          default: Unknown
+                      required:
+                      - asset_class
+                      - description
+                      - object_id
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+  /participants/{participant_id}/investment-performance/:
+    get:
+      operationId: participants_investment_performance_list
+      description: Get a list of portfolios - one for each day between two dates.
+      parameters:
+      - in: query
+        name: end_date
+        schema:
+          type: string
+        description: End date for filtering portfolios (YYYY-MM-DD format). Defaults to today.
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      - in: query
+        name: start_date
+        schema:
+          type: string
+        description: Start date for filtering portfolios (YYYY-MM-DD format). Defaults to the first day
+          an investment transaction occurred.
+      tags:
+      - Investments & Portfolios
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - count
+                - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      description: Portfolio information for a single day.
+                      properties:
+                        investments:
+                          type: array
+                          items:
+                            type: object
+                            description: Investment information for a single day in portfolio history.
+                            properties:
+                              object_id:
+                                type: string
+                                description: The object_id of the associated Investment
+                              shares:
+                                type: string
+                                format: decimal
+                                pattern: ^-?\d{0,9}(?:\.\d{0,3})?$
+                              share_price:
+                                type: string
+                                format: decimal
+                                pattern: ^-?\d{0,9}(?:\.\d{0,9})?$
+                              basis:
+                                type: string
+                                format: decimal
+                                pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                              proceeds:
+                                type: string
+                                format: decimal
+                                pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                            required:
+                            - basis
+                            - object_id
+                            - proceeds
+                            - share_price
+                            - shares
+                        date:
+                          type: string
+                          format: date
+                        cash:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                      required:
+                      - cash
+                      - date
+                      - investments
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+  /participants/{participant_id}/portfolio/:
+    get:
+      operationId: participants_portfolio_list
+      description: 'Gets a list of portfolio investments for the given participant.
+
+
+        ### Investment states
+
+        - `ACTIVE`: Investment is part of the portfolio.
+
+        - `PENDING_SALE`: Investment has been removed from the portfolio and is being fully liquidated.'
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Investments & Portfolios
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - count
+                - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        percent:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                        investment:
+                          allOf:
+                          - type: object
+                            description: Serializer for investment funds available in 401(k) plans.
+                            properties:
+                              object_id:
+                                type: string
+                                readOnly: true
+                                description: Unique identifier for the investment.
+                              name:
+                                type: string
+                                maxLength: 250
+                              ticker:
+                                type:
+                                - string
+                                - 'null'
+                                maxLength: 20
+                              description:
+                                type: string
+                              asset_class:
+                                type: string
+                                description: The asset class category of the investment.
+                              cusip:
+                                type:
+                                - string
+                                - 'null'
+                                maxLength: 9
+                              status:
+                                enum:
+                                - 1
+                                - 2
+                                - 3
+                                - 4
+                                - 50
+                                - 100
+                                type: integer
+                                description: '* `1` - Active
+
+                                  * `2` - Inactive
+
+                                  * `3` - Close Only
+
+                                  * `4` - Halted
+
+                                  * `50` - Ambiguous Isin
+
+                                  * `100` - Unknown'
+                                x-spec-enum-id: c4eae5f1054b2e9d
+                                default: Unknown
+                            required:
+                            - asset_class
+                            - description
+                            - object_id
+                          readOnly: true
+                        shares:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                          readOnly: true
+                        value:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                          readOnly: true
+                        status:
+                          enum:
+                          - PENDING_SALE
+                          - ACTIVE
+                          type: string
+                          description: '* `PENDING_SALE` - Pending Sale
+
+                            * `ACTIVE` - Active'
+                          x-spec-enum-id: a442a24a44038e9a
+                          readOnly: true
+                      required:
+                      - investment
+                      - percent
+                      - shares
+                      - status
+                      - value
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+    post:
+      operationId: participants_portfolio_create
+      description: 'Updates a participant''s target portfolio allocations.
+
+
+        Expects:
+
+        - `investments`: list of investment ids
+
+        - `weights`: list of target percent weights (aligned by index with `investments`)
+
+
+        ### 0% allocations
+
+        Setting an investment target allocation to `0%` does **not** remove it from the portfolio. If
+        `auto_rebalance` is disabled,
+
+        no trades will occur until a manual rebalance is triggered.
+
+
+        ### Removing an investment
+
+        Any allocation you specify in a POST request replaces any prior allocation.
+
+        Thus, to remove an investment from the portfolio, simply post an allocation without that investment.
+
+        Once an investment is removed from the portfolio, the system will sell all shares of that investment
+
+        **regardless of whether `auto_rebalance` is enabled**. Removed investments enter `PENDING_SALE`
+        until liquidation is complete.'
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Investments & Portfolios
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                investments:
+                  type: array
+                  items:
+                    type:
+                    - string
+                    - 'null'
+                  description: List of investment IDs
+                weights:
+                  type: array
+                  items:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,6}(?:\.\d{0,6})?$
+                  description: List of investment weights. The order of weights must parallel the order
+                    of investments.
+              required:
+              - investments
+              - weights
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                investments:
+                  type: array
+                  items:
+                    type:
+                    - string
+                    - 'null'
+                  description: List of investment IDs
+                weights:
+                  type: array
+                  items:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,6}(?:\.\d{0,6})?$
+                  description: List of investment weights. The order of weights must parallel the order
+                    of investments.
+              required:
+              - investments
+              - weights
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                investments:
+                  type: array
+                  items:
+                    type:
+                    - string
+                    - 'null'
+                  description: List of investment IDs
+                weights:
+                  type: array
+                  items:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,6}(?:\.\d{0,6})?$
+                  description: List of investment weights. The order of weights must parallel the order
+                    of investments.
+              required:
+              - investments
+              - weights
+        required: true
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - count
+                - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        percent:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                        investment:
+                          allOf:
+                          - type: object
+                            description: Serializer for investment funds available in 401(k) plans.
+                            properties:
+                              object_id:
+                                type: string
+                                readOnly: true
+                                description: Unique identifier for the investment.
+                              name:
+                                type: string
+                                maxLength: 250
+                              ticker:
+                                type:
+                                - string
+                                - 'null'
+                                maxLength: 20
+                              description:
+                                type: string
+                              asset_class:
+                                type: string
+                                description: The asset class category of the investment.
+                              cusip:
+                                type:
+                                - string
+                                - 'null'
+                                maxLength: 9
+                              status:
+                                enum:
+                                - 1
+                                - 2
+                                - 3
+                                - 4
+                                - 50
+                                - 100
+                                type: integer
+                                description: '* `1` - Active
+
+                                  * `2` - Inactive
+
+                                  * `3` - Close Only
+
+                                  * `4` - Halted
+
+                                  * `50` - Ambiguous Isin
+
+                                  * `100` - Unknown'
+                                x-spec-enum-id: c4eae5f1054b2e9d
+                                default: Unknown
+                            required:
+                            - asset_class
+                            - description
+                            - object_id
+                          readOnly: true
+                        shares:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                          readOnly: true
+                        value:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                          readOnly: true
+                        status:
+                          enum:
+                          - PENDING_SALE
+                          - ACTIVE
+                          type: string
+                          description: '* `PENDING_SALE` - Pending Sale
+
+                            * `ACTIVE` - Active'
+                          x-spec-enum-id: a442a24a44038e9a
+                          readOnly: true
+                      required:
+                      - investment
+                      - percent
+                      - shares
+                      - status
+                      - value
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+  /participants/{participant_id}/portfolio-settings/:
+    get:
+      operationId: participants_portfolio_settings_retrieve
+      description: 'Get data points related to rebalancing, trading windows, and if a participant can
+        self direct.
+
+
+        can_cancel_rebalance represents if the current time is in a trading window.
+
+        The next_trading_window returns the start of the next trading window and should be used with caution,
+
+        preferably with a buffer of about 30 minutes for if the trade can be completed in this time.'
+      parameters:
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Investments & Portfolios
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  auto_rebalance:
+                    type: boolean
+                  is_rebalancing:
+                    type: boolean
+                    readOnly: true
+                  rebalance_percent:
+                    type: integer
+                    maximum: 32767
+                    minimum: -32768
+                  can_cancel_rebalance:
+                    type: boolean
+                    readOnly: true
+                  next_trading_window:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  self_direct_allowed:
+                    type: boolean
+                    readOnly: true
+                  opted_in_to_self_direct:
+                    type: boolean
+                required:
+                - can_cancel_rebalance
+                - is_rebalancing
+                - next_trading_window
+                - self_direct_allowed
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+    post:
+      operationId: participants_portfolio_settings_create
+      description: Updates a participant's option to auto rebalance, rebalance percent, and if they have
+        opted in to self direct
+      parameters:
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Investments & Portfolios
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                auto_rebalance:
+                  type: boolean
+                rebalance_percent:
+                  type: integer
+                  maximum: 32767
+                  minimum: -32768
+                opted_in_to_self_direct:
+                  type: boolean
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                auto_rebalance:
+                  type: boolean
+                rebalance_percent:
+                  type: integer
+                  maximum: 32767
+                  minimum: -32768
+                opted_in_to_self_direct:
+                  type: boolean
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                auto_rebalance:
+                  type: boolean
+                rebalance_percent:
+                  type: integer
+                  maximum: 32767
+                  minimum: -32768
+                opted_in_to_self_direct:
+                  type: boolean
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  auto_rebalance:
+                    type: boolean
+                  is_rebalancing:
+                    type: boolean
+                    readOnly: true
+                  rebalance_percent:
+                    type: integer
+                    maximum: 32767
+                    minimum: -32768
+                  can_cancel_rebalance:
+                    type: boolean
+                    readOnly: true
+                  next_trading_window:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  self_direct_allowed:
+                    type: boolean
+                    readOnly: true
+                  opted_in_to_self_direct:
+                    type: boolean
+                required:
+                - can_cancel_rebalance
+                - is_rebalancing
+                - next_trading_window
+                - self_direct_allowed
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+  /participants/{participant_id}/start-participant-rebalance/:
+    post:
+      operationId: participants_start_participant_rebalance_create
+      parameters:
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Investments & Portfolios
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  auto_rebalance:
+                    type: boolean
+                  is_rebalancing:
+                    type: boolean
+                    readOnly: true
+                  rebalance_percent:
+                    type: integer
+                    maximum: 32767
+                    minimum: -32768
+                  can_cancel_rebalance:
+                    type: boolean
+                    readOnly: true
+                  next_trading_window:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  self_direct_allowed:
+                    type: boolean
+                    readOnly: true
+                  opted_in_to_self_direct:
+                    type: boolean
+                required:
+                - can_cancel_rebalance
+                - is_rebalancing
+                - next_trading_window
+                - self_direct_allowed
+          description: ''
+        '400':
+          description: 'Bad Request: Manual rebalance not possible when auto-rebalance is enabled'
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+components:
+  securitySchemes:
+    knoxApiToken:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
+    oauth2:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer based with an existing token. Enter a token retrieved via the regular
+        OAuth flow elsewhere.
+servers:
+- url: https://app.401go.com/api
+  description: Base URL reconciled from apis.yml

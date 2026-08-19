@@ -1,0 +1,3351 @@
+openapi: 3.2.0
+info:
+  title: 401GO Participants API
+  version: 1.0.0
+tags:
+- name: Participants
+paths:
+  /companies/{company_id}/participants/:
+    get:
+      operationId: companies_participants_list
+      description: Retrieve a list of participants for the given company_id. This will also include the
+        current deductions for participants (deferrals and loan payments).
+      parameters:
+      - in: path
+        name: company_id
+        schema:
+          type: string
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - Participants
+      security:
+      - oauth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - count
+                - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      description: 'Represents a participant in a companies 401k account. ''met_eligibility_date''
+                        will be returned as non-null and in the past once a participant
+
+                        is eligible to contribute. In addition, for ineligible participants, the deferrals
+                        will always have a 0 amount.
+
+                        When creating a participant, either phone or email are required (preferably both).
+                        When updating a participant, object_id is required.
+
+                        If a ''termination_date'' has previously been set, pushing a ''start_date'' after
+                        it will rehire this participant.'
+                      properties:
+                        object_id:
+                          type:
+                          - string
+                          - 'null'
+                        name:
+                          type: string
+                          maxLength: 100
+                        email:
+                          type: string
+                          format: email
+                          default: ''
+                        phone:
+                          type: string
+                          default: ''
+                        start_date:
+                          type: string
+                          format: date
+                          description: The latest date this participant was hired or rehired. Pushing
+                            a start_date that is after a previously set termination_date will rehire this
+                            participant.
+                        termination_date:
+                          type:
+                          - string
+                          - 'null'
+                          format: date
+                        met_eligibility_date:
+                          type:
+                          - string
+                          - 'null'
+                          format: date
+                          readOnly: true
+                        met_match_eligibility_date:
+                          type:
+                          - string
+                          - 'null'
+                          format: date
+                          readOnly: true
+                        met_profit_share_eligibility_date:
+                          type:
+                          - string
+                          - 'null'
+                          format: date
+                          readOnly: true
+                        ssn:
+                          type: string
+                          title: Social Security Number
+                          maxLength: 9
+                        dob:
+                          type:
+                          - string
+                          - 'null'
+                          format: date
+                          title: Birthday
+                        hours_worked_ytd:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                        compensation_ytd:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                        years_worked_1000_hours:
+                          type:
+                          - integer
+                          - 'null'
+                          maximum: 65535
+                          minimum: 0
+                        prior_year_total_compensation:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                        deferrals:
+                          allOf:
+                          - type: object
+                            properties:
+                              traditional:
+                                type: object
+                                properties:
+                                  amount:
+                                    type: string
+                                    format: decimal
+                                    pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                                  timestamp:
+                                    type: string
+                                    format: date-time
+                                    description: Timestamp for conflict resolution. If older than the
+                                      last deferral update in our system, an error will be returned and
+                                      deferrals will not be updated.
+                                  is_percent:
+                                    type: boolean
+                                required:
+                                - amount
+                                - timestamp
+                              roth:
+                                type: object
+                                properties:
+                                  amount:
+                                    type: string
+                                    format: decimal
+                                    pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                                  timestamp:
+                                    type: string
+                                    format: date-time
+                                    description: Timestamp for conflict resolution. If older than the
+                                      last deferral update in our system, an error will be returned and
+                                      deferrals will not be updated.
+                                  is_percent:
+                                    type: boolean
+                                required:
+                                - amount
+                                - timestamp
+                              change_frequency:
+                                enum:
+                                - Each pay period
+                                - Monthly
+                                - Quarterly
+                                - Semi Annual
+                                - Hold for pay period
+                                type:
+                                - string
+                                - 'null'
+                                readOnly: true
+                                description: Frequency that this participant's updated deferrals will
+                                  become active.
+                              active_traditional:
+                                allOf:
+                                - type: object
+                                  properties:
+                                    amount:
+                                      type: string
+                                      format: decimal
+                                      pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                                    timestamp:
+                                      type: string
+                                      format: date-time
+                                      description: Timestamp for conflict resolution. If older than the
+                                        last deferral update in our system, an error will be returned
+                                        and deferrals will not be updated.
+                                    is_percent:
+                                      type: boolean
+                                  required:
+                                  - amount
+                                  - timestamp
+                                readOnly: true
+                                description: Currently active traditional deferrals. May be different
+                                  from `traditional` field.
+                              active_roth:
+                                allOf:
+                                - type: object
+                                  properties:
+                                    amount:
+                                      type: string
+                                      format: decimal
+                                      pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                                    timestamp:
+                                      type: string
+                                      format: date-time
+                                      description: Timestamp for conflict resolution. If older than the
+                                        last deferral update in our system, an error will be returned
+                                        and deferrals will not be updated.
+                                    is_percent:
+                                      type: boolean
+                                  required:
+                                  - amount
+                                  - timestamp
+                                readOnly: true
+                                description: Currently active roth deferrals. May be different from `roth`
+                                  field.
+                              is_eligible:
+                                type: boolean
+                                readOnly: true
+                                description: If this participant is eligible.
+                              hit_max:
+                                type: boolean
+                                readOnly: true
+                                description: If this participant has hit their max for the year.
+                            required:
+                            - active_roth
+                            - active_traditional
+                            - change_frequency
+                            - hit_max
+                            - is_eligible
+                          readOnly: true
+                        loans:
+                          type: array
+                          items:
+                            type: object
+                            description: Represents a due loan payment
+                            properties:
+                              todays_payment:
+                                type: string
+                                readOnly: true
+                            required:
+                            - todays_payment
+                          readOnly: true
+                        ownership_percentage:
+                          type: string
+                        company_officer:
+                          type: boolean
+                        address:
+                          allOf:
+                          - type: object
+                            description: A participant's Address
+                            properties:
+                              address_line_1:
+                                type: string
+                                maxLength: 100
+                              address_line_2:
+                                type: string
+                                maxLength: 100
+                              city:
+                                type: string
+                                maxLength: 80
+                              state:
+                                type: string
+                                maxLength: 80
+                              postal_code:
+                                type: string
+                                maxLength: 20
+                              country:
+                                type: string
+                                default: US
+                                maxLength: 80
+                            required:
+                            - address_line_1
+                            - city
+                            - postal_code
+                            - state
+                        timestamp:
+                          type: string
+                          format: date-time
+                          readOnly: true
+                        timestamp_updated:
+                          type: string
+                          format: date-time
+                          readOnly: true
+                      required:
+                      - deferrals
+                      - loans
+                      - met_eligibility_date
+                      - met_match_eligibility_date
+                      - met_profit_share_eligibility_date
+                      - ssn
+                      - start_date
+                      - timestamp
+                      - timestamp_updated
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+    post:
+      operationId: companies_participants_create
+      description: 'Create a new participant or multiple new participants for the given company_id. You
+        cannot add deductions or set ''met_eligibility_date''.
+
+        Note the required fields on the schema. If you attempt to add an employee that already exists
+        (by ssn), it will attempt to update that employee.'
+      parameters:
+      - in: path
+        name: company_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Participants
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - type: object
+                description: 'Represents a participant in a companies 401k account. ''met_eligibility_date''
+                  will be returned as non-null and in the past once a participant
+
+                  is eligible to contribute. In addition, for ineligible participants, the deferrals will
+                  always have a 0 amount.
+
+                  When creating a participant, either phone or email are required (preferably both). When
+                  updating a participant, object_id is required.
+
+                  If a ''termination_date'' has previously been set, pushing a ''start_date'' after it
+                  will rehire this participant.'
+                properties:
+                  object_id:
+                    type:
+                    - string
+                    - 'null'
+                  name:
+                    type: string
+                    maxLength: 100
+                  email:
+                    type: string
+                    format: email
+                    minLength: 1
+                    default: ''
+                  phone:
+                    type: string
+                    minLength: 1
+                    default: ''
+                  start_date:
+                    type: string
+                    format: date
+                    description: The latest date this participant was hired or rehired. Pushing a start_date
+                      that is after a previously set termination_date will rehire this participant.
+                  termination_date:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                  ssn:
+                    type: string
+                    minLength: 1
+                    title: Social Security Number
+                    maxLength: 9
+                  dob:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                    title: Birthday
+                  hours_worked_ytd:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                  compensation_ytd:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                  years_worked_1000_hours:
+                    type:
+                    - integer
+                    - 'null'
+                    maximum: 65535
+                    minimum: 0
+                  prior_year_total_compensation:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                  ownership_percentage:
+                    type: string
+                  company_officer:
+                    type: boolean
+                  address:
+                    allOf:
+                    - type: object
+                      description: A participant's Address
+                      properties:
+                        address_line_1:
+                          type: string
+                          minLength: 1
+                          maxLength: 100
+                        address_line_2:
+                          type: string
+                          maxLength: 100
+                        city:
+                          type: string
+                          minLength: 1
+                          maxLength: 80
+                        state:
+                          type: string
+                          minLength: 1
+                          maxLength: 80
+                        postal_code:
+                          type: string
+                          minLength: 1
+                          maxLength: 20
+                        country:
+                          type: string
+                          minLength: 1
+                          default: US
+                          maxLength: 80
+                      required:
+                      - address_line_1
+                      - city
+                      - postal_code
+                      - state
+                required:
+                - ssn
+                - start_date
+              - type: array
+                items:
+                  type: object
+                  description: 'Represents a participant in a companies 401k account. ''met_eligibility_date''
+                    will be returned as non-null and in the past once a participant
+
+                    is eligible to contribute. In addition, for ineligible participants, the deferrals
+                    will always have a 0 amount.
+
+                    When creating a participant, either phone or email are required (preferably both).
+                    When updating a participant, object_id is required.
+
+                    If a ''termination_date'' has previously been set, pushing a ''start_date'' after
+                    it will rehire this participant.'
+                  properties:
+                    object_id:
+                      type:
+                      - string
+                      - 'null'
+                    name:
+                      type: string
+                      maxLength: 100
+                    email:
+                      type: string
+                      format: email
+                      minLength: 1
+                      default: ''
+                    phone:
+                      type: string
+                      minLength: 1
+                      default: ''
+                    start_date:
+                      type: string
+                      format: date
+                      description: The latest date this participant was hired or rehired. Pushing a start_date
+                        that is after a previously set termination_date will rehire this participant.
+                    termination_date:
+                      type:
+                      - string
+                      - 'null'
+                      format: date
+                    ssn:
+                      type: string
+                      minLength: 1
+                      title: Social Security Number
+                      maxLength: 9
+                    dob:
+                      type:
+                      - string
+                      - 'null'
+                      format: date
+                      title: Birthday
+                    hours_worked_ytd:
+                      type: string
+                      format: decimal
+                      pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                    compensation_ytd:
+                      type: string
+                      format: decimal
+                      pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                    years_worked_1000_hours:
+                      type:
+                      - integer
+                      - 'null'
+                      maximum: 65535
+                      minimum: 0
+                    prior_year_total_compensation:
+                      type: string
+                      format: decimal
+                      pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                    ownership_percentage:
+                      type: string
+                    company_officer:
+                      type: boolean
+                    address:
+                      allOf:
+                      - type: object
+                        description: A participant's Address
+                        properties:
+                          address_line_1:
+                            type: string
+                            minLength: 1
+                            maxLength: 100
+                          address_line_2:
+                            type: string
+                            maxLength: 100
+                          city:
+                            type: string
+                            minLength: 1
+                            maxLength: 80
+                          state:
+                            type: string
+                            minLength: 1
+                            maxLength: 80
+                          postal_code:
+                            type: string
+                            minLength: 1
+                            maxLength: 20
+                          country:
+                            type: string
+                            minLength: 1
+                            default: US
+                            maxLength: 80
+                        required:
+                        - address_line_1
+                        - city
+                        - postal_code
+                        - state
+                  required:
+                  - ssn
+                  - start_date
+          application/x-www-form-urlencoded:
+            schema:
+              oneOf:
+              - type: object
+                description: 'Represents a participant in a companies 401k account. ''met_eligibility_date''
+                  will be returned as non-null and in the past once a participant
+
+                  is eligible to contribute. In addition, for ineligible participants, the deferrals will
+                  always have a 0 amount.
+
+                  When creating a participant, either phone or email are required (preferably both). When
+                  updating a participant, object_id is required.
+
+                  If a ''termination_date'' has previously been set, pushing a ''start_date'' after it
+                  will rehire this participant.'
+                properties:
+                  object_id:
+                    type:
+                    - string
+                    - 'null'
+                  name:
+                    type: string
+                    maxLength: 100
+                  email:
+                    type: string
+                    format: email
+                    minLength: 1
+                    default: ''
+                  phone:
+                    type: string
+                    minLength: 1
+                    default: ''
+                  start_date:
+                    type: string
+                    format: date
+                    description: The latest date this participant was hired or rehired. Pushing a start_date
+                      that is after a previously set termination_date will rehire this participant.
+                  termination_date:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                  ssn:
+                    type: string
+                    minLength: 1
+                    title: Social Security Number
+                    maxLength: 9
+                  dob:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                    title: Birthday
+                  hours_worked_ytd:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                  compensation_ytd:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                  years_worked_1000_hours:
+                    type:
+                    - integer
+                    - 'null'
+                    maximum: 65535
+                    minimum: 0
+                  prior_year_total_compensation:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                  ownership_percentage:
+                    type: string
+                  company_officer:
+                    type: boolean
+                  address:
+                    allOf:
+                    - type: object
+                      description: A participant's Address
+                      properties:
+                        address_line_1:
+                          type: string
+                          minLength: 1
+                          maxLength: 100
+                        address_line_2:
+                          type: string
+                          maxLength: 100
+                        city:
+                          type: string
+                          minLength: 1
+                          maxLength: 80
+                        state:
+                          type: string
+                          minLength: 1
+                          maxLength: 80
+                        postal_code:
+                          type: string
+                          minLength: 1
+                          maxLength: 20
+                        country:
+                          type: string
+                          minLength: 1
+                          default: US
+                          maxLength: 80
+                      required:
+                      - address_line_1
+                      - city
+                      - postal_code
+                      - state
+                required:
+                - ssn
+                - start_date
+              - type: array
+                items:
+                  type: object
+                  description: 'Represents a participant in a companies 401k account. ''met_eligibility_date''
+                    will be returned as non-null and in the past once a participant
+
+                    is eligible to contribute. In addition, for ineligible participants, the deferrals
+                    will always have a 0 amount.
+
+                    When creating a participant, either phone or email are required (preferably both).
+                    When updating a participant, object_id is required.
+
+                    If a ''termination_date'' has previously been set, pushing a ''start_date'' after
+                    it will rehire this participant.'
+                  properties:
+                    object_id:
+                      type:
+                      - string
+                      - 'null'
+                    name:
+                      type: string
+                      maxLength: 100
+                    email:
+                      type: string
+                      format: email
+                      minLength: 1
+                      default: ''
+                    phone:
+                      type: string
+                      minLength: 1
+                      default: ''
+                    start_date:
+                      type: string
+                      format: date
+                      description: The latest date this participant was hired or rehired. Pushing a start_date
+                        that is after a previously set termination_date will rehire this participant.
+                    termination_date:
+                      type:
+                      - string
+                      - 'null'
+                      format: date
+                    ssn:
+                      type: string
+                      minLength: 1
+                      title: Social Security Number
+                      maxLength: 9
+                    dob:
+                      type:
+                      - string
+                      - 'null'
+                      format: date
+                      title: Birthday
+                    hours_worked_ytd:
+                      type: string
+                      format: decimal
+                      pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                    compensation_ytd:
+                      type: string
+                      format: decimal
+                      pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                    years_worked_1000_hours:
+                      type:
+                      - integer
+                      - 'null'
+                      maximum: 65535
+                      minimum: 0
+                    prior_year_total_compensation:
+                      type: string
+                      format: decimal
+                      pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                    ownership_percentage:
+                      type: string
+                    company_officer:
+                      type: boolean
+                    address:
+                      allOf:
+                      - type: object
+                        description: A participant's Address
+                        properties:
+                          address_line_1:
+                            type: string
+                            minLength: 1
+                            maxLength: 100
+                          address_line_2:
+                            type: string
+                            maxLength: 100
+                          city:
+                            type: string
+                            minLength: 1
+                            maxLength: 80
+                          state:
+                            type: string
+                            minLength: 1
+                            maxLength: 80
+                          postal_code:
+                            type: string
+                            minLength: 1
+                            maxLength: 20
+                          country:
+                            type: string
+                            minLength: 1
+                            default: US
+                            maxLength: 80
+                        required:
+                        - address_line_1
+                        - city
+                        - postal_code
+                        - state
+                  required:
+                  - ssn
+                  - start_date
+          multipart/form-data:
+            schema:
+              oneOf:
+              - type: object
+                description: 'Represents a participant in a companies 401k account. ''met_eligibility_date''
+                  will be returned as non-null and in the past once a participant
+
+                  is eligible to contribute. In addition, for ineligible participants, the deferrals will
+                  always have a 0 amount.
+
+                  When creating a participant, either phone or email are required (preferably both). When
+                  updating a participant, object_id is required.
+
+                  If a ''termination_date'' has previously been set, pushing a ''start_date'' after it
+                  will rehire this participant.'
+                properties:
+                  object_id:
+                    type:
+                    - string
+                    - 'null'
+                  name:
+                    type: string
+                    maxLength: 100
+                  email:
+                    type: string
+                    format: email
+                    minLength: 1
+                    default: ''
+                  phone:
+                    type: string
+                    minLength: 1
+                    default: ''
+                  start_date:
+                    type: string
+                    format: date
+                    description: The latest date this participant was hired or rehired. Pushing a start_date
+                      that is after a previously set termination_date will rehire this participant.
+                  termination_date:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                  ssn:
+                    type: string
+                    minLength: 1
+                    title: Social Security Number
+                    maxLength: 9
+                  dob:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                    title: Birthday
+                  hours_worked_ytd:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                  compensation_ytd:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                  years_worked_1000_hours:
+                    type:
+                    - integer
+                    - 'null'
+                    maximum: 65535
+                    minimum: 0
+                  prior_year_total_compensation:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                  ownership_percentage:
+                    type: string
+                  company_officer:
+                    type: boolean
+                  address:
+                    allOf:
+                    - type: object
+                      description: A participant's Address
+                      properties:
+                        address_line_1:
+                          type: string
+                          minLength: 1
+                          maxLength: 100
+                        address_line_2:
+                          type: string
+                          maxLength: 100
+                        city:
+                          type: string
+                          minLength: 1
+                          maxLength: 80
+                        state:
+                          type: string
+                          minLength: 1
+                          maxLength: 80
+                        postal_code:
+                          type: string
+                          minLength: 1
+                          maxLength: 20
+                        country:
+                          type: string
+                          minLength: 1
+                          default: US
+                          maxLength: 80
+                      required:
+                      - address_line_1
+                      - city
+                      - postal_code
+                      - state
+                required:
+                - ssn
+                - start_date
+              - type: array
+                items:
+                  type: object
+                  description: 'Represents a participant in a companies 401k account. ''met_eligibility_date''
+                    will be returned as non-null and in the past once a participant
+
+                    is eligible to contribute. In addition, for ineligible participants, the deferrals
+                    will always have a 0 amount.
+
+                    When creating a participant, either phone or email are required (preferably both).
+                    When updating a participant, object_id is required.
+
+                    If a ''termination_date'' has previously been set, pushing a ''start_date'' after
+                    it will rehire this participant.'
+                  properties:
+                    object_id:
+                      type:
+                      - string
+                      - 'null'
+                    name:
+                      type: string
+                      maxLength: 100
+                    email:
+                      type: string
+                      format: email
+                      minLength: 1
+                      default: ''
+                    phone:
+                      type: string
+                      minLength: 1
+                      default: ''
+                    start_date:
+                      type: string
+                      format: date
+                      description: The latest date this participant was hired or rehired. Pushing a start_date
+                        that is after a previously set termination_date will rehire this participant.
+                    termination_date:
+                      type:
+                      - string
+                      - 'null'
+                      format: date
+                    ssn:
+                      type: string
+                      minLength: 1
+                      title: Social Security Number
+                      maxLength: 9
+                    dob:
+                      type:
+                      - string
+                      - 'null'
+                      format: date
+                      title: Birthday
+                    hours_worked_ytd:
+                      type: string
+                      format: decimal
+                      pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                    compensation_ytd:
+                      type: string
+                      format: decimal
+                      pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                    years_worked_1000_hours:
+                      type:
+                      - integer
+                      - 'null'
+                      maximum: 65535
+                      minimum: 0
+                    prior_year_total_compensation:
+                      type: string
+                      format: decimal
+                      pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                    ownership_percentage:
+                      type: string
+                    company_officer:
+                      type: boolean
+                    address:
+                      allOf:
+                      - type: object
+                        description: A participant's Address
+                        properties:
+                          address_line_1:
+                            type: string
+                            minLength: 1
+                            maxLength: 100
+                          address_line_2:
+                            type: string
+                            maxLength: 100
+                          city:
+                            type: string
+                            minLength: 1
+                            maxLength: 80
+                          state:
+                            type: string
+                            minLength: 1
+                            maxLength: 80
+                          postal_code:
+                            type: string
+                            minLength: 1
+                            maxLength: 20
+                          country:
+                            type: string
+                            minLength: 1
+                            default: US
+                            maxLength: 80
+                        required:
+                        - address_line_1
+                        - city
+                        - postal_code
+                        - state
+                  required:
+                  - ssn
+                  - start_date
+      security:
+      - oauth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  description: 'Represents a participant in a companies 401k account. ''met_eligibility_date''
+                    will be returned as non-null and in the past once a participant
+
+                    is eligible to contribute. In addition, for ineligible participants, the deferrals
+                    will always have a 0 amount.
+
+                    When creating a participant, either phone or email are required (preferably both).
+                    When updating a participant, object_id is required.
+
+                    If a ''termination_date'' has previously been set, pushing a ''start_date'' after
+                    it will rehire this participant.'
+                  properties:
+                    object_id:
+                      type:
+                      - string
+                      - 'null'
+                    name:
+                      type: string
+                      maxLength: 100
+                    email:
+                      type: string
+                      format: email
+                      default: ''
+                    phone:
+                      type: string
+                      default: ''
+                    start_date:
+                      type: string
+                      format: date
+                      description: The latest date this participant was hired or rehired. Pushing a start_date
+                        that is after a previously set termination_date will rehire this participant.
+                    termination_date:
+                      type:
+                      - string
+                      - 'null'
+                      format: date
+                    met_eligibility_date:
+                      type:
+                      - string
+                      - 'null'
+                      format: date
+                      readOnly: true
+                    met_match_eligibility_date:
+                      type:
+                      - string
+                      - 'null'
+                      format: date
+                      readOnly: true
+                    met_profit_share_eligibility_date:
+                      type:
+                      - string
+                      - 'null'
+                      format: date
+                      readOnly: true
+                    ssn:
+                      type: string
+                      title: Social Security Number
+                      maxLength: 9
+                    dob:
+                      type:
+                      - string
+                      - 'null'
+                      format: date
+                      title: Birthday
+                    hours_worked_ytd:
+                      type: string
+                      format: decimal
+                      pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                    compensation_ytd:
+                      type: string
+                      format: decimal
+                      pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                    years_worked_1000_hours:
+                      type:
+                      - integer
+                      - 'null'
+                      maximum: 65535
+                      minimum: 0
+                    prior_year_total_compensation:
+                      type: string
+                      format: decimal
+                      pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                    deferrals:
+                      allOf:
+                      - type: object
+                        properties:
+                          traditional:
+                            type: object
+                            properties:
+                              amount:
+                                type: string
+                                format: decimal
+                                pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                              timestamp:
+                                type: string
+                                format: date-time
+                                description: Timestamp for conflict resolution. If older than the last
+                                  deferral update in our system, an error will be returned and deferrals
+                                  will not be updated.
+                              is_percent:
+                                type: boolean
+                            required:
+                            - amount
+                            - timestamp
+                          roth:
+                            type: object
+                            properties:
+                              amount:
+                                type: string
+                                format: decimal
+                                pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                              timestamp:
+                                type: string
+                                format: date-time
+                                description: Timestamp for conflict resolution. If older than the last
+                                  deferral update in our system, an error will be returned and deferrals
+                                  will not be updated.
+                              is_percent:
+                                type: boolean
+                            required:
+                            - amount
+                            - timestamp
+                          change_frequency:
+                            enum:
+                            - Each pay period
+                            - Monthly
+                            - Quarterly
+                            - Semi Annual
+                            - Hold for pay period
+                            type:
+                            - string
+                            - 'null'
+                            readOnly: true
+                            description: Frequency that this participant's updated deferrals will become
+                              active.
+                          active_traditional:
+                            allOf:
+                            - type: object
+                              properties:
+                                amount:
+                                  type: string
+                                  format: decimal
+                                  pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                                timestamp:
+                                  type: string
+                                  format: date-time
+                                  description: Timestamp for conflict resolution. If older than the last
+                                    deferral update in our system, an error will be returned and deferrals
+                                    will not be updated.
+                                is_percent:
+                                  type: boolean
+                              required:
+                              - amount
+                              - timestamp
+                            readOnly: true
+                            description: Currently active traditional deferrals. May be different from
+                              `traditional` field.
+                          active_roth:
+                            allOf:
+                            - type: object
+                              properties:
+                                amount:
+                                  type: string
+                                  format: decimal
+                                  pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                                timestamp:
+                                  type: string
+                                  format: date-time
+                                  description: Timestamp for conflict resolution. If older than the last
+                                    deferral update in our system, an error will be returned and deferrals
+                                    will not be updated.
+                                is_percent:
+                                  type: boolean
+                              required:
+                              - amount
+                              - timestamp
+                            readOnly: true
+                            description: Currently active roth deferrals. May be different from `roth`
+                              field.
+                          is_eligible:
+                            type: boolean
+                            readOnly: true
+                            description: If this participant is eligible.
+                          hit_max:
+                            type: boolean
+                            readOnly: true
+                            description: If this participant has hit their max for the year.
+                        required:
+                        - active_roth
+                        - active_traditional
+                        - change_frequency
+                        - hit_max
+                        - is_eligible
+                      readOnly: true
+                    loans:
+                      type: array
+                      items:
+                        type: object
+                        description: Represents a due loan payment
+                        properties:
+                          todays_payment:
+                            type: string
+                            readOnly: true
+                        required:
+                        - todays_payment
+                      readOnly: true
+                    ownership_percentage:
+                      type: string
+                    company_officer:
+                      type: boolean
+                    address:
+                      allOf:
+                      - type: object
+                        description: A participant's Address
+                        properties:
+                          address_line_1:
+                            type: string
+                            maxLength: 100
+                          address_line_2:
+                            type: string
+                            maxLength: 100
+                          city:
+                            type: string
+                            maxLength: 80
+                          state:
+                            type: string
+                            maxLength: 80
+                          postal_code:
+                            type: string
+                            maxLength: 20
+                          country:
+                            type: string
+                            default: US
+                            maxLength: 80
+                        required:
+                        - address_line_1
+                        - city
+                        - postal_code
+                        - state
+                    timestamp:
+                      type: string
+                      format: date-time
+                      readOnly: true
+                    timestamp_updated:
+                      type: string
+                      format: date-time
+                      readOnly: true
+                  required:
+                  - deferrals
+                  - loans
+                  - met_eligibility_date
+                  - met_match_eligibility_date
+                  - met_profit_share_eligibility_date
+                  - ssn
+                  - start_date
+                  - timestamp
+                  - timestamp_updated
+                - type: array
+                  items:
+                    type: object
+                    description: 'Represents a participant in a companies 401k account. ''met_eligibility_date''
+                      will be returned as non-null and in the past once a participant
+
+                      is eligible to contribute. In addition, for ineligible participants, the deferrals
+                      will always have a 0 amount.
+
+                      When creating a participant, either phone or email are required (preferably both).
+                      When updating a participant, object_id is required.
+
+                      If a ''termination_date'' has previously been set, pushing a ''start_date'' after
+                      it will rehire this participant.'
+                    properties:
+                      object_id:
+                        type:
+                        - string
+                        - 'null'
+                      name:
+                        type: string
+                        maxLength: 100
+                      email:
+                        type: string
+                        format: email
+                        default: ''
+                      phone:
+                        type: string
+                        default: ''
+                      start_date:
+                        type: string
+                        format: date
+                        description: The latest date this participant was hired or rehired. Pushing a
+                          start_date that is after a previously set termination_date will rehire this
+                          participant.
+                      termination_date:
+                        type:
+                        - string
+                        - 'null'
+                        format: date
+                      met_eligibility_date:
+                        type:
+                        - string
+                        - 'null'
+                        format: date
+                        readOnly: true
+                      met_match_eligibility_date:
+                        type:
+                        - string
+                        - 'null'
+                        format: date
+                        readOnly: true
+                      met_profit_share_eligibility_date:
+                        type:
+                        - string
+                        - 'null'
+                        format: date
+                        readOnly: true
+                      ssn:
+                        type: string
+                        title: Social Security Number
+                        maxLength: 9
+                      dob:
+                        type:
+                        - string
+                        - 'null'
+                        format: date
+                        title: Birthday
+                      hours_worked_ytd:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                      compensation_ytd:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                      years_worked_1000_hours:
+                        type:
+                        - integer
+                        - 'null'
+                        maximum: 65535
+                        minimum: 0
+                      prior_year_total_compensation:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                      deferrals:
+                        allOf:
+                        - type: object
+                          properties:
+                            traditional:
+                              type: object
+                              properties:
+                                amount:
+                                  type: string
+                                  format: decimal
+                                  pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                                timestamp:
+                                  type: string
+                                  format: date-time
+                                  description: Timestamp for conflict resolution. If older than the last
+                                    deferral update in our system, an error will be returned and deferrals
+                                    will not be updated.
+                                is_percent:
+                                  type: boolean
+                              required:
+                              - amount
+                              - timestamp
+                            roth:
+                              type: object
+                              properties:
+                                amount:
+                                  type: string
+                                  format: decimal
+                                  pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                                timestamp:
+                                  type: string
+                                  format: date-time
+                                  description: Timestamp for conflict resolution. If older than the last
+                                    deferral update in our system, an error will be returned and deferrals
+                                    will not be updated.
+                                is_percent:
+                                  type: boolean
+                              required:
+                              - amount
+                              - timestamp
+                            change_frequency:
+                              enum:
+                              - Each pay period
+                              - Monthly
+                              - Quarterly
+                              - Semi Annual
+                              - Hold for pay period
+                              type:
+                              - string
+                              - 'null'
+                              readOnly: true
+                              description: Frequency that this participant's updated deferrals will become
+                                active.
+                            active_traditional:
+                              allOf:
+                              - type: object
+                                properties:
+                                  amount:
+                                    type: string
+                                    format: decimal
+                                    pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                                  timestamp:
+                                    type: string
+                                    format: date-time
+                                    description: Timestamp for conflict resolution. If older than the
+                                      last deferral update in our system, an error will be returned and
+                                      deferrals will not be updated.
+                                  is_percent:
+                                    type: boolean
+                                required:
+                                - amount
+                                - timestamp
+                              readOnly: true
+                              description: Currently active traditional deferrals. May be different from
+                                `traditional` field.
+                            active_roth:
+                              allOf:
+                              - type: object
+                                properties:
+                                  amount:
+                                    type: string
+                                    format: decimal
+                                    pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                                  timestamp:
+                                    type: string
+                                    format: date-time
+                                    description: Timestamp for conflict resolution. If older than the
+                                      last deferral update in our system, an error will be returned and
+                                      deferrals will not be updated.
+                                  is_percent:
+                                    type: boolean
+                                required:
+                                - amount
+                                - timestamp
+                              readOnly: true
+                              description: Currently active roth deferrals. May be different from `roth`
+                                field.
+                            is_eligible:
+                              type: boolean
+                              readOnly: true
+                              description: If this participant is eligible.
+                            hit_max:
+                              type: boolean
+                              readOnly: true
+                              description: If this participant has hit their max for the year.
+                          required:
+                          - active_roth
+                          - active_traditional
+                          - change_frequency
+                          - hit_max
+                          - is_eligible
+                        readOnly: true
+                      loans:
+                        type: array
+                        items:
+                          type: object
+                          description: Represents a due loan payment
+                          properties:
+                            todays_payment:
+                              type: string
+                              readOnly: true
+                          required:
+                          - todays_payment
+                        readOnly: true
+                      ownership_percentage:
+                        type: string
+                      company_officer:
+                        type: boolean
+                      address:
+                        allOf:
+                        - type: object
+                          description: A participant's Address
+                          properties:
+                            address_line_1:
+                              type: string
+                              maxLength: 100
+                            address_line_2:
+                              type: string
+                              maxLength: 100
+                            city:
+                              type: string
+                              maxLength: 80
+                            state:
+                              type: string
+                              maxLength: 80
+                            postal_code:
+                              type: string
+                              maxLength: 20
+                            country:
+                              type: string
+                              default: US
+                              maxLength: 80
+                          required:
+                          - address_line_1
+                          - city
+                          - postal_code
+                          - state
+                      timestamp:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      timestamp_updated:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                    required:
+                    - deferrals
+                    - loans
+                    - met_eligibility_date
+                    - met_match_eligibility_date
+                    - met_profit_share_eligibility_date
+                    - ssn
+                    - start_date
+                    - timestamp
+                    - timestamp_updated
+          description: ''
+        '400':
+          description: 'Bad Request: Invalid participant data'
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+  /companies/{company_id}/participants/{participant_id}/:
+    get:
+      operationId: companies_participants_retrieve
+      description: Retrieve a participant by id for the given company_id. This will also include the current
+        deductions for a participant (deferrals and loan payments).
+      parameters:
+      - in: path
+        name: company_id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Participants
+      security:
+      - oauth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Represents a participant in a companies 401k account. ''met_eligibility_date''
+                  will be returned as non-null and in the past once a participant
+
+                  is eligible to contribute. In addition, for ineligible participants, the deferrals will
+                  always have a 0 amount.
+
+                  When creating a participant, either phone or email are required (preferably both). When
+                  updating a participant, object_id is required.
+
+                  If a ''termination_date'' has previously been set, pushing a ''start_date'' after it
+                  will rehire this participant.'
+                properties:
+                  object_id:
+                    type:
+                    - string
+                    - 'null'
+                  name:
+                    type: string
+                    maxLength: 100
+                  email:
+                    type: string
+                    format: email
+                    default: ''
+                  phone:
+                    type: string
+                    default: ''
+                  start_date:
+                    type: string
+                    format: date
+                    description: The latest date this participant was hired or rehired. Pushing a start_date
+                      that is after a previously set termination_date will rehire this participant.
+                  termination_date:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                  met_eligibility_date:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                    readOnly: true
+                  met_match_eligibility_date:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                    readOnly: true
+                  met_profit_share_eligibility_date:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                    readOnly: true
+                  ssn:
+                    type: string
+                    title: Social Security Number
+                    maxLength: 9
+                  dob:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                    title: Birthday
+                  hours_worked_ytd:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                  compensation_ytd:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                  years_worked_1000_hours:
+                    type:
+                    - integer
+                    - 'null'
+                    maximum: 65535
+                    minimum: 0
+                  prior_year_total_compensation:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                  deferrals:
+                    allOf:
+                    - type: object
+                      properties:
+                        traditional:
+                          type: object
+                          properties:
+                            amount:
+                              type: string
+                              format: decimal
+                              pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                            timestamp:
+                              type: string
+                              format: date-time
+                              description: Timestamp for conflict resolution. If older than the last deferral
+                                update in our system, an error will be returned and deferrals will not
+                                be updated.
+                            is_percent:
+                              type: boolean
+                          required:
+                          - amount
+                          - timestamp
+                        roth:
+                          type: object
+                          properties:
+                            amount:
+                              type: string
+                              format: decimal
+                              pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                            timestamp:
+                              type: string
+                              format: date-time
+                              description: Timestamp for conflict resolution. If older than the last deferral
+                                update in our system, an error will be returned and deferrals will not
+                                be updated.
+                            is_percent:
+                              type: boolean
+                          required:
+                          - amount
+                          - timestamp
+                        change_frequency:
+                          enum:
+                          - Each pay period
+                          - Monthly
+                          - Quarterly
+                          - Semi Annual
+                          - Hold for pay period
+                          type:
+                          - string
+                          - 'null'
+                          readOnly: true
+                          description: Frequency that this participant's updated deferrals will become
+                            active.
+                        active_traditional:
+                          allOf:
+                          - type: object
+                            properties:
+                              amount:
+                                type: string
+                                format: decimal
+                                pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                              timestamp:
+                                type: string
+                                format: date-time
+                                description: Timestamp for conflict resolution. If older than the last
+                                  deferral update in our system, an error will be returned and deferrals
+                                  will not be updated.
+                              is_percent:
+                                type: boolean
+                            required:
+                            - amount
+                            - timestamp
+                          readOnly: true
+                          description: Currently active traditional deferrals. May be different from `traditional`
+                            field.
+                        active_roth:
+                          allOf:
+                          - type: object
+                            properties:
+                              amount:
+                                type: string
+                                format: decimal
+                                pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                              timestamp:
+                                type: string
+                                format: date-time
+                                description: Timestamp for conflict resolution. If older than the last
+                                  deferral update in our system, an error will be returned and deferrals
+                                  will not be updated.
+                              is_percent:
+                                type: boolean
+                            required:
+                            - amount
+                            - timestamp
+                          readOnly: true
+                          description: Currently active roth deferrals. May be different from `roth` field.
+                        is_eligible:
+                          type: boolean
+                          readOnly: true
+                          description: If this participant is eligible.
+                        hit_max:
+                          type: boolean
+                          readOnly: true
+                          description: If this participant has hit their max for the year.
+                      required:
+                      - active_roth
+                      - active_traditional
+                      - change_frequency
+                      - hit_max
+                      - is_eligible
+                    readOnly: true
+                  loans:
+                    type: array
+                    items:
+                      type: object
+                      description: Represents a due loan payment
+                      properties:
+                        todays_payment:
+                          type: string
+                          readOnly: true
+                      required:
+                      - todays_payment
+                    readOnly: true
+                  ownership_percentage:
+                    type: string
+                  company_officer:
+                    type: boolean
+                  address:
+                    allOf:
+                    - type: object
+                      description: A participant's Address
+                      properties:
+                        address_line_1:
+                          type: string
+                          maxLength: 100
+                        address_line_2:
+                          type: string
+                          maxLength: 100
+                        city:
+                          type: string
+                          maxLength: 80
+                        state:
+                          type: string
+                          maxLength: 80
+                        postal_code:
+                          type: string
+                          maxLength: 20
+                        country:
+                          type: string
+                          default: US
+                          maxLength: 80
+                      required:
+                      - address_line_1
+                      - city
+                      - postal_code
+                      - state
+                  timestamp:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  timestamp_updated:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                - deferrals
+                - loans
+                - met_eligibility_date
+                - met_match_eligibility_date
+                - met_profit_share_eligibility_date
+                - ssn
+                - start_date
+                - timestamp
+                - timestamp_updated
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+    put:
+      operationId: companies_participants_update
+      description: 'Update an existing participant by id for the given company_id. You cannot add deductions
+        or update met_eligibility_date.
+
+        If you try to change an email, it will create an additional login for the user with the new email
+        so it doesn''t lock out their previous login'
+      parameters:
+      - in: path
+        name: company_id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Participants
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: 'Represents a participant in a companies 401k account. ''met_eligibility_date''
+                will be returned as non-null and in the past once a participant
+
+                is eligible to contribute. In addition, for ineligible participants, the deferrals will
+                always have a 0 amount.
+
+                When creating a participant, either phone or email are required (preferably both). When
+                updating a participant, object_id is required.
+
+                If a ''termination_date'' has previously been set, pushing a ''start_date'' after it will
+                rehire this participant.'
+              properties:
+                object_id:
+                  type:
+                  - string
+                  - 'null'
+                name:
+                  type: string
+                  maxLength: 100
+                email:
+                  type: string
+                  format: email
+                  minLength: 1
+                  default: ''
+                phone:
+                  type: string
+                  minLength: 1
+                  default: ''
+                start_date:
+                  type: string
+                  format: date
+                  description: The latest date this participant was hired or rehired. Pushing a start_date
+                    that is after a previously set termination_date will rehire this participant.
+                termination_date:
+                  type:
+                  - string
+                  - 'null'
+                  format: date
+                ssn:
+                  type: string
+                  minLength: 1
+                  title: Social Security Number
+                  maxLength: 9
+                dob:
+                  type:
+                  - string
+                  - 'null'
+                  format: date
+                  title: Birthday
+                hours_worked_ytd:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                compensation_ytd:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                years_worked_1000_hours:
+                  type:
+                  - integer
+                  - 'null'
+                  maximum: 65535
+                  minimum: 0
+                prior_year_total_compensation:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                ownership_percentage:
+                  type: string
+                company_officer:
+                  type: boolean
+                address:
+                  allOf:
+                  - type: object
+                    description: A participant's Address
+                    properties:
+                      address_line_1:
+                        type: string
+                        minLength: 1
+                        maxLength: 100
+                      address_line_2:
+                        type: string
+                        maxLength: 100
+                      city:
+                        type: string
+                        minLength: 1
+                        maxLength: 80
+                      state:
+                        type: string
+                        minLength: 1
+                        maxLength: 80
+                      postal_code:
+                        type: string
+                        minLength: 1
+                        maxLength: 20
+                      country:
+                        type: string
+                        minLength: 1
+                        default: US
+                        maxLength: 80
+                    required:
+                    - address_line_1
+                    - city
+                    - postal_code
+                    - state
+              required:
+              - ssn
+              - start_date
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              description: 'Represents a participant in a companies 401k account. ''met_eligibility_date''
+                will be returned as non-null and in the past once a participant
+
+                is eligible to contribute. In addition, for ineligible participants, the deferrals will
+                always have a 0 amount.
+
+                When creating a participant, either phone or email are required (preferably both). When
+                updating a participant, object_id is required.
+
+                If a ''termination_date'' has previously been set, pushing a ''start_date'' after it will
+                rehire this participant.'
+              properties:
+                object_id:
+                  type:
+                  - string
+                  - 'null'
+                name:
+                  type: string
+                  maxLength: 100
+                email:
+                  type: string
+                  format: email
+                  minLength: 1
+                  default: ''
+                phone:
+                  type: string
+                  minLength: 1
+                  default: ''
+                start_date:
+                  type: string
+                  format: date
+                  description: The latest date this participant was hired or rehired. Pushing a start_date
+                    that is after a previously set termination_date will rehire this participant.
+                termination_date:
+                  type:
+                  - string
+                  - 'null'
+                  format: date
+                ssn:
+                  type: string
+                  minLength: 1
+                  title: Social Security Number
+                  maxLength: 9
+                dob:
+                  type:
+                  - string
+                  - 'null'
+                  format: date
+                  title: Birthday
+                hours_worked_ytd:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                compensation_ytd:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                years_worked_1000_hours:
+                  type:
+                  - integer
+                  - 'null'
+                  maximum: 65535
+                  minimum: 0
+                prior_year_total_compensation:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                ownership_percentage:
+                  type: string
+                company_officer:
+                  type: boolean
+                address:
+                  allOf:
+                  - type: object
+                    description: A participant's Address
+                    properties:
+                      address_line_1:
+                        type: string
+                        minLength: 1
+                        maxLength: 100
+                      address_line_2:
+                        type: string
+                        maxLength: 100
+                      city:
+                        type: string
+                        minLength: 1
+                        maxLength: 80
+                      state:
+                        type: string
+                        minLength: 1
+                        maxLength: 80
+                      postal_code:
+                        type: string
+                        minLength: 1
+                        maxLength: 20
+                      country:
+                        type: string
+                        minLength: 1
+                        default: US
+                        maxLength: 80
+                    required:
+                    - address_line_1
+                    - city
+                    - postal_code
+                    - state
+              required:
+              - ssn
+              - start_date
+          multipart/form-data:
+            schema:
+              type: object
+              description: 'Represents a participant in a companies 401k account. ''met_eligibility_date''
+                will be returned as non-null and in the past once a participant
+
+                is eligible to contribute. In addition, for ineligible participants, the deferrals will
+                always have a 0 amount.
+
+                When creating a participant, either phone or email are required (preferably both). When
+                updating a participant, object_id is required.
+
+                If a ''termination_date'' has previously been set, pushing a ''start_date'' after it will
+                rehire this participant.'
+              properties:
+                object_id:
+                  type:
+                  - string
+                  - 'null'
+                name:
+                  type: string
+                  maxLength: 100
+                email:
+                  type: string
+                  format: email
+                  minLength: 1
+                  default: ''
+                phone:
+                  type: string
+                  minLength: 1
+                  default: ''
+                start_date:
+                  type: string
+                  format: date
+                  description: The latest date this participant was hired or rehired. Pushing a start_date
+                    that is after a previously set termination_date will rehire this participant.
+                termination_date:
+                  type:
+                  - string
+                  - 'null'
+                  format: date
+                ssn:
+                  type: string
+                  minLength: 1
+                  title: Social Security Number
+                  maxLength: 9
+                dob:
+                  type:
+                  - string
+                  - 'null'
+                  format: date
+                  title: Birthday
+                hours_worked_ytd:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                compensation_ytd:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                years_worked_1000_hours:
+                  type:
+                  - integer
+                  - 'null'
+                  maximum: 65535
+                  minimum: 0
+                prior_year_total_compensation:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                ownership_percentage:
+                  type: string
+                company_officer:
+                  type: boolean
+                address:
+                  allOf:
+                  - type: object
+                    description: A participant's Address
+                    properties:
+                      address_line_1:
+                        type: string
+                        minLength: 1
+                        maxLength: 100
+                      address_line_2:
+                        type: string
+                        maxLength: 100
+                      city:
+                        type: string
+                        minLength: 1
+                        maxLength: 80
+                      state:
+                        type: string
+                        minLength: 1
+                        maxLength: 80
+                      postal_code:
+                        type: string
+                        minLength: 1
+                        maxLength: 20
+                      country:
+                        type: string
+                        minLength: 1
+                        default: US
+                        maxLength: 80
+                    required:
+                    - address_line_1
+                    - city
+                    - postal_code
+                    - state
+              required:
+              - ssn
+              - start_date
+        required: true
+      security:
+      - oauth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Represents a participant in a companies 401k account. ''met_eligibility_date''
+                  will be returned as non-null and in the past once a participant
+
+                  is eligible to contribute. In addition, for ineligible participants, the deferrals will
+                  always have a 0 amount.
+
+                  When creating a participant, either phone or email are required (preferably both). When
+                  updating a participant, object_id is required.
+
+                  If a ''termination_date'' has previously been set, pushing a ''start_date'' after it
+                  will rehire this participant.'
+                properties:
+                  object_id:
+                    type:
+                    - string
+                    - 'null'
+                  name:
+                    type: string
+                    maxLength: 100
+                  email:
+                    type: string
+                    format: email
+                    default: ''
+                  phone:
+                    type: string
+                    default: ''
+                  start_date:
+                    type: string
+                    format: date
+                    description: The latest date this participant was hired or rehired. Pushing a start_date
+                      that is after a previously set termination_date will rehire this participant.
+                  termination_date:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                  met_eligibility_date:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                    readOnly: true
+                  met_match_eligibility_date:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                    readOnly: true
+                  met_profit_share_eligibility_date:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                    readOnly: true
+                  ssn:
+                    type: string
+                    title: Social Security Number
+                    maxLength: 9
+                  dob:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                    title: Birthday
+                  hours_worked_ytd:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                  compensation_ytd:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                  years_worked_1000_hours:
+                    type:
+                    - integer
+                    - 'null'
+                    maximum: 65535
+                    minimum: 0
+                  prior_year_total_compensation:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                  deferrals:
+                    allOf:
+                    - type: object
+                      properties:
+                        traditional:
+                          type: object
+                          properties:
+                            amount:
+                              type: string
+                              format: decimal
+                              pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                            timestamp:
+                              type: string
+                              format: date-time
+                              description: Timestamp for conflict resolution. If older than the last deferral
+                                update in our system, an error will be returned and deferrals will not
+                                be updated.
+                            is_percent:
+                              type: boolean
+                          required:
+                          - amount
+                          - timestamp
+                        roth:
+                          type: object
+                          properties:
+                            amount:
+                              type: string
+                              format: decimal
+                              pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                            timestamp:
+                              type: string
+                              format: date-time
+                              description: Timestamp for conflict resolution. If older than the last deferral
+                                update in our system, an error will be returned and deferrals will not
+                                be updated.
+                            is_percent:
+                              type: boolean
+                          required:
+                          - amount
+                          - timestamp
+                        change_frequency:
+                          enum:
+                          - Each pay period
+                          - Monthly
+                          - Quarterly
+                          - Semi Annual
+                          - Hold for pay period
+                          type:
+                          - string
+                          - 'null'
+                          readOnly: true
+                          description: Frequency that this participant's updated deferrals will become
+                            active.
+                        active_traditional:
+                          allOf:
+                          - type: object
+                            properties:
+                              amount:
+                                type: string
+                                format: decimal
+                                pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                              timestamp:
+                                type: string
+                                format: date-time
+                                description: Timestamp for conflict resolution. If older than the last
+                                  deferral update in our system, an error will be returned and deferrals
+                                  will not be updated.
+                              is_percent:
+                                type: boolean
+                            required:
+                            - amount
+                            - timestamp
+                          readOnly: true
+                          description: Currently active traditional deferrals. May be different from `traditional`
+                            field.
+                        active_roth:
+                          allOf:
+                          - type: object
+                            properties:
+                              amount:
+                                type: string
+                                format: decimal
+                                pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                              timestamp:
+                                type: string
+                                format: date-time
+                                description: Timestamp for conflict resolution. If older than the last
+                                  deferral update in our system, an error will be returned and deferrals
+                                  will not be updated.
+                              is_percent:
+                                type: boolean
+                            required:
+                            - amount
+                            - timestamp
+                          readOnly: true
+                          description: Currently active roth deferrals. May be different from `roth` field.
+                        is_eligible:
+                          type: boolean
+                          readOnly: true
+                          description: If this participant is eligible.
+                        hit_max:
+                          type: boolean
+                          readOnly: true
+                          description: If this participant has hit their max for the year.
+                      required:
+                      - active_roth
+                      - active_traditional
+                      - change_frequency
+                      - hit_max
+                      - is_eligible
+                    readOnly: true
+                  loans:
+                    type: array
+                    items:
+                      type: object
+                      description: Represents a due loan payment
+                      properties:
+                        todays_payment:
+                          type: string
+                          readOnly: true
+                      required:
+                      - todays_payment
+                    readOnly: true
+                  ownership_percentage:
+                    type: string
+                  company_officer:
+                    type: boolean
+                  address:
+                    allOf:
+                    - type: object
+                      description: A participant's Address
+                      properties:
+                        address_line_1:
+                          type: string
+                          maxLength: 100
+                        address_line_2:
+                          type: string
+                          maxLength: 100
+                        city:
+                          type: string
+                          maxLength: 80
+                        state:
+                          type: string
+                          maxLength: 80
+                        postal_code:
+                          type: string
+                          maxLength: 20
+                        country:
+                          type: string
+                          default: US
+                          maxLength: 80
+                      required:
+                      - address_line_1
+                      - city
+                      - postal_code
+                      - state
+                  timestamp:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  timestamp_updated:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                - deferrals
+                - loans
+                - met_eligibility_date
+                - met_match_eligibility_date
+                - met_profit_share_eligibility_date
+                - ssn
+                - start_date
+                - timestamp
+                - timestamp_updated
+          description: ''
+        '400':
+          description: 'Bad Request: Invalid participant data'
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+    patch:
+      operationId: companies_participants_partial_update
+      description: 'Update an existing participant by id for the given company_id. You cannot add deductions
+        or update met_eligibility_date.
+
+        If you try to change an email, it will create an additional login for the user with the new email
+        so it doesn''t lock out their previous login'
+      parameters:
+      - in: path
+        name: company_id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Participants
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: 'Represents a participant in a companies 401k account. ''met_eligibility_date''
+                will be returned as non-null and in the past once a participant
+
+                is eligible to contribute. In addition, for ineligible participants, the deferrals will
+                always have a 0 amount.
+
+                When creating a participant, either phone or email are required (preferably both). When
+                updating a participant, object_id is required.
+
+                If a ''termination_date'' has previously been set, pushing a ''start_date'' after it will
+                rehire this participant.'
+              properties:
+                object_id:
+                  type:
+                  - string
+                  - 'null'
+                name:
+                  type: string
+                  maxLength: 100
+                email:
+                  type: string
+                  format: email
+                  minLength: 1
+                  default: ''
+                phone:
+                  type: string
+                  minLength: 1
+                  default: ''
+                start_date:
+                  type: string
+                  format: date
+                  description: The latest date this participant was hired or rehired. Pushing a start_date
+                    that is after a previously set termination_date will rehire this participant.
+                termination_date:
+                  type:
+                  - string
+                  - 'null'
+                  format: date
+                ssn:
+                  type: string
+                  minLength: 1
+                  title: Social Security Number
+                  maxLength: 9
+                dob:
+                  type:
+                  - string
+                  - 'null'
+                  format: date
+                  title: Birthday
+                hours_worked_ytd:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                compensation_ytd:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                years_worked_1000_hours:
+                  type:
+                  - integer
+                  - 'null'
+                  maximum: 65535
+                  minimum: 0
+                prior_year_total_compensation:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                ownership_percentage:
+                  type: string
+                company_officer:
+                  type: boolean
+                address:
+                  allOf:
+                  - type: object
+                    description: A participant's Address
+                    properties:
+                      address_line_1:
+                        type: string
+                        minLength: 1
+                        maxLength: 100
+                      address_line_2:
+                        type: string
+                        maxLength: 100
+                      city:
+                        type: string
+                        minLength: 1
+                        maxLength: 80
+                      state:
+                        type: string
+                        minLength: 1
+                        maxLength: 80
+                      postal_code:
+                        type: string
+                        minLength: 1
+                        maxLength: 20
+                      country:
+                        type: string
+                        minLength: 1
+                        default: US
+                        maxLength: 80
+                    required:
+                    - address_line_1
+                    - city
+                    - postal_code
+                    - state
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              description: 'Represents a participant in a companies 401k account. ''met_eligibility_date''
+                will be returned as non-null and in the past once a participant
+
+                is eligible to contribute. In addition, for ineligible participants, the deferrals will
+                always have a 0 amount.
+
+                When creating a participant, either phone or email are required (preferably both). When
+                updating a participant, object_id is required.
+
+                If a ''termination_date'' has previously been set, pushing a ''start_date'' after it will
+                rehire this participant.'
+              properties:
+                object_id:
+                  type:
+                  - string
+                  - 'null'
+                name:
+                  type: string
+                  maxLength: 100
+                email:
+                  type: string
+                  format: email
+                  minLength: 1
+                  default: ''
+                phone:
+                  type: string
+                  minLength: 1
+                  default: ''
+                start_date:
+                  type: string
+                  format: date
+                  description: The latest date this participant was hired or rehired. Pushing a start_date
+                    that is after a previously set termination_date will rehire this participant.
+                termination_date:
+                  type:
+                  - string
+                  - 'null'
+                  format: date
+                ssn:
+                  type: string
+                  minLength: 1
+                  title: Social Security Number
+                  maxLength: 9
+                dob:
+                  type:
+                  - string
+                  - 'null'
+                  format: date
+                  title: Birthday
+                hours_worked_ytd:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                compensation_ytd:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                years_worked_1000_hours:
+                  type:
+                  - integer
+                  - 'null'
+                  maximum: 65535
+                  minimum: 0
+                prior_year_total_compensation:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                ownership_percentage:
+                  type: string
+                company_officer:
+                  type: boolean
+                address:
+                  allOf:
+                  - type: object
+                    description: A participant's Address
+                    properties:
+                      address_line_1:
+                        type: string
+                        minLength: 1
+                        maxLength: 100
+                      address_line_2:
+                        type: string
+                        maxLength: 100
+                      city:
+                        type: string
+                        minLength: 1
+                        maxLength: 80
+                      state:
+                        type: string
+                        minLength: 1
+                        maxLength: 80
+                      postal_code:
+                        type: string
+                        minLength: 1
+                        maxLength: 20
+                      country:
+                        type: string
+                        minLength: 1
+                        default: US
+                        maxLength: 80
+                    required:
+                    - address_line_1
+                    - city
+                    - postal_code
+                    - state
+          multipart/form-data:
+            schema:
+              type: object
+              description: 'Represents a participant in a companies 401k account. ''met_eligibility_date''
+                will be returned as non-null and in the past once a participant
+
+                is eligible to contribute. In addition, for ineligible participants, the deferrals will
+                always have a 0 amount.
+
+                When creating a participant, either phone or email are required (preferably both). When
+                updating a participant, object_id is required.
+
+                If a ''termination_date'' has previously been set, pushing a ''start_date'' after it will
+                rehire this participant.'
+              properties:
+                object_id:
+                  type:
+                  - string
+                  - 'null'
+                name:
+                  type: string
+                  maxLength: 100
+                email:
+                  type: string
+                  format: email
+                  minLength: 1
+                  default: ''
+                phone:
+                  type: string
+                  minLength: 1
+                  default: ''
+                start_date:
+                  type: string
+                  format: date
+                  description: The latest date this participant was hired or rehired. Pushing a start_date
+                    that is after a previously set termination_date will rehire this participant.
+                termination_date:
+                  type:
+                  - string
+                  - 'null'
+                  format: date
+                ssn:
+                  type: string
+                  minLength: 1
+                  title: Social Security Number
+                  maxLength: 9
+                dob:
+                  type:
+                  - string
+                  - 'null'
+                  format: date
+                  title: Birthday
+                hours_worked_ytd:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                compensation_ytd:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                years_worked_1000_hours:
+                  type:
+                  - integer
+                  - 'null'
+                  maximum: 65535
+                  minimum: 0
+                prior_year_total_compensation:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                ownership_percentage:
+                  type: string
+                company_officer:
+                  type: boolean
+                address:
+                  allOf:
+                  - type: object
+                    description: A participant's Address
+                    properties:
+                      address_line_1:
+                        type: string
+                        minLength: 1
+                        maxLength: 100
+                      address_line_2:
+                        type: string
+                        maxLength: 100
+                      city:
+                        type: string
+                        minLength: 1
+                        maxLength: 80
+                      state:
+                        type: string
+                        minLength: 1
+                        maxLength: 80
+                      postal_code:
+                        type: string
+                        minLength: 1
+                        maxLength: 20
+                      country:
+                        type: string
+                        minLength: 1
+                        default: US
+                        maxLength: 80
+                    required:
+                    - address_line_1
+                    - city
+                    - postal_code
+                    - state
+      security:
+      - oauth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Represents a participant in a companies 401k account. ''met_eligibility_date''
+                  will be returned as non-null and in the past once a participant
+
+                  is eligible to contribute. In addition, for ineligible participants, the deferrals will
+                  always have a 0 amount.
+
+                  When creating a participant, either phone or email are required (preferably both). When
+                  updating a participant, object_id is required.
+
+                  If a ''termination_date'' has previously been set, pushing a ''start_date'' after it
+                  will rehire this participant.'
+                properties:
+                  object_id:
+                    type:
+                    - string
+                    - 'null'
+                  name:
+                    type: string
+                    maxLength: 100
+                  email:
+                    type: string
+                    format: email
+                    default: ''
+                  phone:
+                    type: string
+                    default: ''
+                  start_date:
+                    type: string
+                    format: date
+                    description: The latest date this participant was hired or rehired. Pushing a start_date
+                      that is after a previously set termination_date will rehire this participant.
+                  termination_date:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                  met_eligibility_date:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                    readOnly: true
+                  met_match_eligibility_date:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                    readOnly: true
+                  met_profit_share_eligibility_date:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                    readOnly: true
+                  ssn:
+                    type: string
+                    title: Social Security Number
+                    maxLength: 9
+                  dob:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                    title: Birthday
+                  hours_worked_ytd:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                  compensation_ytd:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                  years_worked_1000_hours:
+                    type:
+                    - integer
+                    - 'null'
+                    maximum: 65535
+                    minimum: 0
+                  prior_year_total_compensation:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                  deferrals:
+                    allOf:
+                    - type: object
+                      properties:
+                        traditional:
+                          type: object
+                          properties:
+                            amount:
+                              type: string
+                              format: decimal
+                              pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                            timestamp:
+                              type: string
+                              format: date-time
+                              description: Timestamp for conflict resolution. If older than the last deferral
+                                update in our system, an error will be returned and deferrals will not
+                                be updated.
+                            is_percent:
+                              type: boolean
+                          required:
+                          - amount
+                          - timestamp
+                        roth:
+                          type: object
+                          properties:
+                            amount:
+                              type: string
+                              format: decimal
+                              pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                            timestamp:
+                              type: string
+                              format: date-time
+                              description: Timestamp for conflict resolution. If older than the last deferral
+                                update in our system, an error will be returned and deferrals will not
+                                be updated.
+                            is_percent:
+                              type: boolean
+                          required:
+                          - amount
+                          - timestamp
+                        change_frequency:
+                          enum:
+                          - Each pay period
+                          - Monthly
+                          - Quarterly
+                          - Semi Annual
+                          - Hold for pay period
+                          type:
+                          - string
+                          - 'null'
+                          readOnly: true
+                          description: Frequency that this participant's updated deferrals will become
+                            active.
+                        active_traditional:
+                          allOf:
+                          - type: object
+                            properties:
+                              amount:
+                                type: string
+                                format: decimal
+                                pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                              timestamp:
+                                type: string
+                                format: date-time
+                                description: Timestamp for conflict resolution. If older than the last
+                                  deferral update in our system, an error will be returned and deferrals
+                                  will not be updated.
+                              is_percent:
+                                type: boolean
+                            required:
+                            - amount
+                            - timestamp
+                          readOnly: true
+                          description: Currently active traditional deferrals. May be different from `traditional`
+                            field.
+                        active_roth:
+                          allOf:
+                          - type: object
+                            properties:
+                              amount:
+                                type: string
+                                format: decimal
+                                pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                              timestamp:
+                                type: string
+                                format: date-time
+                                description: Timestamp for conflict resolution. If older than the last
+                                  deferral update in our system, an error will be returned and deferrals
+                                  will not be updated.
+                              is_percent:
+                                type: boolean
+                            required:
+                            - amount
+                            - timestamp
+                          readOnly: true
+                          description: Currently active roth deferrals. May be different from `roth` field.
+                        is_eligible:
+                          type: boolean
+                          readOnly: true
+                          description: If this participant is eligible.
+                        hit_max:
+                          type: boolean
+                          readOnly: true
+                          description: If this participant has hit their max for the year.
+                      required:
+                      - active_roth
+                      - active_traditional
+                      - change_frequency
+                      - hit_max
+                      - is_eligible
+                    readOnly: true
+                  loans:
+                    type: array
+                    items:
+                      type: object
+                      description: Represents a due loan payment
+                      properties:
+                        todays_payment:
+                          type: string
+                          readOnly: true
+                      required:
+                      - todays_payment
+                    readOnly: true
+                  ownership_percentage:
+                    type: string
+                  company_officer:
+                    type: boolean
+                  address:
+                    allOf:
+                    - type: object
+                      description: A participant's Address
+                      properties:
+                        address_line_1:
+                          type: string
+                          maxLength: 100
+                        address_line_2:
+                          type: string
+                          maxLength: 100
+                        city:
+                          type: string
+                          maxLength: 80
+                        state:
+                          type: string
+                          maxLength: 80
+                        postal_code:
+                          type: string
+                          maxLength: 20
+                        country:
+                          type: string
+                          default: US
+                          maxLength: 80
+                      required:
+                      - address_line_1
+                      - city
+                      - postal_code
+                      - state
+                  timestamp:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  timestamp_updated:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                - deferrals
+                - loans
+                - met_eligibility_date
+                - met_match_eligibility_date
+                - met_profit_share_eligibility_date
+                - ssn
+                - start_date
+                - timestamp
+                - timestamp_updated
+          description: ''
+        '400':
+          description: 'Bad Request: Invalid participant data'
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+  /participants/{participant_id}/events/:
+    get:
+      operationId: participants_events_retrieve
+      description: 'Gets a list of the different event types that exist for a participant.
+
+
+        To check whether a participant''s dashboard is accessible, check for the ''completed setup'' event.'
+      parameters:
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Participants
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Serializer for participant events.
+
+
+                  Used to get and set event types for a participant. The event types are defined in the
+                  ParticipantEvent model.'
+                properties:
+                  event_types:
+                    type: array
+                    items:
+                      enum:
+                      - Completed Setup
+                      - eDocument Agreement
+                      - Viewed Documents
+                      - Skipped Guided Portfolio
+                      - Remove eDocument Agreement
+                      - Opt Out
+                      type: string
+                      description: '* `Completed Setup` - Completed Setup
+
+                        * `eDocument Agreement` - eDocument Agreement
+
+                        * `Viewed Documents` - Viewed Documents
+
+                        * `Skipped Guided Portfolio` - Skipped Guided Portfolio
+
+                        * `Remove eDocument Agreement` - Remove eDocument Agreement
+
+                        * `Opt Out` - Opt Out'
+                      x-spec-enum-id: 00d31436ce65e13d
+                    minItems: 1
+                required:
+                - event_types
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+    post:
+      operationId: participants_events_create
+      description: 'Adds a list of the different event types for a participant.
+
+
+        It will not duplicate events.'
+      parameters:
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Participants
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: 'Serializer for participant events.
+
+
+                Used to get and set event types for a participant. The event types are defined in the
+                ParticipantEvent model.'
+              properties:
+                event_types:
+                  type: array
+                  items:
+                    enum:
+                    - Completed Setup
+                    - eDocument Agreement
+                    - Viewed Documents
+                    - Skipped Guided Portfolio
+                    - Remove eDocument Agreement
+                    - Opt Out
+                    type: string
+                    description: '* `Completed Setup` - Completed Setup
+
+                      * `eDocument Agreement` - eDocument Agreement
+
+                      * `Viewed Documents` - Viewed Documents
+
+                      * `Skipped Guided Portfolio` - Skipped Guided Portfolio
+
+                      * `Remove eDocument Agreement` - Remove eDocument Agreement
+
+                      * `Opt Out` - Opt Out'
+                    x-spec-enum-id: 00d31436ce65e13d
+                  minItems: 1
+              required:
+              - event_types
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              description: 'Serializer for participant events.
+
+
+                Used to get and set event types for a participant. The event types are defined in the
+                ParticipantEvent model.'
+              properties:
+                event_types:
+                  type: array
+                  items:
+                    enum:
+                    - Completed Setup
+                    - eDocument Agreement
+                    - Viewed Documents
+                    - Skipped Guided Portfolio
+                    - Remove eDocument Agreement
+                    - Opt Out
+                    type: string
+                    description: '* `Completed Setup` - Completed Setup
+
+                      * `eDocument Agreement` - eDocument Agreement
+
+                      * `Viewed Documents` - Viewed Documents
+
+                      * `Skipped Guided Portfolio` - Skipped Guided Portfolio
+
+                      * `Remove eDocument Agreement` - Remove eDocument Agreement
+
+                      * `Opt Out` - Opt Out'
+                    x-spec-enum-id: 00d31436ce65e13d
+                  minItems: 1
+              required:
+              - event_types
+          multipart/form-data:
+            schema:
+              type: object
+              description: 'Serializer for participant events.
+
+
+                Used to get and set event types for a participant. The event types are defined in the
+                ParticipantEvent model.'
+              properties:
+                event_types:
+                  type: array
+                  items:
+                    enum:
+                    - Completed Setup
+                    - eDocument Agreement
+                    - Viewed Documents
+                    - Skipped Guided Portfolio
+                    - Remove eDocument Agreement
+                    - Opt Out
+                    type: string
+                    description: '* `Completed Setup` - Completed Setup
+
+                      * `eDocument Agreement` - eDocument Agreement
+
+                      * `Viewed Documents` - Viewed Documents
+
+                      * `Skipped Guided Portfolio` - Skipped Guided Portfolio
+
+                      * `Remove eDocument Agreement` - Remove eDocument Agreement
+
+                      * `Opt Out` - Opt Out'
+                    x-spec-enum-id: 00d31436ce65e13d
+                  minItems: 1
+              required:
+              - event_types
+        required: true
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+  /participants/{participant_id}/participant-setup/:
+    get:
+      operationId: participants_participant_setup_retrieve
+      description: 'Gets plan data for the associated participant, and if they''ve set their deferral
+        elections.
+
+
+        Choices for ''plan_type'' are ''Volume Submitter Prototype Format'' (401k plans), ''403B'', and
+        ''Starter-K'''
+      parameters:
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Participants
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Serializer for participant setup information including plan details and deferral
+                  status.
+                properties:
+                  eligibility_date:
+                    type: string
+                    format: date
+                  has_deferrals:
+                    type: boolean
+                  plan_name:
+                    type: string
+                  plan_type:
+                    type: string
+                  plan_number:
+                    type: integer
+                  plan_allow_self_direct:
+                    type: boolean
+                  opted_to_self_direct:
+                    type: boolean
+                  auto_enroll_percent:
+                    type:
+                    - string
+                    - 'null'
+                    default: '5'
+                    maxLength: 2
+                  has_eDocs_agreement:
+                    type: boolean
+                required:
+                - eligibility_date
+                - has_deferrals
+                - has_eDocs_agreement
+                - opted_to_self_direct
+                - plan_allow_self_direct
+                - plan_name
+                - plan_number
+                - plan_type
+          description: ''
+        '400':
+          description: 'Bad Request: No active plan associated with this account'
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+components:
+  securitySchemes:
+    knoxApiToken:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
+    oauth2:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer based with an existing token. Enter a token retrieved via the regular
+        OAuth flow elsewhere.
+servers:
+- url: https://app.401go.com/api
+  description: Base URL reconciled from apis.yml

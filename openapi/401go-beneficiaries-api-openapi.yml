@@ -1,0 +1,934 @@
+openapi: 3.2.0
+info:
+  title: 401GO Beneficiaries API
+  version: 1.0.0
+tags:
+- name: Beneficiaries
+paths:
+  /participants/{participant_id}/beneficiaries/:
+    get:
+      operationId: participants_beneficiaries_list
+      description: Get a list of a participant's beneficiaries.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Beneficiaries
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - count
+                - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        object_id:
+                          type:
+                          - string
+                          - 'null'
+                        name:
+                          type: string
+                          maxLength: 200
+                        email:
+                          type: string
+                          format: email
+                          maxLength: 100
+                        phone:
+                          type: string
+                          maxLength: 40
+                        dob:
+                          type: string
+                          format: date
+                          title: Birthday
+                        percentage:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,3}(?:\.\d{0,0})?$
+                          description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+                      required:
+                      - dob
+                      - name
+                      - percentage
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+    post:
+      operationId: participants_beneficiaries_create
+      description: 'Create a single or multiple beneficiaries for a participant.
+
+        If a list is provided, either all or none will be created.'
+      parameters:
+      - in: header
+        name: Idempotent-Key
+        schema:
+          type: string
+        description: Supply a key to safely retry requests without the server duplicating the action.
+          Will be remembered for 24 hours.
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Beneficiaries
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - type: object
+                properties:
+                  object_id:
+                    type:
+                    - string
+                    - 'null'
+                  name:
+                    type: string
+                    minLength: 1
+                    maxLength: 200
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 100
+                  phone:
+                    type: string
+                    maxLength: 40
+                  dob:
+                    type: string
+                    format: date
+                    title: Birthday
+                  percentage:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,3}(?:\.\d{0,0})?$
+                    description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+                required:
+                - dob
+                - name
+                - percentage
+              - type: array
+                items:
+                  type: object
+                  properties:
+                    object_id:
+                      type:
+                      - string
+                      - 'null'
+                    name:
+                      type: string
+                      minLength: 1
+                      maxLength: 200
+                    email:
+                      type: string
+                      format: email
+                      maxLength: 100
+                    phone:
+                      type: string
+                      maxLength: 40
+                    dob:
+                      type: string
+                      format: date
+                      title: Birthday
+                    percentage:
+                      type: string
+                      format: decimal
+                      pattern: ^-?\d{0,3}(?:\.\d{0,0})?$
+                      description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+                  required:
+                  - dob
+                  - name
+                  - percentage
+          application/x-www-form-urlencoded:
+            schema:
+              oneOf:
+              - type: object
+                properties:
+                  object_id:
+                    type:
+                    - string
+                    - 'null'
+                  name:
+                    type: string
+                    minLength: 1
+                    maxLength: 200
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 100
+                  phone:
+                    type: string
+                    maxLength: 40
+                  dob:
+                    type: string
+                    format: date
+                    title: Birthday
+                  percentage:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,3}(?:\.\d{0,0})?$
+                    description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+                required:
+                - dob
+                - name
+                - percentage
+              - type: array
+                items:
+                  type: object
+                  properties:
+                    object_id:
+                      type:
+                      - string
+                      - 'null'
+                    name:
+                      type: string
+                      minLength: 1
+                      maxLength: 200
+                    email:
+                      type: string
+                      format: email
+                      maxLength: 100
+                    phone:
+                      type: string
+                      maxLength: 40
+                    dob:
+                      type: string
+                      format: date
+                      title: Birthday
+                    percentage:
+                      type: string
+                      format: decimal
+                      pattern: ^-?\d{0,3}(?:\.\d{0,0})?$
+                      description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+                  required:
+                  - dob
+                  - name
+                  - percentage
+          multipart/form-data:
+            schema:
+              oneOf:
+              - type: object
+                properties:
+                  object_id:
+                    type:
+                    - string
+                    - 'null'
+                  name:
+                    type: string
+                    minLength: 1
+                    maxLength: 200
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 100
+                  phone:
+                    type: string
+                    maxLength: 40
+                  dob:
+                    type: string
+                    format: date
+                    title: Birthday
+                  percentage:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,3}(?:\.\d{0,0})?$
+                    description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+                required:
+                - dob
+                - name
+                - percentage
+              - type: array
+                items:
+                  type: object
+                  properties:
+                    object_id:
+                      type:
+                      - string
+                      - 'null'
+                    name:
+                      type: string
+                      minLength: 1
+                      maxLength: 200
+                    email:
+                      type: string
+                      format: email
+                      maxLength: 100
+                    phone:
+                      type: string
+                      maxLength: 40
+                    dob:
+                      type: string
+                      format: date
+                      title: Birthday
+                    percentage:
+                      type: string
+                      format: decimal
+                      pattern: ^-?\d{0,3}(?:\.\d{0,0})?$
+                      description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+                  required:
+                  - dob
+                  - name
+                  - percentage
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    object_id:
+                      type:
+                      - string
+                      - 'null'
+                    name:
+                      type: string
+                      maxLength: 200
+                    email:
+                      type: string
+                      format: email
+                      maxLength: 100
+                    phone:
+                      type: string
+                      maxLength: 40
+                    dob:
+                      type: string
+                      format: date
+                      title: Birthday
+                    percentage:
+                      type: string
+                      format: decimal
+                      pattern: ^-?\d{0,3}(?:\.\d{0,0})?$
+                      description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+                  required:
+                  - dob
+                  - name
+                  - percentage
+                - type: array
+                  items:
+                    type: object
+                    properties:
+                      object_id:
+                        type:
+                        - string
+                        - 'null'
+                      name:
+                        type: string
+                        maxLength: 200
+                      email:
+                        type: string
+                        format: email
+                        maxLength: 100
+                      phone:
+                        type: string
+                        maxLength: 40
+                      dob:
+                        type: string
+                        format: date
+                        title: Birthday
+                      percentage:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,3}(?:\.\d{0,0})?$
+                        description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+                    required:
+                    - dob
+                    - name
+                    - percentage
+          description: ''
+        '400':
+          description: 'Bad Request: Invalid beneficiary data'
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+    patch:
+      operationId: participants_beneficiaries_partial_update
+      description: 'Partially update a list of beneficiaries. Each entry must include the `object_id`.
+        The provided list must
+
+        be a subset of the participant''s beneficiaries. Validates every entry first, then either applies
+        all or none of
+
+        them.'
+      parameters:
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Beneficiaries
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                object_id:
+                  type:
+                  - string
+                  - 'null'
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 200
+                email:
+                  type: string
+                  format: email
+                  maxLength: 100
+                phone:
+                  type: string
+                  maxLength: 40
+                dob:
+                  type: string
+                  format: date
+                  title: Birthday
+                percentage:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,3}(?:\.\d{0,0})?$
+                  description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                object_id:
+                  type:
+                  - string
+                  - 'null'
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 200
+                email:
+                  type: string
+                  format: email
+                  maxLength: 100
+                phone:
+                  type: string
+                  maxLength: 40
+                dob:
+                  type: string
+                  format: date
+                  title: Birthday
+                percentage:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,3}(?:\.\d{0,0})?$
+                  description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                object_id:
+                  type:
+                  - string
+                  - 'null'
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 200
+                email:
+                  type: string
+                  format: email
+                  maxLength: 100
+                phone:
+                  type: string
+                  maxLength: 40
+                dob:
+                  type: string
+                  format: date
+                  title: Birthday
+                percentage:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,3}(?:\.\d{0,0})?$
+                  description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  object_id:
+                    type:
+                    - string
+                    - 'null'
+                  name:
+                    type: string
+                    maxLength: 200
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 100
+                  phone:
+                    type: string
+                    maxLength: 40
+                  dob:
+                    type: string
+                    format: date
+                    title: Birthday
+                  percentage:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,3}(?:\.\d{0,0})?$
+                    description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+                required:
+                - dob
+                - name
+                - percentage
+          description: ''
+  /participants/{participant_id}/beneficiaries/{beneficiary_id}/:
+    get:
+      operationId: participants_beneficiaries_retrieve
+      description: Retrieve a specific beneficiary.
+      parameters:
+      - in: path
+        name: beneficiary_id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Beneficiaries
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  object_id:
+                    type:
+                    - string
+                    - 'null'
+                  name:
+                    type: string
+                    maxLength: 200
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 100
+                  phone:
+                    type: string
+                    maxLength: 40
+                  dob:
+                    type: string
+                    format: date
+                    title: Birthday
+                  percentage:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,3}(?:\.\d{0,0})?$
+                    description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+                required:
+                - dob
+                - name
+                - percentage
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+    put:
+      operationId: participants_beneficiaries_update
+      description: Fully update a specific beneficiary.
+      parameters:
+      - in: path
+        name: beneficiary_id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Beneficiaries
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                object_id:
+                  type:
+                  - string
+                  - 'null'
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 200
+                email:
+                  type: string
+                  format: email
+                  maxLength: 100
+                phone:
+                  type: string
+                  maxLength: 40
+                dob:
+                  type: string
+                  format: date
+                  title: Birthday
+                percentage:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,3}(?:\.\d{0,0})?$
+                  description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+              required:
+              - dob
+              - name
+              - percentage
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                object_id:
+                  type:
+                  - string
+                  - 'null'
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 200
+                email:
+                  type: string
+                  format: email
+                  maxLength: 100
+                phone:
+                  type: string
+                  maxLength: 40
+                dob:
+                  type: string
+                  format: date
+                  title: Birthday
+                percentage:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,3}(?:\.\d{0,0})?$
+                  description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+              required:
+              - dob
+              - name
+              - percentage
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                object_id:
+                  type:
+                  - string
+                  - 'null'
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 200
+                email:
+                  type: string
+                  format: email
+                  maxLength: 100
+                phone:
+                  type: string
+                  maxLength: 40
+                dob:
+                  type: string
+                  format: date
+                  title: Birthday
+                percentage:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,3}(?:\.\d{0,0})?$
+                  description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+              required:
+              - dob
+              - name
+              - percentage
+        required: true
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  object_id:
+                    type:
+                    - string
+                    - 'null'
+                  name:
+                    type: string
+                    maxLength: 200
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 100
+                  phone:
+                    type: string
+                    maxLength: 40
+                  dob:
+                    type: string
+                    format: date
+                    title: Birthday
+                  percentage:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,3}(?:\.\d{0,0})?$
+                    description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+                required:
+                - dob
+                - name
+                - percentage
+          description: ''
+        '400':
+          description: 'Bad Request: Invalid beneficiary data'
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+    patch:
+      operationId: participants_beneficiaries_partial_update_2
+      description: Partially update a single beneficiary.
+      parameters:
+      - in: path
+        name: beneficiary_id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Beneficiaries
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                object_id:
+                  type:
+                  - string
+                  - 'null'
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 200
+                email:
+                  type: string
+                  format: email
+                  maxLength: 100
+                phone:
+                  type: string
+                  maxLength: 40
+                dob:
+                  type: string
+                  format: date
+                  title: Birthday
+                percentage:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,3}(?:\.\d{0,0})?$
+                  description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                object_id:
+                  type:
+                  - string
+                  - 'null'
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 200
+                email:
+                  type: string
+                  format: email
+                  maxLength: 100
+                phone:
+                  type: string
+                  maxLength: 40
+                dob:
+                  type: string
+                  format: date
+                  title: Birthday
+                percentage:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,3}(?:\.\d{0,0})?$
+                  description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                object_id:
+                  type:
+                  - string
+                  - 'null'
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 200
+                email:
+                  type: string
+                  format: email
+                  maxLength: 100
+                phone:
+                  type: string
+                  maxLength: 40
+                dob:
+                  type: string
+                  format: date
+                  title: Birthday
+                percentage:
+                  type: string
+                  format: decimal
+                  pattern: ^-?\d{0,3}(?:\.\d{0,0})?$
+                  description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  object_id:
+                    type:
+                    - string
+                    - 'null'
+                  name:
+                    type: string
+                    maxLength: 200
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 100
+                  phone:
+                    type: string
+                    maxLength: 40
+                  dob:
+                    type: string
+                    format: date
+                    title: Birthday
+                  percentage:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,3}(?:\.\d{0,0})?$
+                    description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+                required:
+                - dob
+                - name
+                - percentage
+          description: ''
+        '400':
+          description: 'Bad Request: Invalid beneficiary data'
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+    delete:
+      operationId: participants_beneficiaries_destroy
+      description: Delete a beneficiary.
+      parameters:
+      - in: path
+        name: beneficiary_id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Beneficiaries
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '204':
+          description: No response body
+        '403':
+          description: 'Forbidden: Invalid permissions to delete this beneficiary'
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+components:
+  securitySchemes:
+    knoxApiToken:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
+    oauth2:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer based with an existing token. Enter a token retrieved via the regular
+        OAuth flow elsewhere.
+servers:
+- url: https://app.401go.com/api
+  description: Base URL reconciled from apis.yml

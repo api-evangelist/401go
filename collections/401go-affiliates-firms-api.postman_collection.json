@@ -1,0 +1,1740 @@
+{
+  "item": [
+    {
+      "id": "fbea929d-4782-435d-8970-1e0a5dd1ceb0",
+      "name": "Affiliates & Firms",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "920b438c-46fe-48ad-bd39-c853741eb352",
+          "name": "affiliate firms list",
+          "request": {
+            "name": "affiliate firms list",
+            "description": {
+              "content": "Returns all affiliate firms the authenticated user has permission to access.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "affiliate-firms",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "A page number within the paginated result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>",
+                  "description": "Number of results to return per page."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c0dd0286-e639-468b-a695-3febe8afeb96",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "affiliate-firms",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 123,\n  \"results\": [\n    {\n      \"address\": {\n        \"address_line_1\": \"string\",\n        \"city\": \"string\",\n        \"postal_code\": \"string\",\n        \"state\": \"string\",\n        \"address_line_2\": \"string\",\n        \"country\": \"US\"\n      },\n      \"crd\": \"string\",\n      \"is_338_firm\": false,\n      \"name\": \"string\",\n      \"object_id\": \"string\",\n      \"contact_name\": \"string\",\n      \"contact_email\": \"T3roQOpSstgs@eDMwDrHyPXSUUOF.gi\"\n    },\n    {\n      \"address\": {\n        \"address_line_1\": \"string\",\n        \"city\": \"string\",\n        \"postal_code\": \"string\",\n        \"state\": \"string\",\n        \"address_line_2\": \"string\",\n        \"country\": \"US\"\n      },\n      \"crd\": \"string\",\n      \"is_338_firm\": false,\n      \"name\": \"string\",\n      \"object_id\": \"string\",\n      \"contact_name\": \"string\",\n      \"contact_email\": \"TuBx9fK@grhBdzQOHTuZFTuHbAnQLmwhkHeUvNhGI.rifk\"\n    }\n  ],\n  \"next\": \"http://api.example.org/accounts/?page=4\",\n  \"previous\": \"http://api.example.org/accounts/?page=2\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f1276d1-6826-4a3a-bcdb-8f36dc039aba",
+              "name": "Unauthorized: Missing or invalid authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "affiliate-firms",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ba0a67d9-a287-4e74-8bbf-6eed7553c031",
+              "name": "Forbidden: Insufficient permissions or scopes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "affiliate-firms",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c674e50d-9f95-4e89-98db-40eeb661a08a",
+          "name": "affiliate firms affiliates list",
+          "request": {
+            "name": "affiliate firms affiliates list",
+            "description": {
+              "content": "Returns the list of affiliates belonging to the given affiliate firm.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "affiliate-firms",
+                ":affiliate_firm_id",
+                "affiliates",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "A page number within the paginated result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>",
+                  "description": "Number of results to return per page."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "affiliate_firm_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "79380ed3-ce82-4f2f-be2b-72c3568c754d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "affiliate-firms",
+                    ":affiliate_firm_id",
+                    "affiliates",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "affiliate_firm_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 123,\n  \"results\": [\n    {\n      \"address\": {\n        \"address_line_1\": \"string\",\n        \"city\": \"string\",\n        \"postal_code\": \"string\",\n        \"state\": \"string\",\n        \"address_line_2\": \"string\",\n        \"country\": \"US\"\n      },\n      \"crd\": \"string\",\n      \"name\": \"string\",\n      \"object_id\": \"string\"\n    },\n    {\n      \"address\": {\n        \"address_line_1\": \"string\",\n        \"city\": \"string\",\n        \"postal_code\": \"string\",\n        \"state\": \"string\",\n        \"address_line_2\": \"string\",\n        \"country\": \"US\"\n      },\n      \"crd\": \"string\",\n      \"name\": \"string\",\n      \"object_id\": \"string\"\n    }\n  ],\n  \"next\": \"http://api.example.org/accounts/?page=4\",\n  \"previous\": \"http://api.example.org/accounts/?page=2\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be31d4a7-59ec-473a-aef2-eeaaf712914d",
+              "name": "Unauthorized: Missing or invalid authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "affiliate-firms",
+                    ":affiliate_firm_id",
+                    "affiliates",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "affiliate_firm_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "15d42db7-7b43-49e7-8302-5ed561f32f4c",
+              "name": "Forbidden: Insufficient permissions or scopes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "affiliate-firms",
+                    ":affiliate_firm_id",
+                    "affiliates",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "affiliate_firm_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2eec0dda-ad49-4304-a50a-833975b68e9b",
+          "name": "affiliate firms fund lineups list",
+          "request": {
+            "name": "affiliate firms fund lineups list",
+            "description": {
+              "content": "Returns fund lineups for the given affiliate firm. Only available for 338 firms.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "affiliate-firms",
+                ":affiliate_firm_id",
+                "fund-lineups",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "A page number within the paginated result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>",
+                  "description": "Number of results to return per page."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "affiliate_firm_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1770d1a3-3990-404b-ab19-66ad81cc9e3f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "affiliate-firms",
+                    ":affiliate_firm_id",
+                    "fund-lineups",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "affiliate_firm_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 123,\n  \"results\": [\n    {\n      \"custodian\": \"Matrix And Drive Wealth\",\n      \"investments\": [\n        {\n          \"asset_class\": \"string\",\n          \"description\": \"string\",\n          \"object_id\": \"string\",\n          \"name\": \"string\",\n          \"ticker\": \"string\",\n          \"cusip\": null,\n          \"status\": \"Unknown\"\n        },\n        {\n          \"asset_class\": \"string\",\n          \"description\": \"string\",\n          \"object_id\": \"string\",\n          \"name\": \"string\",\n          \"ticker\": null,\n          \"cusip\": \"string\",\n          \"status\": \"Unknown\"\n        }\n      ],\n      \"object_id\": \"string\",\n      \"name\": null,\n      \"description\": \"string\"\n    },\n    {\n      \"custodian\": \"Apex\",\n      \"investments\": [\n        {\n          \"asset_class\": \"string\",\n          \"description\": \"string\",\n          \"object_id\": \"string\",\n          \"name\": \"string\",\n          \"ticker\": null,\n          \"cusip\": \"string\",\n          \"status\": \"Unknown\"\n        },\n        {\n          \"asset_class\": \"string\",\n          \"description\": \"string\",\n          \"object_id\": \"string\",\n          \"name\": \"string\",\n          \"ticker\": null,\n          \"cusip\": \"string\",\n          \"status\": \"Unknown\"\n        }\n      ],\n      \"object_id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\"\n    }\n  ],\n  \"next\": \"http://api.example.org/accounts/?page=4\",\n  \"previous\": \"http://api.example.org/accounts/?page=2\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c44f6848-8ab7-4875-a3f2-cb5db5c01616",
+              "name": "Bad Request: Only 338 firms have fund lineups.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "affiliate-firms",
+                    ":affiliate_firm_id",
+                    "fund-lineups",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "affiliate_firm_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "67278014-e51c-49c8-b319-914c319afe6c",
+              "name": "Unauthorized: Missing or invalid authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "affiliate-firms",
+                    ":affiliate_firm_id",
+                    "fund-lineups",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "affiliate_firm_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7a83fcc6-de83-45e3-8c1c-8977d04618b5",
+              "name": "Forbidden: Insufficient permissions or scopes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "affiliate-firms",
+                    ":affiliate_firm_id",
+                    "fund-lineups",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "affiliate_firm_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "48714519-8d76-4137-b992-83a55b6d807f",
+          "name": "affiliate firms pooled plans list",
+          "request": {
+            "name": "affiliate firms pooled plans list",
+            "description": {
+              "content": "Returns pooled plans provided by the given affiliate firm.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "affiliate-firms",
+                ":affiliate_firm_id",
+                "pooled-plans",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "A page number within the paginated result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>",
+                  "description": "Number of results to return per page."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "affiliate_firm_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0e3cfdd2-2929-416f-ac68-0cfb254358e9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "affiliate-firms",
+                    ":affiliate_firm_id",
+                    "pooled-plans",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "affiliate_firm_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 123,\n  \"results\": [\n    {\n      \"name\": \"string\",\n      \"object_id\": \"string\",\n      \"effective_date\": \"2026-05-30\",\n      \"terminated_date\": null,\n      \"status\": \"INACTIVE\",\n      \"matrix_alliance_code\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"object_id\": \"string\",\n      \"effective_date\": null,\n      \"terminated_date\": null,\n      \"status\": \"INACTIVE\",\n      \"matrix_alliance_code\": \"string\"\n    }\n  ],\n  \"next\": \"http://api.example.org/accounts/?page=4\",\n  \"previous\": \"http://api.example.org/accounts/?page=2\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b2cef7a2-d134-4122-95b9-b814443e3b76",
+              "name": "Unauthorized: Missing or invalid authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "affiliate-firms",
+                    ":affiliate_firm_id",
+                    "pooled-plans",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "affiliate_firm_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a3df1eab-a7e4-4524-852b-de82eb62ebec",
+              "name": "Forbidden: Insufficient permissions or scopes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "affiliate-firms",
+                    ":affiliate_firm_id",
+                    "pooled-plans",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "affiliate_firm_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b889562d-12ba-4947-a64c-d9fc4241ed4f",
+          "name": "affiliate firms pricing tiers list",
+          "request": {
+            "name": "affiliate firms pricing tiers list",
+            "description": {
+              "content": "Returns pricing tiers for the given affiliate firm.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "affiliate-firms",
+                ":affiliate_firm_id",
+                "pricing-tiers",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "A page number within the paginated result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>",
+                  "description": "Number of results to return per page."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "affiliate_firm_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9374a2cb-463b-47ba-8d8a-89e06fcb0bdb",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "affiliate-firms",
+                    ":affiliate_firm_id",
+                    "pricing-tiers",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "affiliate_firm_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 123,\n  \"results\": [\n    {\n      \"aum_tiers\": [\n        {\n          \"aum_limit\": \"66037946597068.4\",\n          \"aum_fee\": \"string\"\n        },\n        {\n          \"aum_limit\": \"-231008\",\n          \"aum_fee\": \"string\"\n        }\n      ],\n      \"aum_tiers_banded\": false,\n      \"object_id\": \"string\",\n      \"other_fees\": [\n        {\n          \"fee_description\": \"string\",\n          \"fee_frequency\": \"Monthly\",\n          \"fee\": \"-6629773413\"\n        },\n        {\n          \"fee_description\": \"string\",\n          \"fee_frequency\": \"Quarterly\",\n          \"fee\": \"-7740693327850\"\n        }\n      ],\n      \"per_head_tiers\": [\n        {\n          \"participant_limit\": 2583,\n          \"dollar_per_head\": \"608941644\"\n        },\n        {\n          \"participant_limit\": 6483,\n          \"dollar_per_head\": \"55145020667713.\"\n        }\n      ],\n      \"tier_name\": \"string\"\n    },\n    {\n      \"aum_tiers\": [\n        {\n          \"aum_limit\": \"78.99\",\n          \"aum_fee\": \"string\"\n        },\n        {\n          \"aum_limit\": \"-54180270695474783.9\",\n          \"aum_fee\": \"string\"\n        }\n      ],\n      \"aum_tiers_banded\": true,\n      \"object_id\": \"string\",\n      \"other_fees\": [\n        {\n          \"fee_description\": \"string\",\n          \"fee_frequency\": \"Weekly\",\n          \"fee\": \"-977\"\n        },\n        {\n          \"fee_description\": \"string\",\n          \"fee_frequency\": \"Monthly\",\n          \"fee\": \"-3526818059328944\"\n        }\n      ],\n      \"per_head_tiers\": [\n        {\n          \"participant_limit\": 9586,\n          \"dollar_per_head\": \"-99114451950\"\n        },\n        {\n          \"participant_limit\": 1106,\n          \"dollar_per_head\": \"18571129\"\n        }\n      ],\n      \"tier_name\": \"string\"\n    }\n  ],\n  \"next\": \"http://api.example.org/accounts/?page=4\",\n  \"previous\": \"http://api.example.org/accounts/?page=2\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6844cbaa-1cf8-4404-a7a3-00cbc467cca5",
+              "name": "Unauthorized: Missing or invalid authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "affiliate-firms",
+                    ":affiliate_firm_id",
+                    "pricing-tiers",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "affiliate_firm_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b63c8a91-b475-427c-86b3-870c826ea061",
+              "name": "Forbidden: Insufficient permissions or scopes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "affiliate-firms",
+                    ":affiliate_firm_id",
+                    "pricing-tiers",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "affiliate_firm_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1daa5a7e-6036-4a61-99f5-a616704206f7",
+          "name": "affiliates pricing tiers list",
+          "request": {
+            "name": "affiliates pricing tiers list",
+            "description": {
+              "content": "Returns pricing tiers for the given affiliate.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "affiliates",
+                ":affiliate_id",
+                "pricing-tiers",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "A page number within the paginated result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>",
+                  "description": "Number of results to return per page."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "affiliate_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d40514fd-f574-4f38-945a-0f4a6335eb7a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "affiliates",
+                    ":affiliate_id",
+                    "pricing-tiers",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "affiliate_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 123,\n  \"results\": [\n    {\n      \"aum_tiers\": [\n        {\n          \"aum_limit\": \"66037946597068.4\",\n          \"aum_fee\": \"string\"\n        },\n        {\n          \"aum_limit\": \"-231008\",\n          \"aum_fee\": \"string\"\n        }\n      ],\n      \"aum_tiers_banded\": false,\n      \"object_id\": \"string\",\n      \"other_fees\": [\n        {\n          \"fee_description\": \"string\",\n          \"fee_frequency\": \"Monthly\",\n          \"fee\": \"-6629773413\"\n        },\n        {\n          \"fee_description\": \"string\",\n          \"fee_frequency\": \"Quarterly\",\n          \"fee\": \"-7740693327850\"\n        }\n      ],\n      \"per_head_tiers\": [\n        {\n          \"participant_limit\": 2583,\n          \"dollar_per_head\": \"608941644\"\n        },\n        {\n          \"participant_limit\": 6483,\n          \"dollar_per_head\": \"55145020667713.\"\n        }\n      ],\n      \"tier_name\": \"string\"\n    },\n    {\n      \"aum_tiers\": [\n        {\n          \"aum_limit\": \"78.99\",\n          \"aum_fee\": \"string\"\n        },\n        {\n          \"aum_limit\": \"-54180270695474783.9\",\n          \"aum_fee\": \"string\"\n        }\n      ],\n      \"aum_tiers_banded\": true,\n      \"object_id\": \"string\",\n      \"other_fees\": [\n        {\n          \"fee_description\": \"string\",\n          \"fee_frequency\": \"Weekly\",\n          \"fee\": \"-977\"\n        },\n        {\n          \"fee_description\": \"string\",\n          \"fee_frequency\": \"Monthly\",\n          \"fee\": \"-3526818059328944\"\n        }\n      ],\n      \"per_head_tiers\": [\n        {\n          \"participant_limit\": 9586,\n          \"dollar_per_head\": \"-99114451950\"\n        },\n        {\n          \"participant_limit\": 1106,\n          \"dollar_per_head\": \"18571129\"\n        }\n      ],\n      \"tier_name\": \"string\"\n    }\n  ],\n  \"next\": \"http://api.example.org/accounts/?page=4\",\n  \"previous\": \"http://api.example.org/accounts/?page=2\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21a1fffb-2f56-4258-a885-ccd20b637a70",
+              "name": "Unauthorized: Missing or invalid authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "affiliates",
+                    ":affiliate_id",
+                    "pricing-tiers",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "affiliate_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ff68d0aa-8d7a-4b4d-beb0-4a26646bb755",
+              "name": "Forbidden: Insufficient permissions or scopes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "affiliates",
+                    ":affiliate_id",
+                    "pricing-tiers",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "affiliate_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3df3708d-7a35-403a-b9ff-5693c3183632",
+          "name": "companies company affiliates retrieve",
+          "request": {
+            "name": "companies company affiliates retrieve",
+            "description": {
+              "content": "Returns broker-dealer, advisor, and advisor firm data for the given company.\n\nNotes:\n- Some or all returned fields may be null.\n- Advisor and firm CRD numbers may not always be available.\n- If the company is working with a specific advisor from a firm, that advisor will be included in the response.\n- If the company works with a firm but not a specific advisor, the advisor field will be null.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "companies",
+                ":company_id",
+                "company-affiliates",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "company_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "661fb8e5-dd33-4992-993c-f932edcf9b43",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "companies",
+                    ":company_id",
+                    "company-affiliates",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "company_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"advisor\": {\n    \"address\": {\n      \"address_line_1\": \"string\",\n      \"city\": \"string\",\n      \"postal_code\": \"string\",\n      \"state\": \"string\",\n      \"address_line_2\": \"string\",\n      \"country\": \"US\"\n    },\n    \"crd\": \"string\",\n    \"name\": \"string\",\n    \"object_id\": \"string\"\n  },\n  \"advisor_firm\": {\n    \"address\": {\n      \"address_line_1\": \"string\",\n      \"city\": \"string\",\n      \"postal_code\": \"string\",\n      \"state\": \"string\",\n      \"address_line_2\": \"string\",\n      \"country\": \"US\"\n    },\n    \"crd\": \"string\",\n    \"is_338_firm\": false,\n    \"name\": \"string\",\n    \"object_id\": \"string\",\n    \"contact_name\": \"string\",\n    \"contact_email\": \"iawdVYxF4CqfQQ@CjfMnCoNcttPKSJIMxVtrjgdNvTbBAkob.scnc\"\n  },\n  \"broker_dealer\": {\n    \"address\": {\n      \"address_line_1\": \"string\",\n      \"city\": \"string\",\n      \"postal_code\": \"string\",\n      \"state\": \"string\",\n      \"address_line_2\": \"string\",\n      \"country\": \"US\"\n    },\n    \"name\": \"string\",\n    \"contact_name\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa56b7e8-4fcf-488b-9d8e-d892c784ed61",
+              "name": "Unauthorized: Missing or invalid authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "companies",
+                    ":company_id",
+                    "company-affiliates",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "company_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "35d7db6e-8705-4adc-8fae-3d46f55c8f61",
+              "name": "Forbidden: Insufficient permissions or scopes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "companies",
+                    ":company_id",
+                    "company-affiliates",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "company_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.401go.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "de2940f9-6b10-453f-95b5-33f0c89445ec",
+    "name": "401GO Affiliates & Firms API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

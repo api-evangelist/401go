@@ -1,0 +1,169 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "401GO Companies & Plans API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Companies & Plans",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "companies_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/companies/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a list of companies that the bearer token has access to"
+        },
+        {
+          "info": {
+            "name": "companies_investment_options_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/companies/:company_id/investment-options/",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of investment options available for a given company."
+        },
+        {
+          "info": {
+            "name": "companies_matches_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/companies/:company_id/matches/",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "companies_plan_provisions_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/companies/:company_id/plan-provisions/",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve plan provisions for a company.\n\nReturns detailed configuration settings for the 401(k) plan associated with the company.\nThis includes eligibility requirements, vesting schedules, contribution settings, and other plan provisions.\nSpecial Field Behaviors:\n    - exclude_highly_compensated_and_key_employees: Only available for safe harbor plans\n    - hours_of_service: Only populated when eligibility delay is 'Hours of Service'\n    - allow_permissible_withdrawal: If true, allows penalty-fre"
+        },
+        {
+          "info": {
+            "name": "plan_setup_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.401go.com/api/plan-setup/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new company and 401(k) plan.\n\nReturns an ``object_id`` identifying the new company/plan. Use it as the path parameter for\nsubsequent PUT/PATCH requests to update the plan.\n\n**Fields requiring IDs from other endpoints**\n\nSeveral fields accept opaque IDs that must first be retrieved from other API endpoints:\n\n- ``acting_338``: retrieve from the *Affiliate Firms > Affiliates* or *Affiliates* endpoint.\n- ``pooled_plan``: retrieve from the *Affiliate Firms > Pooled Plans* endpoint.\n- ``bill"
+        },
+        {
+          "info": {
+            "name": "plan_setup_update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.401go.com/api/plan-setup/:company_id/",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates an existing 401(k) plan.\n\nThe ``{id}`` path parameter is the ``object_id`` returned from the POST response.\n\nPartial updates (PATCH) will not work. Endpoint currently only supports full replacement (PUT).\n\nUpdates are blocked if the plan has been modified through the web portal after initial\nAPI setup, or if the plan is or was active."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

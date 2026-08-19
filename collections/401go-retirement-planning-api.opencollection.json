@@ -1,0 +1,196 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "401GO Retirement Planning API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Retirement Planning",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "participants_advisor_models_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/advisor-models/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "participants_advisor_models_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.401go.com/api/participants/:participant_id/advisor-models/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "participants_retirement_planning_defaults_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/retirement-planning-defaults/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the defaults used for the estimation. Note that the defaults returned may not be valid for getting an\nestimate, for example if `age > retirement_age`."
+        },
+        {
+          "info": {
+            "name": "participants_retirement_planning_estimate_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/retirement-planning-estimate/",
+            "params": [
+              {
+                "name": "age",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to participant's age"
+              },
+              {
+                "name": "annual_raise",
+                "value": "",
+                "type": "query",
+                "description": "Expected annual raise"
+              },
+              {
+                "name": "correct_for_inflation",
+                "value": "",
+                "type": "query",
+                "description": "Display amounts as they are worth today"
+              },
+              {
+                "name": "current_savings",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to participant's current account balance"
+              },
+              {
+                "name": "include_contributions",
+                "value": "",
+                "type": "query",
+                "description": "Include employer contributions to the account"
+              },
+              {
+                "name": "include_social_security",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "inflation",
+                "value": "",
+                "type": "query",
+                "description": "Expected annual inflation"
+              },
+              {
+                "name": "investment_return",
+                "value": "",
+                "type": "query",
+                "description": "Expected annual investment return"
+              },
+              {
+                "name": "life_expectancy",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "retirement_age",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to participant's retirement age"
+              },
+              {
+                "name": "retirement_spending",
+                "value": "",
+                "type": "query",
+                "description": "Percentage of income needed during retirement"
+              },
+              {
+                "name": "salary",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to participant's previous year compensation or estimation based on this year"
+              },
+              {
+                "name": "savings_percent",
+                "value": "",
+                "type": "query",
+                "description": "Percentage of income saved"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Estimate a participant's projected balance and target savings for retirement. Will use the defaults as defined\nfrom the retirement-planning-defaults unless an override is given. Can only be used if the participant has not\nyet reached retirement, or the supplied `age` is less than `retirement_age`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

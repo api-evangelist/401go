@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "401GO Documents API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list_participant_documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/participant-documents/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of participant related documents."
+        },
+        {
+          "info": {
+            "name": "get_signed_participant_document_url",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/participant-documents/:document_name/",
+            "params": [
+              {
+                "name": "document_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a signed url for the given named document that will last for 30 minutes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

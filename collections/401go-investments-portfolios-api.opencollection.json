@@ -1,0 +1,316 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "401GO Investments & Portfolios API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Investments & Portfolios",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "investments_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/investments/:investment_id/",
+            "params": [
+              {
+                "name": "investment_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "API endpoints for retrieving investment fund information."
+        },
+        {
+          "info": {
+            "name": "participants_cancel_participant_rebalance_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.401go.com/api/participants/:participant_id/cancel-participant-rebalance/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "participants_investment_history_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/investment-history/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of investment transactions for the given participant id.\n\nYou can optionally paginate by including 'page={page_num}&page_size={page_size}' in the query string.\nPossible statuses: pending, confirmed, failed, dividend."
+        },
+        {
+          "info": {
+            "name": "participants_investment_options_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/investment-options/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of investment options available to the given participant.\n\nYou can optionally paginate by including 'page={page_num}&page_size={page_size}' in the query string."
+        },
+        {
+          "info": {
+            "name": "participants_investment_performance_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/investment-performance/",
+            "params": [
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date for filtering portfolios (YYYY-MM-DD format). Defaults to today."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date for filtering portfolios (YYYY-MM-DD format). Defaults to the first day an investment transaction occurred."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of portfolios - one for each day between two dates."
+        },
+        {
+          "info": {
+            "name": "participants_portfolio_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/portfolio/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Gets a list of portfolio investments for the given participant.\n\n### Investment states\n- `ACTIVE`: Investment is part of the portfolio.\n- `PENDING_SALE`: Investment has been removed from the portfolio and is being fully liquidated."
+        },
+        {
+          "info": {
+            "name": "participants_portfolio_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.401go.com/api/participants/:participant_id/portfolio/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates a participant's target portfolio allocations.\n\nExpects:\n- `investments`: list of investment ids\n- `weights`: list of target percent weights (aligned by index with `investments`)\n\n### 0% allocations\nSetting an investment target allocation to `0%` does **not** remove it from the portfolio. If `auto_rebalance` is disabled,\nno trades will occur until a manual rebalance is triggered.\n\n### Removing an investment\nAny allocation you specify in a POST request replaces any prior allocation.\nThus, "
+        },
+        {
+          "info": {
+            "name": "participants_portfolio_settings_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/portfolio-settings/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get data points related to rebalancing, trading windows, and if a participant can self direct.\n\ncan_cancel_rebalance represents if the current time is in a trading window.\nThe next_trading_window returns the start of the next trading window and should be used with caution,\npreferably with a buffer of about 30 minutes for if the trade can be completed in this time."
+        },
+        {
+          "info": {
+            "name": "participants_portfolio_settings_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.401go.com/api/participants/:participant_id/portfolio-settings/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates a participant's option to auto rebalance, rebalance percent, and if they have opted in to self direct"
+        },
+        {
+          "info": {
+            "name": "participants_start_participant_rebalance_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.401go.com/api/participants/:participant_id/start-participant-rebalance/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

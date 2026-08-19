@@ -1,0 +1,115 @@
+openapi: 3.2.0
+info:
+  title: 401GO Documents API
+  version: 1.0.0
+tags:
+- name: Documents
+paths:
+  /participants/{participant_id}/participant-documents/:
+    get:
+      operationId: list_participant_documents
+      description: Returns a list of participant related documents.
+      parameters:
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Documents
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Serializer for listing available documents for a participant.
+                properties:
+                  available_documents:
+                    type: array
+                    items:
+                      enum:
+                      - plan_document
+                      - plan_highlights
+                      - fee_disclosures
+                      - qdia
+                      - safe_harbor_notice
+                      - auto_enroll_notice
+                      type: string
+                      description: '* `plan_document` - plan_document
+
+                        * `plan_highlights` - plan_highlights
+
+                        * `fee_disclosures` - fee_disclosures
+
+                        * `qdia` - qdia
+
+                        * `safe_harbor_notice` - safe_harbor_notice
+
+                        * `auto_enroll_notice` - auto_enroll_notice'
+                      x-spec-enum-id: 9778ac1b6a16c5cc
+                required:
+                - available_documents
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+  /participants/{participant_id}/participant-documents/{document_name}/:
+    get:
+      operationId: get_signed_participant_document_url
+      description: Returns a signed url for the given named document that will last for 30 minutes.
+      parameters:
+      - in: path
+        name: document_name
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Documents
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Serializer for document signed URLs.
+                properties:
+                  signed_url:
+                    type: string
+                    format: uri
+                required:
+                - signed_url
+          description: ''
+        '400':
+          description: 'Bad Request: Invalid document name or document not available for this participant'
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+components:
+  securitySchemes:
+    knoxApiToken:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
+    oauth2:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer based with an existing token. Enter a token retrieved via the regular
+        OAuth flow elsewhere.
+servers:
+- url: https://app.401go.com/api
+  description: Base URL reconciled from apis.yml

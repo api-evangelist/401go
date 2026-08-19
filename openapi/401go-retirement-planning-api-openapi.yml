@@ -1,0 +1,464 @@
+openapi: 3.2.0
+info:
+  title: 401GO Retirement Planning API
+  version: 1.0.0
+tags:
+- name: Retirement Planning
+paths:
+  /participants/{participant_id}/advisor-models/:
+    get:
+      operationId: participants_advisor_models_retrieve
+      parameters:
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Retirement Planning
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: participants_advisor_models_create
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Retirement Planning
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                selected_model:
+                  type: string
+                  minLength: 1
+              required:
+              - selected_model
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                selected_model:
+                  type: string
+                  minLength: 1
+              required:
+              - selected_model
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                selected_model:
+                  type: string
+                  minLength: 1
+              required:
+              - selected_model
+        required: true
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - count
+                - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        percent:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                        investment:
+                          allOf:
+                          - type: object
+                            description: Serializer for investment funds available in 401(k) plans.
+                            properties:
+                              object_id:
+                                type: string
+                                readOnly: true
+                                description: Unique identifier for the investment.
+                              name:
+                                type: string
+                                maxLength: 250
+                              ticker:
+                                type:
+                                - string
+                                - 'null'
+                                maxLength: 20
+                              description:
+                                type: string
+                              asset_class:
+                                type: string
+                                description: The asset class category of the investment.
+                              cusip:
+                                type:
+                                - string
+                                - 'null'
+                                maxLength: 9
+                              status:
+                                enum:
+                                - 1
+                                - 2
+                                - 3
+                                - 4
+                                - 50
+                                - 100
+                                type: integer
+                                description: '* `1` - Active
+
+                                  * `2` - Inactive
+
+                                  * `3` - Close Only
+
+                                  * `4` - Halted
+
+                                  * `50` - Ambiguous Isin
+
+                                  * `100` - Unknown'
+                                x-spec-enum-id: c4eae5f1054b2e9d
+                                default: Unknown
+                            required:
+                            - asset_class
+                            - description
+                            - object_id
+                          readOnly: true
+                        shares:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                          readOnly: true
+                        value:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                          readOnly: true
+                        status:
+                          enum:
+                          - PENDING_SALE
+                          - ACTIVE
+                          type: string
+                          description: '* `PENDING_SALE` - Pending Sale
+
+                            * `ACTIVE` - Active'
+                          x-spec-enum-id: a442a24a44038e9a
+                          readOnly: true
+                      required:
+                      - investment
+                      - percent
+                      - shares
+                      - status
+                      - value
+          description: ''
+        '400':
+          description: 'Bad Request: Must select an advisor model.'
+        '404':
+          description: 'Not Found: No such advisor model.'
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+  /participants/{participant_id}/retirement-planning-defaults/:
+    get:
+      operationId: participants_retirement_planning_defaults_retrieve
+      description: 'Get the defaults used for the estimation. Note that the defaults returned may not
+        be valid for getting an
+
+        estimate, for example if `age > retirement_age`.'
+      parameters:
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Retirement Planning
+      security:
+      - oauth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  age:
+                    type: integer
+                    maximum: 115
+                    minimum: 18
+                    description: Defaults to participant's age
+                  retirement_age:
+                    type: integer
+                    maximum: 115
+                    minimum: 18
+                    description: Defaults to participant's retirement age
+                  salary:
+                    type: integer
+                    minimum: 0
+                    description: Defaults to participant's previous year compensation or estimation based
+                      on this year
+                  current_savings:
+                    type: integer
+                    minimum: 0
+                    description: Defaults to participant's current account balance
+                  savings_percent:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+                    description: Percentage of income saved
+                  annual_raise:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+                    default: '2.00'
+                    description: Expected annual raise
+                  inflation:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+                    default: '2.00'
+                    description: Expected annual inflation
+                  correct_for_inflation:
+                    type: boolean
+                    default: true
+                    description: Display amounts as they are worth today
+                  investment_return:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+                    default: '5.00'
+                    description: Expected annual investment return
+                  life_expectancy:
+                    type: integer
+                    default: 90
+                  retirement_spending:
+                    type: string
+                    format: decimal
+                    pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+                    default: '70.00'
+                    description: Percentage of income needed during retirement
+                  include_contributions:
+                    type: boolean
+                    default: true
+                    description: Include employer contributions to the account
+                  include_social_security:
+                    type: boolean
+                    default: true
+                  under_50_contribution_limit:
+                    type: integer
+                    readOnly: true
+                  over_50_contribution_limit:
+                    type: integer
+                    readOnly: true
+                required:
+                - over_50_contribution_limit
+                - under_50_contribution_limit
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+  /participants/{participant_id}/retirement-planning-estimate/:
+    get:
+      operationId: participants_retirement_planning_estimate_list
+      description: 'Estimate a participant''s projected balance and target savings for retirement. Will
+        use the defaults as defined
+
+        from the retirement-planning-defaults unless an override is given. Can only be used if the participant
+        has not
+
+        yet reached retirement, or the supplied `age` is less than `retirement_age`.'
+      parameters:
+      - in: query
+        name: age
+        schema:
+          type: integer
+          maximum: 115
+          minimum: 18
+        description: Defaults to participant's age
+      - in: query
+        name: annual_raise
+        schema:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          default: '2.00'
+        description: Expected annual raise
+      - in: query
+        name: correct_for_inflation
+        schema:
+          type: boolean
+          default: true
+        description: Display amounts as they are worth today
+      - in: query
+        name: current_savings
+        schema:
+          type: integer
+          minimum: 0
+        description: Defaults to participant's current account balance
+      - in: query
+        name: include_contributions
+        schema:
+          type: boolean
+          default: true
+        description: Include employer contributions to the account
+      - in: query
+        name: include_social_security
+        schema:
+          type: boolean
+          default: true
+      - in: query
+        name: inflation
+        schema:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          default: '2.00'
+        description: Expected annual inflation
+      - in: query
+        name: investment_return
+        schema:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          default: '5.00'
+        description: Expected annual investment return
+      - in: query
+        name: life_expectancy
+        schema:
+          type: integer
+          default: 90
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      - in: query
+        name: retirement_age
+        schema:
+          type: integer
+          maximum: 115
+          minimum: 18
+        description: Defaults to participant's retirement age
+      - in: query
+        name: retirement_spending
+        schema:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          default: '70.00'
+        description: Percentage of income needed during retirement
+      - in: query
+        name: salary
+        schema:
+          type: integer
+          minimum: 0
+        description: Defaults to participant's previous year compensation or estimation based on this
+          year
+      - in: query
+        name: savings_percent
+        schema:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+        description: Percentage of income saved
+      tags:
+      - Retirement Planning
+      security:
+      - oauth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    age:
+                      type: integer
+                    estimated_balance:
+                      type: string
+                      format: decimal
+                      pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+                    target_savings:
+                      type: string
+                      format: decimal
+                      pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+                    social_security:
+                      type:
+                      - string
+                      - 'null'
+                      format: decimal
+                      pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+                      description: Estimated annual amount of social security received. This figure is
+                        already included into the estimated_balance.
+                  required:
+                  - age
+                  - estimated_balance
+                  - social_security
+                  - target_savings
+          description: ''
+        '400':
+          description: 'Bad Request: invalid supplied data'
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+components:
+  securitySchemes:
+    knoxApiToken:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
+    oauth2:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer based with an existing token. Enter a token retrieved via the regular
+        OAuth flow elsewhere.
+servers:
+- url: https://app.401go.com/api
+  description: Base URL reconciled from apis.yml

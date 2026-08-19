@@ -1,0 +1,2224 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "401GO APIs",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Affiliates & Firms",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "affiliate_firms_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/affiliate-firms/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns all affiliate firms the authenticated user has permission to access."
+        },
+        {
+          "info": {
+            "name": "affiliate_firms_affiliates_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/affiliate-firms/:affiliate_firm_id/affiliates/",
+            "params": [
+              {
+                "name": "affiliate_firm_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the list of affiliates belonging to the given affiliate firm."
+        },
+        {
+          "info": {
+            "name": "affiliate_firms_fund_lineups_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/affiliate-firms/:affiliate_firm_id/fund-lineups/",
+            "params": [
+              {
+                "name": "affiliate_firm_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns fund lineups for the given affiliate firm. Only available for 338 firms."
+        },
+        {
+          "info": {
+            "name": "affiliate_firms_pooled_plans_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/affiliate-firms/:affiliate_firm_id/pooled-plans/",
+            "params": [
+              {
+                "name": "affiliate_firm_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns pooled plans provided by the given affiliate firm."
+        },
+        {
+          "info": {
+            "name": "affiliate_firms_pricing_tiers_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/affiliate-firms/:affiliate_firm_id/pricing-tiers/",
+            "params": [
+              {
+                "name": "affiliate_firm_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns pricing tiers for the given affiliate firm."
+        },
+        {
+          "info": {
+            "name": "affiliates_pricing_tiers_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/affiliates/:affiliate_id/pricing-tiers/",
+            "params": [
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns pricing tiers for the given affiliate."
+        },
+        {
+          "info": {
+            "name": "companies_company_affiliates_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/companies/:company_id/company-affiliates/",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns broker-dealer, advisor, and advisor firm data for the given company.\n\nNotes:\n- Some or all returned fields may be null.\n- Advisor and firm CRD numbers may not always be available.\n- If the company is working with a specific advisor from a firm, that advisor will be included in the response.\n- If the company works with a firm but not a specific advisor, the advisor field will be null."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Companies & Plans",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "companies_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/companies/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a list of companies that the bearer token has access to"
+        },
+        {
+          "info": {
+            "name": "companies_investment_options_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/companies/:company_id/investment-options/",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of investment options available for a given company."
+        },
+        {
+          "info": {
+            "name": "companies_matches_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/companies/:company_id/matches/",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "companies_plan_provisions_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/companies/:company_id/plan-provisions/",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve plan provisions for a company.\n\nReturns detailed configuration settings for the 401(k) plan associated with the company.\nThis includes eligibility requirements, vesting schedules, contribution settings, and other plan provisions.\nSpecial Field Behaviors:\n    - exclude_highly_compensated_and_key_employees: Only available for safe harbor plans\n    - hours_of_service: Only populated when eligibility delay is 'Hours of Service'\n    - allow_permissible_withdrawal: If true, allows penalty-fre"
+        },
+        {
+          "info": {
+            "name": "plan_setup_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/plan-setup/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new company and 401(k) plan.\n\nReturns an ``object_id`` identifying the new company/plan. Use it as the path parameter for\nsubsequent PUT/PATCH requests to update the plan.\n\n**Fields requiring IDs from other endpoints**\n\nSeveral fields accept opaque IDs that must first be retrieved from other API endpoints:\n\n- ``acting_338``: retrieve from the *Affiliate Firms > Affiliates* or *Affiliates* endpoint.\n- ``pooled_plan``: retrieve from the *Affiliate Firms > Pooled Plans* endpoint.\n- ``bill"
+        },
+        {
+          "info": {
+            "name": "plan_setup_update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/plan-setup/:company_id/",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates an existing 401(k) plan.\n\nThe ``{id}`` path parameter is the ``object_id`` returned from the POST response.\n\nPartial updates (PATCH) will not work. Endpoint currently only supports full replacement (PUT).\n\nUpdates are blocked if the plan has been modified through the web portal after initial\nAPI setup, or if the plan is or was active."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Participants",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "companies_participants_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/companies/:company_id/participants/",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a list of participants for the given company_id. This will also include the current deductions for participants (deferrals and loan payments)."
+        },
+        {
+          "info": {
+            "name": "companies_participants_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/companies/:company_id/participants/",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new participant or multiple new participants for the given company_id. You cannot add deductions or set 'met_eligibility_date'.\nNote the required fields on the schema. If you attempt to add an employee that already exists (by ssn), it will attempt to update that employee."
+        },
+        {
+          "info": {
+            "name": "companies_participants_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/companies/:company_id/participants/:participant_id/",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a participant by id for the given company_id. This will also include the current deductions for a participant (deferrals and loan payments)."
+        },
+        {
+          "info": {
+            "name": "companies_participants_update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/companies/:company_id/participants/:participant_id/",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update an existing participant by id for the given company_id. You cannot add deductions or update met_eligibility_date.\nIf you try to change an email, it will create an additional login for the user with the new email so it doesn't lock out their previous login"
+        },
+        {
+          "info": {
+            "name": "companies_participants_partial_update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/companies/:company_id/participants/:participant_id/",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update an existing participant by id for the given company_id. You cannot add deductions or update met_eligibility_date.\nIf you try to change an email, it will create an additional login for the user with the new email so it doesn't lock out their previous login"
+        },
+        {
+          "info": {
+            "name": "participants_events_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/events/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Gets a list of the different event types that exist for a participant.\n\nTo check whether a participant's dashboard is accessible, check for the 'completed setup' event."
+        },
+        {
+          "info": {
+            "name": "participants_events_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/participants/:participant_id/events/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Adds a list of the different event types for a participant.\n\nIt will not duplicate events."
+        },
+        {
+          "info": {
+            "name": "participants_participant_setup_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/participant-setup/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Gets plan data for the associated participant, and if they've set their deferral elections.\n\nChoices for 'plan_type' are 'Volume Submitter Prototype Format' (401k plans), '403B', and 'Starter-K'"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Contributions & Payroll",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "companies_submit_payroll_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/companies/:company_id/submit-payroll/",
+            "headers": [
+              {
+                "name": "Idempotent-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Submit payroll for a company."
+        },
+        {
+          "info": {
+            "name": "participants_deferrals_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/deferrals/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get deferrals for a participant."
+        },
+        {
+          "info": {
+            "name": "participants_deferrals_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/participants/:participant_id/deferrals/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update deferrals for a participant. Submitted deferrals may not immediately become active due to eligibility,\nmaxing out for the year, or plan deferral change frequency rules."
+        },
+        {
+          "info": {
+            "name": "participants_matches_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/matches/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "participants_payroll_lines_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/payroll-lines/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the payroll lines for a participant."
+        },
+        {
+          "info": {
+            "name": "participants_totals_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/totals/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns year-to-date contribution totals, account balances, income, loans,\nand applicable annual contribution limits.\n\nIncludes YTD totals for:\n- Pre-tax contributions\n- Post-tax contributions\n- Company contributions\n- Compensation (YTD and prior year)\n\nAlso includes:\n- Total account balance\n- Cash balance\n- Active loan balances\n- Payroll count for the year\n\nContribution limits:\n\n- Pre-tax and post-tax contributions share a single combined\n  contribution limit.\n  This means contributions to EITH"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Investments & Portfolios",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "investments_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/investments/:investment_id/",
+            "params": [
+              {
+                "name": "investment_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "API endpoints for retrieving investment fund information."
+        },
+        {
+          "info": {
+            "name": "participants_cancel_participant_rebalance_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/participants/:participant_id/cancel-participant-rebalance/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "participants_investment_history_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/investment-history/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of investment transactions for the given participant id.\n\nYou can optionally paginate by including 'page={page_num}&page_size={page_size}' in the query string.\nPossible statuses: pending, confirmed, failed, dividend."
+        },
+        {
+          "info": {
+            "name": "participants_investment_options_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/investment-options/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of investment options available to the given participant.\n\nYou can optionally paginate by including 'page={page_num}&page_size={page_size}' in the query string."
+        },
+        {
+          "info": {
+            "name": "participants_investment_performance_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/investment-performance/",
+            "params": [
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End date for filtering portfolios (YYYY-MM-DD format). Defaults to today."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date for filtering portfolios (YYYY-MM-DD format). Defaults to the first day an investment transaction occurred."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of portfolios - one for each day between two dates."
+        },
+        {
+          "info": {
+            "name": "participants_portfolio_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/portfolio/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Gets a list of portfolio investments for the given participant.\n\n### Investment states\n- `ACTIVE`: Investment is part of the portfolio.\n- `PENDING_SALE`: Investment has been removed from the portfolio and is being fully liquidated."
+        },
+        {
+          "info": {
+            "name": "participants_portfolio_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/participants/:participant_id/portfolio/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates a participant's target portfolio allocations.\n\nExpects:\n- `investments`: list of investment ids\n- `weights`: list of target percent weights (aligned by index with `investments`)\n\n### 0% allocations\nSetting an investment target allocation to `0%` does **not** remove it from the portfolio. If `auto_rebalance` is disabled,\nno trades will occur until a manual rebalance is triggered.\n\n### Removing an investment\nAny allocation you specify in a POST request replaces any prior allocation.\nThus, "
+        },
+        {
+          "info": {
+            "name": "participants_portfolio_settings_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/portfolio-settings/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get data points related to rebalancing, trading windows, and if a participant can self direct.\n\ncan_cancel_rebalance represents if the current time is in a trading window.\nThe next_trading_window returns the start of the next trading window and should be used with caution,\npreferably with a buffer of about 30 minutes for if the trade can be completed in this time."
+        },
+        {
+          "info": {
+            "name": "participants_portfolio_settings_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/participants/:participant_id/portfolio-settings/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates a participant's option to auto rebalance, rebalance percent, and if they have opted in to self direct"
+        },
+        {
+          "info": {
+            "name": "participants_start_participant_rebalance_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/participants/:participant_id/start-participant-rebalance/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Retirement Planning",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "participants_advisor_models_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/advisor-models/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "participants_advisor_models_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/participants/:participant_id/advisor-models/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "participants_retirement_planning_defaults_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/retirement-planning-defaults/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the defaults used for the estimation. Note that the defaults returned may not be valid for getting an\nestimate, for example if `age > retirement_age`."
+        },
+        {
+          "info": {
+            "name": "participants_retirement_planning_estimate_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/retirement-planning-estimate/",
+            "params": [
+              {
+                "name": "age",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to participant's age"
+              },
+              {
+                "name": "annual_raise",
+                "value": "",
+                "type": "query",
+                "description": "Expected annual raise"
+              },
+              {
+                "name": "correct_for_inflation",
+                "value": "",
+                "type": "query",
+                "description": "Display amounts as they are worth today"
+              },
+              {
+                "name": "current_savings",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to participant's current account balance"
+              },
+              {
+                "name": "include_contributions",
+                "value": "",
+                "type": "query",
+                "description": "Include employer contributions to the account"
+              },
+              {
+                "name": "include_social_security",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "inflation",
+                "value": "",
+                "type": "query",
+                "description": "Expected annual inflation"
+              },
+              {
+                "name": "investment_return",
+                "value": "",
+                "type": "query",
+                "description": "Expected annual investment return"
+              },
+              {
+                "name": "life_expectancy",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "retirement_age",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to participant's retirement age"
+              },
+              {
+                "name": "retirement_spending",
+                "value": "",
+                "type": "query",
+                "description": "Percentage of income needed during retirement"
+              },
+              {
+                "name": "salary",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to participant's previous year compensation or estimation based on this year"
+              },
+              {
+                "name": "savings_percent",
+                "value": "",
+                "type": "query",
+                "description": "Percentage of income saved"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Estimate a participant's projected balance and target savings for retirement. Will use the defaults as defined\nfrom the retirement-planning-defaults unless an override is given. Can only be used if the participant has not\nyet reached retirement, or the supplied `age` is less than `retirement_age`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Beneficiaries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "participants_beneficiaries_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/beneficiaries/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of a participant's beneficiaries."
+        },
+        {
+          "info": {
+            "name": "participants_beneficiaries_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/participants/:participant_id/beneficiaries/",
+            "headers": [
+              {
+                "name": "Idempotent-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a single or multiple beneficiaries for a participant.\nIf a list is provided, either all or none will be created."
+        },
+        {
+          "info": {
+            "name": "participants_beneficiaries_partial_update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/participants/:participant_id/beneficiaries/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Partially update a list of beneficiaries. Each entry must include the `object_id`. The provided list must\nbe a subset of the participant's beneficiaries. Validates every entry first, then either applies all or none of\nthem."
+        },
+        {
+          "info": {
+            "name": "participants_beneficiaries_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/beneficiaries/:beneficiary_id/",
+            "params": [
+              {
+                "name": "beneficiary_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a specific beneficiary."
+        },
+        {
+          "info": {
+            "name": "participants_beneficiaries_update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/participants/:participant_id/beneficiaries/:beneficiary_id/",
+            "params": [
+              {
+                "name": "beneficiary_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fully update a specific beneficiary."
+        },
+        {
+          "info": {
+            "name": "participants_beneficiaries_partial_update_2",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/participants/:participant_id/beneficiaries/:beneficiary_id/",
+            "params": [
+              {
+                "name": "beneficiary_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Partially update a single beneficiary."
+        },
+        {
+          "info": {
+            "name": "participants_beneficiaries_destroy",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/participants/:participant_id/beneficiaries/:beneficiary_id/",
+            "params": [
+              {
+                "name": "beneficiary_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a beneficiary."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Money Movement",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "participants_disbursements_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/disbursements/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of participant's disbursements."
+        },
+        {
+          "info": {
+            "name": "participants_disbursements_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/participants/:participant_id/disbursements/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new disbursement request.\nField Usage Patterns:\n1. Single Disbursement (pre-tax only or post-tax only):\n    - Use regular fields (payment_method, bank_name, etc.) for payment details\n    - Use pretax_memo for pre-tax disbursements\n    - Use posttax_memo for post-tax disbursements\n    - Use payment_address for pre-tax disbursements\n    - Use posttax_payment_address for post-tax disbursements\n\n2. Split Disbursement (both pre-tax and post-tax):\n    - Use regular fields (payment_method, ban"
+        },
+        {
+          "info": {
+            "name": "participants_disbursements_info_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/disbursements-info/",
+            "params": [
+              {
+                "name": "is_emergency",
+                "value": "",
+                "type": "query",
+                "description": "Whether to calculate available amounts for emergency expense disbursements."
+              },
+              {
+                "name": "is_hardship",
+                "value": "",
+                "type": "query",
+                "description": "Whether to calculate available amounts for hardship disbursements."
+              },
+              {
+                "name": "is_move_rollover",
+                "value": "",
+                "type": "query",
+                "description": "Whether to calculate available amounts for move rollover disbursements."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get information about available disbursement options before creating one.\n\nQuery parameters can be used to get accurate available amounts for different disbursement types:\n- is_hardship: Calculate amounts for hardship disbursements\n- is_emergency: Calculate amounts for emergency expense disbursements\n- is_move_rollover: Calculate amounts for move rollover disbursements\n\nAll parameters default to false if not specified."
+        },
+        {
+          "info": {
+            "name": "participants_disbursements_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/disbursements/:disbursement_id/",
+            "params": [
+              {
+                "name": "disbursement_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "ViewSet for handling participant disbursements in a single request."
+        },
+        {
+          "info": {
+            "name": "participants_disbursements_update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/participants/:participant_id/disbursements/:disbursement_id/",
+            "params": [
+              {
+                "name": "disbursement_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a specific disbursement request."
+        },
+        {
+          "info": {
+            "name": "participants_disbursements_destroy",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/participants/:participant_id/disbursements/:disbursement_id/",
+            "params": [
+              {
+                "name": "disbursement_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a disbursement request."
+        },
+        {
+          "info": {
+            "name": "participants_loan_requests_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/loan-requests/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of a participant's loan requests."
+        },
+        {
+          "info": {
+            "name": "participants_loan_requests_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/participants/:participant_id/loan-requests/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a loan request."
+        },
+        {
+          "info": {
+            "name": "participants_loan_requests_info_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/loan-requests-info/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get information that is useful before beginning a loan request."
+        },
+        {
+          "info": {
+            "name": "participants_loan_requests_signature_update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/participants/:participant_id/loan-requests-signature/:loan_request_id/",
+            "params": [
+              {
+                "name": "loan_request_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Submit a signature for this loan request."
+        },
+        {
+          "info": {
+            "name": "participants_loan_requests_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/loan-requests/:loan_request_id/",
+            "params": [
+              {
+                "name": "loan_request_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a specific loan request."
+        },
+        {
+          "info": {
+            "name": "participants_loan_requests_update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/participants/:participant_id/loan-requests/:loan_request_id/",
+            "params": [
+              {
+                "name": "loan_request_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fully update a specific loan request."
+        },
+        {
+          "info": {
+            "name": "participants_loan_requests_destroy",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/participants/:participant_id/loan-requests/:loan_request_id/",
+            "params": [
+              {
+                "name": "loan_request_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a loan request."
+        },
+        {
+          "info": {
+            "name": "participants_money_movement_history_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/money-movement-history/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of money movement transactions for the given participant id.\n\nThe account type will be Pre-tax for employee pre-tax movements, Post-tax for employee post-tax movements,\nVested Contribution for any vested employer contributions, Non-vested Contribution for any non-vested employer contributions.\nThe tax_type field is only really useful to distinguish pre-tax or post-tax employer contributions when it has a value."
+        },
+        {
+          "info": {
+            "name": "participants_rollovers_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/rollovers/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of participant's rollovers."
+        },
+        {
+          "info": {
+            "name": "participants_rollovers_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/participants/:participant_id/rollovers/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new rollover in one single request."
+        },
+        {
+          "info": {
+            "name": "participants_rollovers_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/rollovers/:rollover_id/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "rollover_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a specific rollover request."
+        },
+        {
+          "info": {
+            "name": "participants_rollovers_update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/participants/:participant_id/rollovers/:rollover_id/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "rollover_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a specific rollover request."
+        },
+        {
+          "info": {
+            "name": "participants_rollovers_destroy",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/participants/:participant_id/rollovers/:rollover_id/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "rollover_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a rollover request."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Notifications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "participants_notifications_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/notifications/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of notifications for a participant."
+        },
+        {
+          "info": {
+            "name": "participants_notifications_partial_update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/participants/:participant_id/notifications/:notification_id/",
+            "params": [
+              {
+                "name": "notification_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "participants_notifications_attachment_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/notifications/attachment/:attachment_id/",
+            "params": [
+              {
+                "name": "attachment_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a signed url for the given attachment that will last for 30 minutes."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list_participant_documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/participant-documents/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of participant related documents."
+        },
+        {
+          "info": {
+            "name": "get_signed_participant_document_url",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/participants/:participant_id/participant-documents/:document_name/",
+            "params": [
+              {
+                "name": "document_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a signed url for the given named document that will last for 30 minutes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

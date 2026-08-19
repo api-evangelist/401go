@@ -1,0 +1,917 @@
+openapi: 3.2.0
+info:
+  title: 401GO Affiliates & Firms API
+  version: 1.0.0
+tags:
+- name: Affiliates & Firms
+paths:
+  /affiliate-firms/:
+    get:
+      operationId: affiliate_firms_list
+      description: Returns all affiliate firms the authenticated user has permission to access.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - Affiliates & Firms
+      security:
+      - oauth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - count
+                - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        object_id:
+                          type: string
+                          readOnly: true
+                        crd:
+                          type: string
+                          readOnly: true
+                        address:
+                          type: object
+                          description: A participant's Address
+                          properties:
+                            address_line_1:
+                              type: string
+                              maxLength: 100
+                            address_line_2:
+                              type: string
+                              maxLength: 100
+                            city:
+                              type: string
+                              maxLength: 80
+                            state:
+                              type: string
+                              maxLength: 80
+                            postal_code:
+                              type: string
+                              maxLength: 20
+                            country:
+                              type: string
+                              default: US
+                              maxLength: 80
+                          required:
+                          - address_line_1
+                          - city
+                          - postal_code
+                          - state
+                        name:
+                          type: string
+                          maxLength: 100
+                        contact_name:
+                          type: string
+                          maxLength: 75
+                        contact_email:
+                          type: string
+                          format: email
+                          maxLength: 254
+                        is_338_firm:
+                          type: boolean
+                          readOnly: true
+                      required:
+                      - address
+                      - crd
+                      - is_338_firm
+                      - name
+                      - object_id
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+  /affiliate-firms/{affiliate_firm_id}/affiliates/:
+    get:
+      operationId: affiliate_firms_affiliates_list
+      description: Returns the list of affiliates belonging to the given affiliate firm.
+      parameters:
+      - in: path
+        name: affiliate_firm_id
+        schema:
+          type: string
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - Affiliates & Firms
+      security:
+      - oauth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - count
+                - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        object_id:
+                          type: string
+                          readOnly: true
+                        crd:
+                          type: string
+                        address:
+                          type: object
+                          description: A participant's Address
+                          properties:
+                            address_line_1:
+                              type: string
+                              maxLength: 100
+                            address_line_2:
+                              type: string
+                              maxLength: 100
+                            city:
+                              type: string
+                              maxLength: 80
+                            state:
+                              type: string
+                              maxLength: 80
+                            postal_code:
+                              type: string
+                              maxLength: 20
+                            country:
+                              type: string
+                              default: US
+                              maxLength: 80
+                          required:
+                          - address_line_1
+                          - city
+                          - postal_code
+                          - state
+                        name:
+                          type: string
+                          maxLength: 100
+                      required:
+                      - address
+                      - crd
+                      - name
+                      - object_id
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+  /affiliate-firms/{affiliate_firm_id}/fund-lineups/:
+    get:
+      operationId: affiliate_firms_fund_lineups_list
+      description: Returns fund lineups for the given affiliate firm. Only available for 338 firms.
+      parameters:
+      - in: path
+        name: affiliate_firm_id
+        schema:
+          type: string
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - Affiliates & Firms
+      security:
+      - oauth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - count
+                - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        object_id:
+                          type: string
+                          readOnly: true
+                        name:
+                          type:
+                          - string
+                          - 'null'
+                          maxLength: 100
+                        description:
+                          type: string
+                          description: This short 250 char description will be shown on the 'Select Fund
+                            Lineup' page of the company questions section of plan setup. If there are
+                            fees for this lineup, they should be listed here.
+                          maxLength: 250
+                        custodian:
+                          type: string
+                          enum:
+                          - Matrix
+                          - Drive Wealth
+                          - Apex
+                          - Matrix And Drive Wealth
+                          - Matrix And Apex
+                          - Drive Wealth And Apex
+                          - Matrix And Drive Wealth And Apex
+                        investments:
+                          type: array
+                          items:
+                            type: object
+                            description: Serializer for investment funds available in 401(k) plans.
+                            properties:
+                              object_id:
+                                type: string
+                                readOnly: true
+                                description: Unique identifier for the investment.
+                              name:
+                                type: string
+                                maxLength: 250
+                              ticker:
+                                type:
+                                - string
+                                - 'null'
+                                maxLength: 20
+                              description:
+                                type: string
+                              asset_class:
+                                type: string
+                                description: The asset class category of the investment.
+                              cusip:
+                                type:
+                                - string
+                                - 'null'
+                                maxLength: 9
+                              status:
+                                enum:
+                                - 1
+                                - 2
+                                - 3
+                                - 4
+                                - 50
+                                - 100
+                                type: integer
+                                description: '* `1` - Active
+
+                                  * `2` - Inactive
+
+                                  * `3` - Close Only
+
+                                  * `4` - Halted
+
+                                  * `50` - Ambiguous Isin
+
+                                  * `100` - Unknown'
+                                x-spec-enum-id: c4eae5f1054b2e9d
+                                default: Unknown
+                            required:
+                            - asset_class
+                            - description
+                            - object_id
+                          readOnly: true
+                      required:
+                      - custodian
+                      - investments
+                      - object_id
+          description: ''
+        '400':
+          description: 'Bad Request: Only 338 firms have fund lineups.'
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+  /affiliate-firms/{affiliate_firm_id}/pooled-plans/:
+    get:
+      operationId: affiliate_firms_pooled_plans_list
+      description: Returns pooled plans provided by the given affiliate firm.
+      parameters:
+      - in: path
+        name: affiliate_firm_id
+        schema:
+          type: string
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - Affiliates & Firms
+      security:
+      - oauth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - count
+                - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        object_id:
+                          type: string
+                        name:
+                          type: string
+                          maxLength: 100
+                        effective_date:
+                          type:
+                          - string
+                          - 'null'
+                          format: date
+                        terminated_date:
+                          type:
+                          - string
+                          - 'null'
+                          format: date
+                        status:
+                          enum:
+                          - DRAFT
+                          - ACTIVE
+                          - INACTIVE
+                          type: string
+                          description: '* `DRAFT` - DRAFT
+
+                            * `ACTIVE` - ACTIVE
+
+                            * `INACTIVE` - INACTIVE'
+                          x-spec-enum-id: 8b036d93c4c21fd8
+                        matrix_alliance_code:
+                          type: string
+                          maxLength: 16
+                      required:
+                      - name
+                      - object_id
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+  /affiliate-firms/{affiliate_firm_id}/pricing-tiers/:
+    get:
+      operationId: affiliate_firms_pricing_tiers_list
+      description: Returns pricing tiers for the given affiliate firm.
+      parameters:
+      - in: path
+        name: affiliate_firm_id
+        schema:
+          type: string
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - Affiliates & Firms
+      security:
+      - oauth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - count
+                - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        object_id:
+                          type: string
+                          readOnly: true
+                        tier_name:
+                          type: string
+                          maxLength: 100
+                        aum_tiers_banded:
+                          type: boolean
+                        aum_tiers:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              aum_limit:
+                                type: string
+                                format: decimal
+                                pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+                              aum_fee:
+                                type: string
+                                format: decimal
+                                description: Fee as a decimal (e.g. 0.0100 = 1% = 100 bps). To convert
+                                  from bps, divide by 10,000.
+                          readOnly: true
+                        per_head_tiers:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              participant_limit:
+                                type: integer
+                              dollar_per_head:
+                                type: string
+                                format: decimal
+                                pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+                            required:
+                            - participant_limit
+                          readOnly: true
+                        other_fees:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              fee_frequency:
+                                type: string
+                                enum:
+                                - One-Time
+                                - Weekly
+                                - Bi-Weekly
+                                - Semi-Monthly
+                                - Monthly
+                                - Quarterly
+                                - Semi-Annually
+                                - Yearly
+                              fee_description:
+                                type: string
+                              fee:
+                                type: string
+                                format: decimal
+                                pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+                            required:
+                            - fee_description
+                            - fee_frequency
+                          readOnly: true
+                      required:
+                      - aum_tiers
+                      - aum_tiers_banded
+                      - object_id
+                      - other_fees
+                      - per_head_tiers
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+  /affiliates/{affiliate_id}/pricing-tiers/:
+    get:
+      operationId: affiliates_pricing_tiers_list
+      description: Returns pricing tiers for the given affiliate.
+      parameters:
+      - in: path
+        name: affiliate_id
+        schema:
+          type: string
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - Affiliates & Firms
+      security:
+      - oauth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - count
+                - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        object_id:
+                          type: string
+                          readOnly: true
+                        tier_name:
+                          type: string
+                          maxLength: 100
+                        aum_tiers_banded:
+                          type: boolean
+                        aum_tiers:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              aum_limit:
+                                type: string
+                                format: decimal
+                                pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+                              aum_fee:
+                                type: string
+                                format: decimal
+                                description: Fee as a decimal (e.g. 0.0100 = 1% = 100 bps). To convert
+                                  from bps, divide by 10,000.
+                          readOnly: true
+                        per_head_tiers:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              participant_limit:
+                                type: integer
+                              dollar_per_head:
+                                type: string
+                                format: decimal
+                                pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+                            required:
+                            - participant_limit
+                          readOnly: true
+                        other_fees:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              fee_frequency:
+                                type: string
+                                enum:
+                                - One-Time
+                                - Weekly
+                                - Bi-Weekly
+                                - Semi-Monthly
+                                - Monthly
+                                - Quarterly
+                                - Semi-Annually
+                                - Yearly
+                              fee_description:
+                                type: string
+                              fee:
+                                type: string
+                                format: decimal
+                                pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+                            required:
+                            - fee_description
+                            - fee_frequency
+                          readOnly: true
+                      required:
+                      - aum_tiers
+                      - aum_tiers_banded
+                      - object_id
+                      - other_fees
+                      - per_head_tiers
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+  /companies/{company_id}/company-affiliates/:
+    get:
+      operationId: companies_company_affiliates_retrieve
+      description: 'Returns broker-dealer, advisor, and advisor firm data for the given company.
+
+
+        Notes:
+
+        - Some or all returned fields may be null.
+
+        - Advisor and firm CRD numbers may not always be available.
+
+        - If the company is working with a specific advisor from a firm, that advisor will be included
+        in the response.
+
+        - If the company works with a firm but not a specific advisor, the advisor field will be null.'
+      parameters:
+      - in: path
+        name: company_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Affiliates & Firms
+      security:
+      - oauth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  broker_dealer:
+                    allOf:
+                    - type: object
+                      properties:
+                        name:
+                          type: string
+                          maxLength: 75
+                        address:
+                          type: object
+                          description: A participant's Address
+                          properties:
+                            address_line_1:
+                              type: string
+                              maxLength: 100
+                            address_line_2:
+                              type: string
+                              maxLength: 100
+                            city:
+                              type: string
+                              maxLength: 80
+                            state:
+                              type: string
+                              maxLength: 80
+                            postal_code:
+                              type: string
+                              maxLength: 20
+                            country:
+                              type: string
+                              default: US
+                              maxLength: 80
+                          required:
+                          - address_line_1
+                          - city
+                          - postal_code
+                          - state
+                        contact_name:
+                          type: string
+                          maxLength: 75
+                      required:
+                      - address
+                  advisor:
+                    allOf:
+                    - type: object
+                      properties:
+                        object_id:
+                          type: string
+                          readOnly: true
+                        crd:
+                          type: string
+                        address:
+                          type: object
+                          description: A participant's Address
+                          properties:
+                            address_line_1:
+                              type: string
+                              maxLength: 100
+                            address_line_2:
+                              type: string
+                              maxLength: 100
+                            city:
+                              type: string
+                              maxLength: 80
+                            state:
+                              type: string
+                              maxLength: 80
+                            postal_code:
+                              type: string
+                              maxLength: 20
+                            country:
+                              type: string
+                              default: US
+                              maxLength: 80
+                          required:
+                          - address_line_1
+                          - city
+                          - postal_code
+                          - state
+                        name:
+                          type: string
+                          maxLength: 100
+                      required:
+                      - address
+                      - crd
+                      - name
+                      - object_id
+                  advisor_firm:
+                    allOf:
+                    - type: object
+                      properties:
+                        object_id:
+                          type: string
+                          readOnly: true
+                        crd:
+                          type: string
+                          readOnly: true
+                        address:
+                          type: object
+                          description: A participant's Address
+                          properties:
+                            address_line_1:
+                              type: string
+                              maxLength: 100
+                            address_line_2:
+                              type: string
+                              maxLength: 100
+                            city:
+                              type: string
+                              maxLength: 80
+                            state:
+                              type: string
+                              maxLength: 80
+                            postal_code:
+                              type: string
+                              maxLength: 20
+                            country:
+                              type: string
+                              default: US
+                              maxLength: 80
+                          required:
+                          - address_line_1
+                          - city
+                          - postal_code
+                          - state
+                        name:
+                          type: string
+                          maxLength: 100
+                        contact_name:
+                          type: string
+                          maxLength: 75
+                        contact_email:
+                          type: string
+                          format: email
+                          maxLength: 254
+                        is_338_firm:
+                          type: boolean
+                          readOnly: true
+                      required:
+                      - address
+                      - crd
+                      - is_338_firm
+                      - name
+                      - object_id
+                required:
+                - advisor
+                - advisor_firm
+                - broker_dealer
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+components:
+  securitySchemes:
+    knoxApiToken:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
+    oauth2:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer based with an existing token. Enter a token retrieved via the regular
+        OAuth flow elsewhere.
+servers:
+- url: https://app.401go.com/api
+  description: Base URL reconciled from apis.yml

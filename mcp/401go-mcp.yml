@@ -3,7 +3,6 @@ method: searched
 source: https://developer.401go.com/mcp
 status: published
 gated: true
-
 server:
   name: 401go-docs
   transport: http
@@ -11,11 +10,9 @@ server:
   protocol: JSON-RPC 2.0 (Model Context Protocol)
   platform: ReadMe SuperHub (developer.401go.com is a ReadMe-hosted developer portal)
   scope: documentation and API-reference retrieval, plus proxied request execution
-  first_party: >-
-    Served from 401GO's own developer.401go.com host as part of its ReadMe developer portal.
-    The MCP surface is provided by the docs platform rather than authored by 401GO, so it
-    exposes the documentation and reference corpus, not the 401GO business domain directly.
-
+  first_party: Served from 401GO's own developer.401go.com host as part of its ReadMe developer portal.
+    The MCP surface is provided by the docs platform rather than authored by 401GO, so it exposes the
+    documentation and reference corpus, not the 401GO business domain directly.
 probe:
   method: POST
   body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
@@ -23,23 +20,17 @@ probe:
   http_status: 401
   response: '{"jsonrpc":"2.0","error":{"code":-32001,"message":"Authorization required"},"id":null}'
   fetched: '2026-08-02'
-  conclusion: >-
-    A live MCP endpoint exists and speaks JSON-RPC, but the tool manifest is authorization-gated.
+  conclusion: A live MCP endpoint exists and speaks JSON-RPC, but the tool manifest is authorization-gated.
     Real tool names and inputSchemas require authenticated introspection and were NOT captured.
-
 tools: []
-tools_note: >-
-  Deliberately empty. tools/list returned 401, so no tool list was observed. Nothing is
-  asserted about the tool surface. See platform_tools below for the only observed signal, and
-  mcp/401go-tool-crosswalk.yml for how the REST surface would map.
-
+tools_note: Deliberately empty. tools/list returned 401, so no tool list was observed. Nothing is asserted
+  about the tool surface. See platform_tools below for the only observed signal, and mcp/401go-tool-crosswalk.yml
+  for how the REST surface would map.
 platform_tools:
-  provenance: >-
-    Observed in the ReadMe platform configuration embedded in the HTML served by
-    developer.401go.com (config key reservedWords.tools). These are the standard tool names the
-    ReadMe SuperHub MCP server reserves — they are a property of the ReadMe platform, NOT a
-    verified tools/list response from this server. Confidence low; do not treat as 401GO's
-    published tool contract.
+  provenance: Observed in the ReadMe platform configuration embedded in the HTML served by developer.401go.com
+    (config key reservedWords.tools). These are the standard tool names the ReadMe SuperHub MCP server
+    reserves — they are a property of the ReadMe platform, NOT a verified tools/list response from this
+    server. Confidence low; do not treat as 401GO's published tool contract.
   names:
   - execute-request
   - get-endpoint
@@ -49,19 +40,21 @@ platform_tools:
   - search-endpoints
   - search
   - fetch
-
 oauth_discovery:
   well_known_oauth_authorization_server: 404
   well_known_oauth_protected_resource: 404
-  note: >-
-    developer.401go.com serves neither RFC 8414 authorization-server metadata nor RFC 9728
-    protected-resource metadata, so an MCP client cannot discover how to authorize
-    programmatically. The 401 carries no WWW-Authenticate challenge either.
-
+  note: developer.401go.com serves neither RFC 8414 authorization-server metadata nor RFC 9728 protected-resource
+    metadata, so an MCP client cannot discover how to authorize programmatically. The 401 carries no WWW-Authenticate
+    challenge either.
 underlying_api:
   openapi: openapi/401go-openapi-original.json
   operations: 72
-  note: >-
-    401GO publishes no domain MCP server (no mcp.401go.com, no npm/registry package, no entry
-    in a public MCP registry). An agent wanting the 401GO business domain must call the REST
-    API directly.
+  note: 401GO publishes no domain MCP server (no mcp.401go.com, no npm/registry package, no entry in a
+    public MCP registry). An agent wanting the 401GO business domain must call the REST API directly.
+deployment:
+  mode: remote
+  endpoint: https://developer.401go.com/mcp
+  verified: probed
+  probe: gated
+  checked: '2026-08-12'
+  source: catalog MCP census

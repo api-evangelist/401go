@@ -1,0 +1,580 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "401GO Money Movement API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Money Movement",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "participants_disbursements_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/disbursements/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of participant's disbursements."
+        },
+        {
+          "info": {
+            "name": "participants_disbursements_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.401go.com/api/participants/:participant_id/disbursements/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new disbursement request.\nField Usage Patterns:\n1. Single Disbursement (pre-tax only or post-tax only):\n    - Use regular fields (payment_method, bank_name, etc.) for payment details\n    - Use pretax_memo for pre-tax disbursements\n    - Use posttax_memo for post-tax disbursements\n    - Use payment_address for pre-tax disbursements\n    - Use posttax_payment_address for post-tax disbursements\n\n2. Split Disbursement (both pre-tax and post-tax):\n    - Use regular fields (payment_method, ban"
+        },
+        {
+          "info": {
+            "name": "participants_disbursements_info_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/disbursements-info/",
+            "params": [
+              {
+                "name": "is_emergency",
+                "value": "",
+                "type": "query",
+                "description": "Whether to calculate available amounts for emergency expense disbursements."
+              },
+              {
+                "name": "is_hardship",
+                "value": "",
+                "type": "query",
+                "description": "Whether to calculate available amounts for hardship disbursements."
+              },
+              {
+                "name": "is_move_rollover",
+                "value": "",
+                "type": "query",
+                "description": "Whether to calculate available amounts for move rollover disbursements."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get information about available disbursement options before creating one.\n\nQuery parameters can be used to get accurate available amounts for different disbursement types:\n- is_hardship: Calculate amounts for hardship disbursements\n- is_emergency: Calculate amounts for emergency expense disbursements\n- is_move_rollover: Calculate amounts for move rollover disbursements\n\nAll parameters default to false if not specified."
+        },
+        {
+          "info": {
+            "name": "participants_disbursements_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/disbursements/:disbursement_id/",
+            "params": [
+              {
+                "name": "disbursement_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "ViewSet for handling participant disbursements in a single request."
+        },
+        {
+          "info": {
+            "name": "participants_disbursements_update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.401go.com/api/participants/:participant_id/disbursements/:disbursement_id/",
+            "params": [
+              {
+                "name": "disbursement_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a specific disbursement request."
+        },
+        {
+          "info": {
+            "name": "participants_disbursements_destroy",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.401go.com/api/participants/:participant_id/disbursements/:disbursement_id/",
+            "params": [
+              {
+                "name": "disbursement_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a disbursement request."
+        },
+        {
+          "info": {
+            "name": "participants_loan_requests_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/loan-requests/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of a participant's loan requests."
+        },
+        {
+          "info": {
+            "name": "participants_loan_requests_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.401go.com/api/participants/:participant_id/loan-requests/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a loan request."
+        },
+        {
+          "info": {
+            "name": "participants_loan_requests_info_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/loan-requests-info/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get information that is useful before beginning a loan request."
+        },
+        {
+          "info": {
+            "name": "participants_loan_requests_signature_update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.401go.com/api/participants/:participant_id/loan-requests-signature/:loan_request_id/",
+            "params": [
+              {
+                "name": "loan_request_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Submit a signature for this loan request."
+        },
+        {
+          "info": {
+            "name": "participants_loan_requests_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/loan-requests/:loan_request_id/",
+            "params": [
+              {
+                "name": "loan_request_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a specific loan request."
+        },
+        {
+          "info": {
+            "name": "participants_loan_requests_update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.401go.com/api/participants/:participant_id/loan-requests/:loan_request_id/",
+            "params": [
+              {
+                "name": "loan_request_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fully update a specific loan request."
+        },
+        {
+          "info": {
+            "name": "participants_loan_requests_destroy",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.401go.com/api/participants/:participant_id/loan-requests/:loan_request_id/",
+            "params": [
+              {
+                "name": "loan_request_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a loan request."
+        },
+        {
+          "info": {
+            "name": "participants_money_movement_history_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/money-movement-history/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of money movement transactions for the given participant id.\n\nThe account type will be Pre-tax for employee pre-tax movements, Post-tax for employee post-tax movements,\nVested Contribution for any vested employer contributions, Non-vested Contribution for any non-vested employer contributions.\nThe tax_type field is only really useful to distinguish pre-tax or post-tax employer contributions when it has a value."
+        },
+        {
+          "info": {
+            "name": "participants_rollovers_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/rollovers/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of participant's rollovers."
+        },
+        {
+          "info": {
+            "name": "participants_rollovers_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.401go.com/api/participants/:participant_id/rollovers/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new rollover in one single request."
+        },
+        {
+          "info": {
+            "name": "participants_rollovers_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/rollovers/:rollover_id/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "rollover_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a specific rollover request."
+        },
+        {
+          "info": {
+            "name": "participants_rollovers_update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.401go.com/api/participants/:participant_id/rollovers/:rollover_id/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "rollover_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a specific rollover request."
+        },
+        {
+          "info": {
+            "name": "participants_rollovers_destroy",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.401go.com/api/participants/:participant_id/rollovers/:rollover_id/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "rollover_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a rollover request."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

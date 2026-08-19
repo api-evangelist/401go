@@ -1,0 +1,1245 @@
+openapi: 3.2.0
+info:
+  title: 401GO Contributions & Payroll API
+  version: 1.0.0
+tags:
+- name: Contributions & Payroll
+paths:
+  /companies/{company_id}/submit-payroll/:
+    post:
+      operationId: companies_submit_payroll_create
+      description: Submit payroll for a company.
+      parameters:
+      - in: header
+        name: Idempotent-Key
+        schema:
+          type: string
+        description: Supply a key to safely retry requests without the server duplicating the action.
+          Will be remembered for 24 hours.
+      - in: path
+        name: company_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Contributions & Payroll
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: 'A Payroll File is a single payroll for a company with many pay lines, one
+                for each participant.
+
+
+                There are a couple dates that can be provided for a payroll file, but check_date is the
+                only required one.
+
+                is_off_cycle can be true if this is not a regular payroll. For example, it could be a
+                one-off correction.'
+              properties:
+                pay_period_start:
+                  type:
+                  - string
+                  - 'null'
+                  format: date
+                pay_period_end:
+                  type:
+                  - string
+                  - 'null'
+                  format: date
+                check_date:
+                  type: string
+                  format: date
+                  title: Check/Pay Date (W2 date)
+                is_off_cycle:
+                  type: boolean
+                payroll_lines:
+                  type: array
+                  items:
+                    type: object
+                    description: 'A payroll line represents payroll for one participant and has the associated
+                      id of that participant.
+
+
+                      It can also optionally include hours_ytd and gross_pay_ytd which will help in reporting,
+                      eligibility, etc. when provided.'
+                    properties:
+                      participant_id:
+                        type: string
+                      hours:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,4}(?:\.\d{0,2})?$
+                      gross_pay:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                      pre_tax_amount:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                      post_tax_amount:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                      company_contribution:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                      other_additions:
+                        type: array
+                        items:
+                          type: object
+                          description: 'Additional payroll deductions not covered by employee contributions
+                            to 401k or company matches.
+
+
+                            Currently, this can only be set to Loan types.'
+                          properties:
+                            additional_amount:
+                              type: string
+                              format: decimal
+                              pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                            other_type:
+                              enum:
+                              - Loan Principal
+                              - Loan Interest
+                              type: string
+                              description: '* `Loan Principal` - Loan Principal
+
+                                * `Loan Interest` - Loan Interest'
+                              x-spec-enum-id: a05082d953d3615e
+                          required:
+                          - additional_amount
+                          - other_type
+                      hours_ytd:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                        writeOnly: true
+                      gross_pay_ytd:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                        writeOnly: true
+                    required:
+                    - gross_pay
+                    - hours
+                    - participant_id
+              required:
+              - check_date
+              - payroll_lines
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              description: 'A Payroll File is a single payroll for a company with many pay lines, one
+                for each participant.
+
+
+                There are a couple dates that can be provided for a payroll file, but check_date is the
+                only required one.
+
+                is_off_cycle can be true if this is not a regular payroll. For example, it could be a
+                one-off correction.'
+              properties:
+                pay_period_start:
+                  type:
+                  - string
+                  - 'null'
+                  format: date
+                pay_period_end:
+                  type:
+                  - string
+                  - 'null'
+                  format: date
+                check_date:
+                  type: string
+                  format: date
+                  title: Check/Pay Date (W2 date)
+                is_off_cycle:
+                  type: boolean
+                payroll_lines:
+                  type: array
+                  items:
+                    type: object
+                    description: 'A payroll line represents payroll for one participant and has the associated
+                      id of that participant.
+
+
+                      It can also optionally include hours_ytd and gross_pay_ytd which will help in reporting,
+                      eligibility, etc. when provided.'
+                    properties:
+                      participant_id:
+                        type: string
+                      hours:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,4}(?:\.\d{0,2})?$
+                      gross_pay:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                      pre_tax_amount:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                      post_tax_amount:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                      company_contribution:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                      other_additions:
+                        type: array
+                        items:
+                          type: object
+                          description: 'Additional payroll deductions not covered by employee contributions
+                            to 401k or company matches.
+
+
+                            Currently, this can only be set to Loan types.'
+                          properties:
+                            additional_amount:
+                              type: string
+                              format: decimal
+                              pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                            other_type:
+                              enum:
+                              - Loan Principal
+                              - Loan Interest
+                              type: string
+                              description: '* `Loan Principal` - Loan Principal
+
+                                * `Loan Interest` - Loan Interest'
+                              x-spec-enum-id: a05082d953d3615e
+                          required:
+                          - additional_amount
+                          - other_type
+                      hours_ytd:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                        writeOnly: true
+                      gross_pay_ytd:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                        writeOnly: true
+                    required:
+                    - gross_pay
+                    - hours
+                    - participant_id
+              required:
+              - check_date
+              - payroll_lines
+          multipart/form-data:
+            schema:
+              type: object
+              description: 'A Payroll File is a single payroll for a company with many pay lines, one
+                for each participant.
+
+
+                There are a couple dates that can be provided for a payroll file, but check_date is the
+                only required one.
+
+                is_off_cycle can be true if this is not a regular payroll. For example, it could be a
+                one-off correction.'
+              properties:
+                pay_period_start:
+                  type:
+                  - string
+                  - 'null'
+                  format: date
+                pay_period_end:
+                  type:
+                  - string
+                  - 'null'
+                  format: date
+                check_date:
+                  type: string
+                  format: date
+                  title: Check/Pay Date (W2 date)
+                is_off_cycle:
+                  type: boolean
+                payroll_lines:
+                  type: array
+                  items:
+                    type: object
+                    description: 'A payroll line represents payroll for one participant and has the associated
+                      id of that participant.
+
+
+                      It can also optionally include hours_ytd and gross_pay_ytd which will help in reporting,
+                      eligibility, etc. when provided.'
+                    properties:
+                      participant_id:
+                        type: string
+                      hours:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,4}(?:\.\d{0,2})?$
+                      gross_pay:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                      pre_tax_amount:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                      post_tax_amount:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                      company_contribution:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                      other_additions:
+                        type: array
+                        items:
+                          type: object
+                          description: 'Additional payroll deductions not covered by employee contributions
+                            to 401k or company matches.
+
+
+                            Currently, this can only be set to Loan types.'
+                          properties:
+                            additional_amount:
+                              type: string
+                              format: decimal
+                              pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                            other_type:
+                              enum:
+                              - Loan Principal
+                              - Loan Interest
+                              type: string
+                              description: '* `Loan Principal` - Loan Principal
+
+                                * `Loan Interest` - Loan Interest'
+                              x-spec-enum-id: a05082d953d3615e
+                          required:
+                          - additional_amount
+                          - other_type
+                      hours_ytd:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                        writeOnly: true
+                      gross_pay_ytd:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                        writeOnly: true
+                    required:
+                    - gross_pay
+                    - hours
+                    - participant_id
+              required:
+              - check_date
+              - payroll_lines
+        required: true
+      security:
+      - oauth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'A Payroll File is a single payroll for a company with many pay lines, one
+                  for each participant.
+
+
+                  There are a couple dates that can be provided for a payroll file, but check_date is
+                  the only required one.
+
+                  is_off_cycle can be true if this is not a regular payroll. For example, it could be
+                  a one-off correction.'
+                properties:
+                  pay_period_start:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                  pay_period_end:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                  check_date:
+                    type: string
+                    format: date
+                    title: Check/Pay Date (W2 date)
+                  ach_date:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                    readOnly: true
+                  is_off_cycle:
+                    type: boolean
+                  payroll_lines:
+                    type: array
+                    items:
+                      type: object
+                      description: 'A payroll line represents payroll for one participant and has the
+                        associated id of that participant.
+
+
+                        It can also optionally include hours_ytd and gross_pay_ytd which will help in
+                        reporting, eligibility, etc. when provided.'
+                      properties:
+                        participant_id:
+                          type: string
+                        hours:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,4}(?:\.\d{0,2})?$
+                        gross_pay:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                        pre_tax_percent:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+                          readOnly: true
+                          description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+                        pre_tax_amount:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                        post_tax_percent:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+                          readOnly: true
+                          description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+                        post_tax_amount:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                        company_contribution:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                        other_additions:
+                          type: array
+                          items:
+                            type: object
+                            description: 'Additional payroll deductions not covered by employee contributions
+                              to 401k or company matches.
+
+
+                              Currently, this can only be set to Loan types.'
+                            properties:
+                              additional_amount:
+                                type: string
+                                format: decimal
+                                pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                              other_type:
+                                enum:
+                                - Loan Principal
+                                - Loan Interest
+                                type: string
+                                description: '* `Loan Principal` - Loan Principal
+
+                                  * `Loan Interest` - Loan Interest'
+                                x-spec-enum-id: a05082d953d3615e
+                            required:
+                            - additional_amount
+                            - other_type
+                        check_date:
+                          type: string
+                          format: date
+                          readOnly: true
+                      required:
+                      - check_date
+                      - gross_pay
+                      - hours
+                      - participant_id
+                      - post_tax_percent
+                      - pre_tax_percent
+                required:
+                - ach_date
+                - check_date
+                - payroll_lines
+          description: ''
+        '400':
+          description: 'Bad Request: Invalid payroll data'
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+  /participants/{participant_id}/deferrals/:
+    get:
+      operationId: participants_deferrals_retrieve
+      description: Get deferrals for a participant.
+      parameters:
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Contributions & Payroll
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  traditional:
+                    type: object
+                    properties:
+                      amount:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                      timestamp:
+                        type: string
+                        format: date-time
+                        description: Timestamp for conflict resolution. If older than the last deferral
+                          update in our system, an error will be returned and deferrals will not be updated.
+                      is_percent:
+                        type: boolean
+                    required:
+                    - amount
+                    - timestamp
+                  roth:
+                    type: object
+                    properties:
+                      amount:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                      timestamp:
+                        type: string
+                        format: date-time
+                        description: Timestamp for conflict resolution. If older than the last deferral
+                          update in our system, an error will be returned and deferrals will not be updated.
+                      is_percent:
+                        type: boolean
+                    required:
+                    - amount
+                    - timestamp
+                  change_frequency:
+                    enum:
+                    - Each pay period
+                    - Monthly
+                    - Quarterly
+                    - Semi Annual
+                    - Hold for pay period
+                    type:
+                    - string
+                    - 'null'
+                    readOnly: true
+                    description: Frequency that this participant's updated deferrals will become active.
+                  active_traditional:
+                    allOf:
+                    - type: object
+                      properties:
+                        amount:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                        timestamp:
+                          type: string
+                          format: date-time
+                          description: Timestamp for conflict resolution. If older than the last deferral
+                            update in our system, an error will be returned and deferrals will not be
+                            updated.
+                        is_percent:
+                          type: boolean
+                      required:
+                      - amount
+                      - timestamp
+                    readOnly: true
+                    description: Currently active traditional deferrals. May be different from `traditional`
+                      field.
+                  active_roth:
+                    allOf:
+                    - type: object
+                      properties:
+                        amount:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                        timestamp:
+                          type: string
+                          format: date-time
+                          description: Timestamp for conflict resolution. If older than the last deferral
+                            update in our system, an error will be returned and deferrals will not be
+                            updated.
+                        is_percent:
+                          type: boolean
+                      required:
+                      - amount
+                      - timestamp
+                    readOnly: true
+                    description: Currently active roth deferrals. May be different from `roth` field.
+                  is_eligible:
+                    type: boolean
+                    readOnly: true
+                    description: If this participant is eligible.
+                  hit_max:
+                    type: boolean
+                    readOnly: true
+                    description: If this participant has hit their max for the year.
+                required:
+                - active_roth
+                - active_traditional
+                - change_frequency
+                - hit_max
+                - is_eligible
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+    post:
+      operationId: participants_deferrals_create
+      description: 'Update deferrals for a participant. Submitted deferrals may not immediately become
+        active due to eligibility,
+
+        maxing out for the year, or plan deferral change frequency rules.'
+      parameters:
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Contributions & Payroll
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                traditional:
+                  type: object
+                  properties:
+                    amount:
+                      type: string
+                      format: decimal
+                      pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                    timestamp:
+                      type: string
+                      format: date-time
+                      description: Timestamp for conflict resolution. If older than the last deferral
+                        update in our system, an error will be returned and deferrals will not be updated.
+                    is_percent:
+                      type: boolean
+                  required:
+                  - amount
+                  - timestamp
+                roth:
+                  type: object
+                  properties:
+                    amount:
+                      type: string
+                      format: decimal
+                      pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                    timestamp:
+                      type: string
+                      format: date-time
+                      description: Timestamp for conflict resolution. If older than the last deferral
+                        update in our system, an error will be returned and deferrals will not be updated.
+                    is_percent:
+                      type: boolean
+                  required:
+                  - amount
+                  - timestamp
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                traditional:
+                  type: object
+                  properties:
+                    amount:
+                      type: string
+                      format: decimal
+                      pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                    timestamp:
+                      type: string
+                      format: date-time
+                      description: Timestamp for conflict resolution. If older than the last deferral
+                        update in our system, an error will be returned and deferrals will not be updated.
+                    is_percent:
+                      type: boolean
+                  required:
+                  - amount
+                  - timestamp
+                roth:
+                  type: object
+                  properties:
+                    amount:
+                      type: string
+                      format: decimal
+                      pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                    timestamp:
+                      type: string
+                      format: date-time
+                      description: Timestamp for conflict resolution. If older than the last deferral
+                        update in our system, an error will be returned and deferrals will not be updated.
+                    is_percent:
+                      type: boolean
+                  required:
+                  - amount
+                  - timestamp
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                traditional:
+                  type: object
+                  properties:
+                    amount:
+                      type: string
+                      format: decimal
+                      pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                    timestamp:
+                      type: string
+                      format: date-time
+                      description: Timestamp for conflict resolution. If older than the last deferral
+                        update in our system, an error will be returned and deferrals will not be updated.
+                    is_percent:
+                      type: boolean
+                  required:
+                  - amount
+                  - timestamp
+                roth:
+                  type: object
+                  properties:
+                    amount:
+                      type: string
+                      format: decimal
+                      pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                    timestamp:
+                      type: string
+                      format: date-time
+                      description: Timestamp for conflict resolution. If older than the last deferral
+                        update in our system, an error will be returned and deferrals will not be updated.
+                    is_percent:
+                      type: boolean
+                  required:
+                  - amount
+                  - timestamp
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  traditional:
+                    type: object
+                    properties:
+                      amount:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                      timestamp:
+                        type: string
+                        format: date-time
+                        description: Timestamp for conflict resolution. If older than the last deferral
+                          update in our system, an error will be returned and deferrals will not be updated.
+                      is_percent:
+                        type: boolean
+                    required:
+                    - amount
+                    - timestamp
+                  roth:
+                    type: object
+                    properties:
+                      amount:
+                        type: string
+                        format: decimal
+                        pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                      timestamp:
+                        type: string
+                        format: date-time
+                        description: Timestamp for conflict resolution. If older than the last deferral
+                          update in our system, an error will be returned and deferrals will not be updated.
+                      is_percent:
+                        type: boolean
+                    required:
+                    - amount
+                    - timestamp
+                  change_frequency:
+                    enum:
+                    - Each pay period
+                    - Monthly
+                    - Quarterly
+                    - Semi Annual
+                    - Hold for pay period
+                    type:
+                    - string
+                    - 'null'
+                    readOnly: true
+                    description: Frequency that this participant's updated deferrals will become active.
+                  active_traditional:
+                    allOf:
+                    - type: object
+                      properties:
+                        amount:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                        timestamp:
+                          type: string
+                          format: date-time
+                          description: Timestamp for conflict resolution. If older than the last deferral
+                            update in our system, an error will be returned and deferrals will not be
+                            updated.
+                        is_percent:
+                          type: boolean
+                      required:
+                      - amount
+                      - timestamp
+                    readOnly: true
+                    description: Currently active traditional deferrals. May be different from `traditional`
+                      field.
+                  active_roth:
+                    allOf:
+                    - type: object
+                      properties:
+                        amount:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+                        timestamp:
+                          type: string
+                          format: date-time
+                          description: Timestamp for conflict resolution. If older than the last deferral
+                            update in our system, an error will be returned and deferrals will not be
+                            updated.
+                        is_percent:
+                          type: boolean
+                      required:
+                      - amount
+                      - timestamp
+                    readOnly: true
+                    description: Currently active roth deferrals. May be different from `roth` field.
+                  is_eligible:
+                    type: boolean
+                    readOnly: true
+                    description: If this participant is eligible.
+                  hit_max:
+                    type: boolean
+                    readOnly: true
+                    description: If this participant has hit their max for the year.
+                required:
+                - active_roth
+                - active_traditional
+                - change_frequency
+                - hit_max
+                - is_eligible
+          description: ''
+        '400':
+          description: 'Bad Request: No active plan associated with this account'
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+  /participants/{participant_id}/matches/:
+    get:
+      operationId: participants_matches_retrieve
+      parameters:
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Contributions & Payroll
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  plan_matches:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        contribution_rate:
+                          type: integer
+                          maximum: 2147483647
+                          minimum: -2147483648
+                          description: Match rate as a whole-number percentage (e.g., 100 for 100%, 50
+                            for 50%).
+                        contribution_max_percent:
+                          type: integer
+                          maximum: 2147483647
+                          minimum: -2147483648
+                          description: Maximum percentage of employee compensation this rate applies to.
+                            Tiers are cumulative, i.e. each tier covers compensation from the previous
+                            tier's max up to this max.
+                      required:
+                      - contribution_max_percent
+                      - contribution_rate
+                  discretionary_matches:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        contribution_rate:
+                          type: integer
+                          maximum: 2147483647
+                          minimum: -2147483648
+                          description: Match rate as a whole-number percentage (e.g., 100 for 100%, 50
+                            for 50%).
+                        contribution_max_percent:
+                          type: integer
+                          maximum: 2147483647
+                          minimum: -2147483648
+                          description: Maximum percentage of employee compensation this rate applies to.
+                            Tiers are cumulative, i.e. each tier covers compensation from the previous
+                            tier's max up to this max.
+                      required:
+                      - contribution_max_percent
+                      - contribution_rate
+                  discretionary_nonelective:
+                    allOf:
+                    - type: object
+                      properties:
+                        contribution_rate:
+                          type: integer
+                      required:
+                      - contribution_rate
+                  nondiscretionary_nonelective:
+                    allOf:
+                    - type: object
+                      properties:
+                        contribution_rate:
+                          type: integer
+                      required:
+                      - contribution_rate
+                required:
+                - discretionary_matches
+                - discretionary_nonelective
+                - nondiscretionary_nonelective
+                - plan_matches
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+  /participants/{participant_id}/payroll-lines/:
+    get:
+      operationId: participants_payroll_lines_list
+      description: Get the payroll lines for a participant.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Contributions & Payroll
+      security:
+      - oauth2: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - count
+                - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      description: 'A payroll line represents payroll for one participant and has the
+                        associated id of that participant.
+
+
+                        It can also optionally include hours_ytd and gross_pay_ytd which will help in
+                        reporting, eligibility, etc. when provided.'
+                      properties:
+                        participant_id:
+                          type: string
+                        hours:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,4}(?:\.\d{0,2})?$
+                        gross_pay:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                        pre_tax_percent:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+                          readOnly: true
+                          description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+                        pre_tax_amount:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                        post_tax_percent:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+                          readOnly: true
+                          description: Enter a percentage, so 1% would be 1.0 and 5 bps would be 0.05
+                        post_tax_amount:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                        company_contribution:
+                          type: string
+                          format: decimal
+                          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                        other_additions:
+                          type: array
+                          items:
+                            type: object
+                            description: 'Additional payroll deductions not covered by employee contributions
+                              to 401k or company matches.
+
+
+                              Currently, this can only be set to Loan types.'
+                            properties:
+                              additional_amount:
+                                type: string
+                                format: decimal
+                                pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+                              other_type:
+                                enum:
+                                - Loan Principal
+                                - Loan Interest
+                                type: string
+                                description: '* `Loan Principal` - Loan Principal
+
+                                  * `Loan Interest` - Loan Interest'
+                                x-spec-enum-id: a05082d953d3615e
+                            required:
+                            - additional_amount
+                            - other_type
+                        check_date:
+                          type: string
+                          format: date
+                          readOnly: true
+                      required:
+                      - check_date
+                      - gross_pay
+                      - hours
+                      - participant_id
+                      - post_tax_percent
+                      - pre_tax_percent
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+  /participants/{participant_id}/totals/:
+    get:
+      operationId: participants_totals_retrieve
+      description: "Returns year-to-date contribution totals, account balances, income, loans,\nand applicable\
+        \ annual contribution limits.\n\nIncludes YTD totals for:\n- Pre-tax contributions\n- Post-tax\
+        \ contributions\n- Company contributions\n- Compensation (YTD and prior year)\n\nAlso includes:\n\
+        - Total account balance\n- Cash balance\n- Active loan balances\n- Payroll count for the year\n\
+        \nContribution limits:\n\n- Pre-tax and post-tax contributions share a single combined\n  contribution\
+        \ limit.\n  This means contributions to EITHER pre-tax OR post-tax reduce\n  the remaining limit\
+        \ for BOTH.\n\n  Example:\n  If the contribution limit is $23,000 and a participant contributes\n\
+        \  $10,000 pre-tax, they can contribute at most $13,000 more total\n  across pre-tax and post-tax\
+        \ combined.\n\n- Catch-up contributions have special eligibility rules.\n  A participant may be\
+        \ eligible for Roth (post-tax) catch-up\n  without being eligible for traditional (pre-tax) catch-up.\n\
+        \n- The `year_contribution_limit` is the absolute maximum for all\n  contributions combined:\n\
+        \  pre-tax + post-tax + all catch-up contributions.\n\n- Each contribution type may not exceed\
+        \ its own individual limit."
+      parameters:
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Contributions & Payroll
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pretax_ytd:
+                    type: number
+                    format: double
+                    minimum: 0.0
+                    exclusiveMaximum: 10000000000
+                  posttax_ytd:
+                    type: number
+                    format: double
+                    minimum: 0.0
+                    exclusiveMaximum: 10000000000
+                  company_contributions_ytd:
+                    type: number
+                    format: double
+                    minimum: 0.0
+                    exclusiveMaximum: 10000000000
+                  annual_income:
+                    type: number
+                    format: double
+                    minimum: 0.0
+                    description: Expected total annual income based on prior years.
+                    exclusiveMaximum: 10000000000
+                  annual_income_ytd:
+                    type: number
+                    format: double
+                    minimum: 0.0
+                    description: Annual income earned year-to-date.
+                    exclusiveMaximum: 10000000000
+                  total_balance:
+                    type: number
+                    format: double
+                    minimum: 0.0
+                    description: Total account balance, including all investments and cash.
+                    exclusiveMaximum: 10000000000
+                  cash_balance:
+                    type: number
+                    format: double
+                    minimum: 0.0
+                    description: Cash balance in the account.
+                    exclusiveMaximum: 10000000000
+                  year_payroll_count:
+                    type: integer
+                    minimum: 0.0
+                    description: Number of expected payrolls in a year.
+                  loans:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        loan_balance:
+                          type: number
+                          format: double
+                          readOnly: true
+                        issue_date:
+                          type: string
+                          format: date
+                        first_payment_date:
+                          type:
+                          - string
+                          - 'null'
+                          format: date
+                        years_duration:
+                          type: integer
+                          readOnly: true
+                      required:
+                      - first_payment_date
+                      - issue_date
+                      - loan_balance
+                      - years_duration
+                  year_contribution_limit:
+                    type: number
+                    format: double
+                    minimum: 0.0
+                    description: Participant contribution limits for the year.
+                    exclusiveMaximum: 10000000000
+                  pre_tax_contribution_limit:
+                    type: number
+                    format: double
+                    minimum: 0.0
+                    description: Pre-tax contribution limits for the year.
+                    exclusiveMaximum: 10000000000
+                  post_tax_contribution_limit:
+                    type: number
+                    format: double
+                    minimum: 0.0
+                    description: Post-tax contribution limits for the year.
+                    exclusiveMaximum: 10000000000
+                  pre_tax_catch_up_contribution_limit:
+                    type: number
+                    format: double
+                    minimum: 0.0
+                    description: Pre-tax catch-up contribution limits for the year.
+                    exclusiveMaximum: 10000000000
+                  post_tax_catch_up_contribution_limit:
+                    type: number
+                    format: double
+                    minimum: 0.0
+                    description: Post-tax catch-up contribution limits for the year.
+                    exclusiveMaximum: 10000000000
+                required:
+                - annual_income
+                - annual_income_ytd
+                - cash_balance
+                - company_contributions_ytd
+                - loans
+                - posttax_ytd
+                - pretax_ytd
+                - total_balance
+                - year_payroll_count
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+components:
+  securitySchemes:
+    knoxApiToken:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
+    oauth2:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer based with an existing token. Enter a token retrieved via the regular
+        OAuth flow elsewhere.
+servers:
+- url: https://app.401go.com/api
+  description: Base URL reconciled from apis.yml

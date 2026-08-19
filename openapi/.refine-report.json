@@ -1,0 +1,44 @@
+{
+  "provider": "401go",
+  "sources": [
+    "401go-affiliates-firms-api-openapi.yml",
+    "401go-beneficiaries-api-openapi.yml",
+    "401go-companies-plans-api-openapi.yml",
+    "401go-contributions-payroll-api-openapi.yml",
+    "401go-documents-api-openapi.yml",
+    "401go-investments-portfolios-api-openapi.yml",
+    "401go-money-movement-api-openapi.yml",
+    "401go-notifications-api-openapi.yml",
+    "401go-participants-api-openapi.yml",
+    "401go-retirement-planning-api-openapi.yml"
+  ],
+  "outputs": [
+    "401go-affiliates-firms-api-openapi.yml",
+    "401go-beneficiaries-api-openapi.yml",
+    "401go-companies-plans-api-openapi.yml",
+    "401go-contributions-payroll-api-openapi.yml",
+    "401go-documents-api-openapi.yml",
+    "401go-investments-portfolios-api-openapi.yml",
+    "401go-money-movement-api-openapi.yml",
+    "401go-notifications-api-openapi.yml",
+    "401go-participants-api-openapi.yml",
+    "401go-retirement-planning-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "401go-affiliates-firms-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "401go-beneficiaries-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "401go-companies-plans-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "401go-contributions-payroll-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "401go-documents-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "401go-investments-portfolios-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "401go-money-movement-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "401go-notifications-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "401go-participants-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "401go-retirement-planning-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": []
+}

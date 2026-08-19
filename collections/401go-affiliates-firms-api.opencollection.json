@@ -1,0 +1,239 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "401GO Affiliates & Firms API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Affiliates & Firms",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "affiliate_firms_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/affiliate-firms/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns all affiliate firms the authenticated user has permission to access."
+        },
+        {
+          "info": {
+            "name": "affiliate_firms_affiliates_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/affiliate-firms/:affiliate_firm_id/affiliates/",
+            "params": [
+              {
+                "name": "affiliate_firm_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the list of affiliates belonging to the given affiliate firm."
+        },
+        {
+          "info": {
+            "name": "affiliate_firms_fund_lineups_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/affiliate-firms/:affiliate_firm_id/fund-lineups/",
+            "params": [
+              {
+                "name": "affiliate_firm_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns fund lineups for the given affiliate firm. Only available for 338 firms."
+        },
+        {
+          "info": {
+            "name": "affiliate_firms_pooled_plans_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/affiliate-firms/:affiliate_firm_id/pooled-plans/",
+            "params": [
+              {
+                "name": "affiliate_firm_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns pooled plans provided by the given affiliate firm."
+        },
+        {
+          "info": {
+            "name": "affiliate_firms_pricing_tiers_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/affiliate-firms/:affiliate_firm_id/pricing-tiers/",
+            "params": [
+              {
+                "name": "affiliate_firm_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns pricing tiers for the given affiliate firm."
+        },
+        {
+          "info": {
+            "name": "affiliates_pricing_tiers_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/affiliates/:affiliate_id/pricing-tiers/",
+            "params": [
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns pricing tiers for the given affiliate."
+        },
+        {
+          "info": {
+            "name": "companies_company_affiliates_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/companies/:company_id/company-affiliates/",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns broker-dealer, advisor, and advisor firm data for the given company.\n\nNotes:\n- Some or all returned fields may be null.\n- Advisor and firm CRD numbers may not always be available.\n- If the company is working with a specific advisor from a firm, that advisor will be included in the response.\n- If the company works with a firm but not a specific advisor, the advisor field will be null."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,279 @@
+openapi: 3.2.0
+info:
+  title: 401GO Notifications API
+  version: 1.0.0
+tags:
+- name: Notifications
+paths:
+  /participants/{participant_id}/notifications/:
+    get:
+      operationId: participants_notifications_list
+      description: Get a list of notifications for a participant.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Notifications
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - count
+                - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type:
+                    - string
+                    - 'null'
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        object_id:
+                          type: string
+                          readOnly: true
+                        subject:
+                          type: string
+                          readOnly: true
+                        notification_content:
+                          type: string
+                          readOnly: true
+                        content_is_html:
+                          type: boolean
+                          readOnly: true
+                        status:
+                          type: string
+                          enum:
+                          - New
+                          - Viewed
+                          - Archived
+                        timestamp:
+                          type: string
+                          format: date-time
+                          readOnly: true
+                        attachment:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              object_id:
+                                type: string
+                              name:
+                                type: string
+                                maxLength: 100
+                            required:
+                            - name
+                            - object_id
+                          readOnly: true
+                        signed_url:
+                          type: string
+                          description: Get signed URL for attachments if needed.
+                          readOnly: true
+                      required:
+                      - attachment
+                      - content_is_html
+                      - notification_content
+                      - object_id
+                      - signed_url
+                      - status
+                      - subject
+                      - timestamp
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+  /participants/{participant_id}/notifications/{notification_id}/:
+    patch:
+      operationId: participants_notifications_partial_update
+      parameters:
+      - in: path
+        name: notification_id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Notifications
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum:
+                  - New
+                  - Viewed
+                  - Archived
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum:
+                  - New
+                  - Viewed
+                  - Archived
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum:
+                  - New
+                  - Viewed
+                  - Archived
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  object_id:
+                    type: string
+                    readOnly: true
+                  subject:
+                    type: string
+                    readOnly: true
+                  notification_content:
+                    type: string
+                    readOnly: true
+                  content_is_html:
+                    type: boolean
+                    readOnly: true
+                  status:
+                    type: string
+                    enum:
+                    - New
+                    - Viewed
+                    - Archived
+                  timestamp:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  attachment:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        object_id:
+                          type: string
+                        name:
+                          type: string
+                          maxLength: 100
+                      required:
+                      - name
+                      - object_id
+                    readOnly: true
+                  signed_url:
+                    type: string
+                    description: Get signed URL for attachments if needed.
+                    readOnly: true
+                required:
+                - attachment
+                - content_is_html
+                - notification_content
+                - object_id
+                - signed_url
+                - status
+                - subject
+                - timestamp
+          description: ''
+  /participants/{participant_id}/notifications/attachment/{attachment_id}/:
+    get:
+      operationId: participants_notifications_attachment_retrieve
+      description: Returns a signed url for the given attachment that will last for 30 minutes.
+      parameters:
+      - in: path
+        name: attachment_id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: participant_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Notifications
+      security:
+      - oauth2: []
+      - knoxApiToken: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Serializer for document signed URLs.
+                properties:
+                  signed_url:
+                    type: string
+                    format: uri
+                required:
+                - signed_url
+          description: ''
+        '401':
+          description: 'Unauthorized: Missing or invalid authentication'
+        '403':
+          description: 'Forbidden: Insufficient permissions or scopes'
+components:
+  securitySchemes:
+    knoxApiToken:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
+    oauth2:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer based with an existing token. Enter a token retrieved via the regular
+        OAuth flow elsewhere.
+servers:
+- url: https://app.401go.com/api
+  description: Base URL reconciled from apis.yml

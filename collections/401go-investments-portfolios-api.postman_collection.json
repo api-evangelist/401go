@@ -1,0 +1,2564 @@
+{
+  "item": [
+    {
+      "id": "7d39d50b-d01e-44a9-986b-56759890d404",
+      "name": "Investments & Portfolios",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c6b8715b-01a6-4719-b08a-e56f6a66b916",
+          "name": "investments retrieve",
+          "request": {
+            "name": "investments retrieve",
+            "description": {
+              "content": "API endpoints for retrieving investment fund information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "investments",
+                ":investment_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "investment_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4f18ded6-84aa-4e73-a371-e6d6627b4e06",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "investments",
+                    ":investment_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "investment_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"asset_class\": \"string\",\n  \"description\": \"string\",\n  \"object_id\": \"string\",\n  \"name\": \"string\",\n  \"ticker\": \"string\",\n  \"cusip\": null,\n  \"status\": \"Unknown\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e4a2fe8a-b2fa-41bc-84cf-286b1b211aec",
+          "name": "participants cancel participant rebalance create",
+          "request": {
+            "name": "participants cancel participant rebalance create",
+            "description": {},
+            "url": {
+              "path": [
+                "participants",
+                ":participant_id",
+                "cancel-participant-rebalance",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "participant_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "621ed485-1ab8-4075-be70-72831a8147e6",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "cancel-participant-rebalance",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"can_cancel_rebalance\": false,\n  \"is_rebalancing\": false,\n  \"next_trading_window\": \"1970-05-18T10:56:15.101Z\",\n  \"self_direct_allowed\": true,\n  \"auto_rebalance\": false,\n  \"rebalance_percent\": -1727,\n  \"opted_in_to_self_direct\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "73b8f256-a9ad-48bb-b685-0e86e224f35d",
+              "name": "Bad Request: Rebalance already begun. Unable to cancel",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "cancel-participant-rebalance",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d1f4bdc8-bee0-4450-8c23-53a00a83a82d",
+              "name": "Unauthorized: Missing or invalid authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "cancel-participant-rebalance",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3d2bc319-6963-4baf-9781-4f4dab482e40",
+              "name": "Forbidden: Insufficient permissions or scopes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "cancel-participant-rebalance",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8f1a39ee-b055-41f9-b055-edd5a8cecc19",
+          "name": "participants investment history list",
+          "request": {
+            "name": "participants investment history list",
+            "description": {
+              "content": "Get a list of investment transactions for the given participant id.\n\nYou can optionally paginate by including 'page={page_num}&page_size={page_size}' in the query string.\nPossible statuses: pending, confirmed, failed, dividend.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "participants",
+                ":participant_id",
+                "investment-history",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "A page number within the paginated result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>",
+                  "description": "Number of results to return per page."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "participant_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b16e9ad9-48cd-4e16-9b68-2f2ea63680fc",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "investment-history",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 123,\n  \"results\": [\n    {\n      \"amount_paid\": \"-591991841225\",\n      \"investment\": {\n        \"asset_class\": \"string\",\n        \"description\": \"string\",\n        \"object_id\": \"string\",\n        \"name\": \"string\",\n        \"ticker\": \"string\",\n        \"cusip\": \"string\",\n        \"status\": \"Unknown\"\n      },\n      \"money_sources\": [\n        {\n          \"money_source\": \"Discretionary Match\",\n          \"shares\": \"-45.36936494\",\n          \"tax_type\": \"Pre-tax\"\n        },\n        {\n          \"money_source\": \"Individual Contribution\",\n          \"shares\": \"-0277865164\",\n          \"tax_type\": \"Pre-tax\"\n        }\n      ],\n      \"object_id\": \"string\",\n      \"share_price\": \"74658163\",\n      \"shares\": \"106432838.\",\n      \"status\": \"string\",\n      \"settle_date\": \"2021-07-15\"\n    },\n    {\n      \"amount_paid\": \"0419038\",\n      \"investment\": {\n        \"asset_class\": \"string\",\n        \"description\": \"string\",\n        \"object_id\": \"string\",\n        \"name\": \"string\",\n        \"ticker\": \"string\",\n        \"cusip\": null,\n        \"status\": \"Unknown\"\n      },\n      \"money_sources\": [\n        {\n          \"money_source\": \"Correction Contribution (QMAC)\",\n          \"shares\": \"47894181.040220828\",\n          \"tax_type\": \"Post-tax\"\n        },\n        {\n          \"money_source\": \"Correction Contribution (QMAC)\",\n          \"shares\": \"-56233.32645591\",\n          \"tax_type\": \"Post-tax\"\n        }\n      ],\n      \"object_id\": \"string\",\n      \"share_price\": \"96.\",\n      \"shares\": \"64\",\n      \"status\": \"string\",\n      \"settle_date\": \"2007-05-22\"\n    }\n  ],\n  \"next\": \"http://api.example.org/accounts/?page=4\",\n  \"previous\": \"http://api.example.org/accounts/?page=2\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cbc8b322-c9af-4547-b2fd-6f42fba76067",
+              "name": "Unauthorized: Missing or invalid authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "investment-history",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2684e720-7b18-46fd-bf34-cd14f5bddff6",
+              "name": "Forbidden: Insufficient permissions or scopes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "investment-history",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b20bf259-e49e-45e5-a37f-c78e9bad8ab6",
+          "name": "participants investment options list",
+          "request": {
+            "name": "participants investment options list",
+            "description": {
+              "content": "Get a list of investment options available to the given participant.\n\nYou can optionally paginate by including 'page={page_num}&page_size={page_size}' in the query string.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "participants",
+                ":participant_id",
+                "investment-options",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "A page number within the paginated result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>",
+                  "description": "Number of results to return per page."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "participant_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "82d58e9a-746c-4125-8676-57665fbc4942",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "investment-options",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 123,\n  \"results\": [\n    {\n      \"asset_class\": \"string\",\n      \"description\": \"string\",\n      \"object_id\": \"string\",\n      \"name\": \"string\",\n      \"ticker\": null,\n      \"cusip\": null,\n      \"status\": \"Unknown\"\n    },\n    {\n      \"asset_class\": \"string\",\n      \"description\": \"string\",\n      \"object_id\": \"string\",\n      \"name\": \"string\",\n      \"ticker\": \"string\",\n      \"cusip\": \"string\",\n      \"status\": \"Unknown\"\n    }\n  ],\n  \"next\": \"http://api.example.org/accounts/?page=4\",\n  \"previous\": \"http://api.example.org/accounts/?page=2\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f479896e-b9dc-478a-82c3-d650f8555528",
+              "name": "Unauthorized: Missing or invalid authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "investment-options",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "19a0d8ab-6a71-410a-9c03-fa8493f1477d",
+              "name": "Forbidden: Insufficient permissions or scopes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "investment-options",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c79b1a90-de4e-4293-9ccd-a5b24412de10",
+          "name": "participants investment performance list",
+          "request": {
+            "name": "participants investment performance list",
+            "description": {
+              "content": "Get a list of portfolios - one for each day between two dates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "participants",
+                ":participant_id",
+                "investment-performance",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<string>",
+                  "description": "End date for filtering portfolios (YYYY-MM-DD format). Defaults to today."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "A page number within the paginated result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>",
+                  "description": "Number of results to return per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<string>",
+                  "description": "Start date for filtering portfolios (YYYY-MM-DD format). Defaults to the first day an investment transaction occurred."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "participant_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "29e7be5b-f94a-421b-bd59-87c7bb2e98f4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "investment-performance",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 123,\n  \"results\": [\n    {\n      \"cash\": \"2043184853\",\n      \"date\": \"1992-02-05\",\n      \"investments\": [\n        {\n          \"basis\": \"-115.9\",\n          \"object_id\": \"string\",\n          \"proceeds\": \"-870188\",\n          \"share_price\": \"172542054\",\n          \"shares\": \"-54122660\"\n        },\n        {\n          \"basis\": \"7070861\",\n          \"object_id\": \"string\",\n          \"proceeds\": \"96166059.2\",\n          \"share_price\": \"253675\",\n          \"shares\": \"-26435266\"\n        }\n      ]\n    },\n    {\n      \"cash\": \"-.79\",\n      \"date\": \"1992-02-08\",\n      \"investments\": [\n        {\n          \"basis\": \".0\",\n          \"object_id\": \"string\",\n          \"proceeds\": \"-711\",\n          \"share_price\": \"50753.178700\",\n          \"shares\": \"2257681\"\n        },\n        {\n          \"basis\": \"477\",\n          \"object_id\": \"string\",\n          \"proceeds\": \"77999686.\",\n          \"share_price\": \"-\",\n          \"shares\": \"28061\"\n        }\n      ]\n    }\n  ],\n  \"next\": \"http://api.example.org/accounts/?page=4\",\n  \"previous\": \"http://api.example.org/accounts/?page=2\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77cb25a4-60ad-455b-98a6-70208c916bc4",
+              "name": "Unauthorized: Missing or invalid authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "investment-performance",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d1bbf645-16c7-4aa6-a027-62274382135c",
+              "name": "Forbidden: Insufficient permissions or scopes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "investment-performance",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "89b2ce9f-c80e-4ecb-a55f-066c29a507b2",
+          "name": "participants portfolio list",
+          "request": {
+            "name": "participants portfolio list",
+            "description": {
+              "content": "Gets a list of portfolio investments for the given participant.\n\n### Investment states\n- `ACTIVE`: Investment is part of the portfolio.\n- `PENDING_SALE`: Investment has been removed from the portfolio and is being fully liquidated.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "participants",
+                ":participant_id",
+                "portfolio",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "A page number within the paginated result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>",
+                  "description": "Number of results to return per page."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "participant_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7dc38938-024f-46e6-839d-0f0a0c6055c5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "portfolio",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 123,\n  \"results\": [\n    {\n      \"investment\": {\n        \"asset_class\": \"string\",\n        \"description\": \"string\",\n        \"object_id\": \"string\",\n        \"name\": \"string\",\n        \"ticker\": \"string\",\n        \"cusip\": null,\n        \"status\": \"Unknown\"\n      },\n      \"percent\": \".24\",\n      \"shares\": \"-662\",\n      \"status\": \"PENDING_SALE\",\n      \"value\": \"-9589909.1\"\n    },\n    {\n      \"investment\": {\n        \"asset_class\": \"string\",\n        \"description\": \"string\",\n        \"object_id\": \"string\",\n        \"name\": \"string\",\n        \"ticker\": \"string\",\n        \"cusip\": \"string\",\n        \"status\": \"Unknown\"\n      },\n      \"percent\": \"-001.12\",\n      \"shares\": \"-0\",\n      \"status\": \"PENDING_SALE\",\n      \"value\": \"25433.9\"\n    }\n  ],\n  \"next\": \"http://api.example.org/accounts/?page=4\",\n  \"previous\": \"http://api.example.org/accounts/?page=2\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b70f441-5332-47a2-9a65-ce9467d09858",
+              "name": "Unauthorized: Missing or invalid authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "portfolio",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eb07d900-bbcf-4983-a52b-d8a54b24a29c",
+              "name": "Forbidden: Insufficient permissions or scopes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "portfolio",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "13346a36-7ea5-4ebc-916e-752cc4d15a2a",
+          "name": "participants portfolio create",
+          "request": {
+            "name": "participants portfolio create",
+            "description": {
+              "content": "Updates a participant's target portfolio allocations.\n\nExpects:\n- `investments`: list of investment ids\n- `weights`: list of target percent weights (aligned by index with `investments`)\n\n### 0% allocations\nSetting an investment target allocation to `0%` does **not** remove it from the portfolio. If `auto_rebalance` is disabled,\nno trades will occur until a manual rebalance is triggered.\n\n### Removing an investment\nAny allocation you specify in a POST request replaces any prior allocation.\nThus, to remove an investment from the portfolio, simply post an allocation without that investment.\nOnce an investment is removed from the portfolio, the system will sell all shares of that investment\n**regardless of whether `auto_rebalance` is enabled**. Removed investments enter `PENDING_SALE` until liquidation is complete.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "participants",
+                ":participant_id",
+                "portfolio",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "A page number within the paginated result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>",
+                  "description": "Number of results to return per page."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "participant_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "investments",
+                  "value": "<string,null>",
+                  "description": "(Required) List of investment IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "investments",
+                  "value": "<string,null>",
+                  "description": "(Required) List of investment IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "weights",
+                  "value": "<decimal>",
+                  "description": "(Required) List of investment weights. The order of weights must parallel the order of investments."
+                },
+                {
+                  "disabled": false,
+                  "key": "weights",
+                  "value": "<decimal>",
+                  "description": "(Required) List of investment weights. The order of weights must parallel the order of investments."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d9e5f770-990f-443c-8732-70a5aed46148",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "portfolio",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) List of investment IDs",
+                        "type": "text/plain"
+                      },
+                      "key": "investments",
+                      "value": "<string,null>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) List of investment IDs",
+                        "type": "text/plain"
+                      },
+                      "key": "investments",
+                      "value": "<string,null>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) List of investment weights. The order of weights must parallel the order of investments.",
+                        "type": "text/plain"
+                      },
+                      "key": "weights",
+                      "value": "<decimal>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) List of investment weights. The order of weights must parallel the order of investments.",
+                        "type": "text/plain"
+                      },
+                      "key": "weights",
+                      "value": "<decimal>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 123,\n  \"results\": [\n    {\n      \"investment\": {\n        \"asset_class\": \"string\",\n        \"description\": \"string\",\n        \"object_id\": \"string\",\n        \"name\": \"string\",\n        \"ticker\": \"string\",\n        \"cusip\": null,\n        \"status\": \"Unknown\"\n      },\n      \"percent\": \".24\",\n      \"shares\": \"-662\",\n      \"status\": \"PENDING_SALE\",\n      \"value\": \"-9589909.1\"\n    },\n    {\n      \"investment\": {\n        \"asset_class\": \"string\",\n        \"description\": \"string\",\n        \"object_id\": \"string\",\n        \"name\": \"string\",\n        \"ticker\": \"string\",\n        \"cusip\": \"string\",\n        \"status\": \"Unknown\"\n      },\n      \"percent\": \"-001.12\",\n      \"shares\": \"-0\",\n      \"status\": \"PENDING_SALE\",\n      \"value\": \"25433.9\"\n    }\n  ],\n  \"next\": \"http://api.example.org/accounts/?page=4\",\n  \"previous\": \"http://api.example.org/accounts/?page=2\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4eecec9e-ad26-4895-8177-2096ffea9ce9",
+              "name": "Unauthorized: Missing or invalid authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "portfolio",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) List of investment IDs",
+                        "type": "text/plain"
+                      },
+                      "key": "investments",
+                      "value": "<string,null>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) List of investment IDs",
+                        "type": "text/plain"
+                      },
+                      "key": "investments",
+                      "value": "<string,null>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) List of investment weights. The order of weights must parallel the order of investments.",
+                        "type": "text/plain"
+                      },
+                      "key": "weights",
+                      "value": "<decimal>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) List of investment weights. The order of weights must parallel the order of investments.",
+                        "type": "text/plain"
+                      },
+                      "key": "weights",
+                      "value": "<decimal>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bd6f4c16-4f08-4479-8f14-2488508aa1d6",
+              "name": "Forbidden: Insufficient permissions or scopes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "portfolio",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) List of investment IDs",
+                        "type": "text/plain"
+                      },
+                      "key": "investments",
+                      "value": "<string,null>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) List of investment IDs",
+                        "type": "text/plain"
+                      },
+                      "key": "investments",
+                      "value": "<string,null>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) List of investment weights. The order of weights must parallel the order of investments.",
+                        "type": "text/plain"
+                      },
+                      "key": "weights",
+                      "value": "<decimal>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) List of investment weights. The order of weights must parallel the order of investments.",
+                        "type": "text/plain"
+                      },
+                      "key": "weights",
+                      "value": "<decimal>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "134ea763-7d0e-4a99-aeec-c3a06548b8fc",
+          "name": "participants portfolio settings retrieve",
+          "request": {
+            "name": "participants portfolio settings retrieve",
+            "description": {
+              "content": "Get data points related to rebalancing, trading windows, and if a participant can self direct.\n\ncan_cancel_rebalance represents if the current time is in a trading window.\nThe next_trading_window returns the start of the next trading window and should be used with caution,\npreferably with a buffer of about 30 minutes for if the trade can be completed in this time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "participants",
+                ":participant_id",
+                "portfolio-settings",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "participant_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "78e64879-d138-484d-a6f6-77fdf733edb9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "portfolio-settings",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"can_cancel_rebalance\": false,\n  \"is_rebalancing\": false,\n  \"next_trading_window\": \"1970-05-18T10:56:15.101Z\",\n  \"self_direct_allowed\": true,\n  \"auto_rebalance\": false,\n  \"rebalance_percent\": -1727,\n  \"opted_in_to_self_direct\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cc94f12f-b703-44ee-b12d-eba68b7bae63",
+              "name": "Unauthorized: Missing or invalid authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "portfolio-settings",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "818af5f5-7903-48bf-8c84-e573c3825cde",
+              "name": "Forbidden: Insufficient permissions or scopes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "portfolio-settings",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "67231e7c-cdb1-4ab8-a1ab-0757c871bdea",
+          "name": "participants portfolio settings create",
+          "request": {
+            "name": "participants portfolio settings create",
+            "description": {
+              "content": "Updates a participant's option to auto rebalance, rebalance percent, and if they have opted in to self direct",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "participants",
+                ":participant_id",
+                "portfolio-settings",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "participant_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "auto_rebalance",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "rebalance_percent",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "opted_in_to_self_direct",
+                  "value": "<boolean>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d33626ed-38bb-40a9-8bef-f994f753da72",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "portfolio-settings",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "auto_rebalance",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "rebalance_percent",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "opted_in_to_self_direct",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"can_cancel_rebalance\": false,\n  \"is_rebalancing\": false,\n  \"next_trading_window\": \"1970-05-18T10:56:15.101Z\",\n  \"self_direct_allowed\": true,\n  \"auto_rebalance\": false,\n  \"rebalance_percent\": -1727,\n  \"opted_in_to_self_direct\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "897220ea-00e0-457d-bdab-8f77143b8aa4",
+              "name": "Unauthorized: Missing or invalid authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "portfolio-settings",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "auto_rebalance",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "rebalance_percent",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "opted_in_to_self_direct",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2ce16be6-d4f9-4004-8106-21af897caa8e",
+              "name": "Forbidden: Insufficient permissions or scopes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "portfolio-settings",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "auto_rebalance",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "rebalance_percent",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "opted_in_to_self_direct",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "97558b3d-6e5b-43f2-9532-28cf2c426d39",
+          "name": "participants start participant rebalance create",
+          "request": {
+            "name": "participants start participant rebalance create",
+            "description": {},
+            "url": {
+              "path": [
+                "participants",
+                ":participant_id",
+                "start-participant-rebalance",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "participant_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ed5c95db-cb28-4bfe-873e-f8c4456010e5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "start-participant-rebalance",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"can_cancel_rebalance\": false,\n  \"is_rebalancing\": false,\n  \"next_trading_window\": \"1970-05-18T10:56:15.101Z\",\n  \"self_direct_allowed\": true,\n  \"auto_rebalance\": false,\n  \"rebalance_percent\": -1727,\n  \"opted_in_to_self_direct\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ffa0624d-edf2-43ab-b655-d2f05047d818",
+              "name": "Bad Request: Manual rebalance not possible when auto-rebalance is enabled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "start-participant-rebalance",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ba3b5e23-5ccf-47e0-a515-8550c57cb655",
+              "name": "Unauthorized: Missing or invalid authentication",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "start-participant-rebalance",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cb12c1cb-a1c5-43f5-8a4e-e30a2a8d6c4a",
+              "name": "Forbidden: Insufficient permissions or scopes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "participants",
+                    ":participant_id",
+                    "start-participant-rebalance",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "participant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.401go.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e2bc8d23-23b4-419e-8e46-e54f98be3401",
+    "name": "401GO Investments & Portfolios API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

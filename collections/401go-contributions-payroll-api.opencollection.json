@@ -1,0 +1,175 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "401GO Contributions & Payroll API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contributions & Payroll",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "companies_submit_payroll_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.401go.com/api/companies/:company_id/submit-payroll/",
+            "headers": [
+              {
+                "name": "Idempotent-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Submit payroll for a company."
+        },
+        {
+          "info": {
+            "name": "participants_deferrals_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/deferrals/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get deferrals for a participant."
+        },
+        {
+          "info": {
+            "name": "participants_deferrals_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.401go.com/api/participants/:participant_id/deferrals/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update deferrals for a participant. Submitted deferrals may not immediately become active due to eligibility,\nmaxing out for the year, or plan deferral change frequency rules."
+        },
+        {
+          "info": {
+            "name": "participants_matches_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/matches/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "participants_payroll_lines_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/payroll-lines/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the payroll lines for a participant."
+        },
+        {
+          "info": {
+            "name": "participants_totals_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/totals/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns year-to-date contribution totals, account balances, income, loans,\nand applicable annual contribution limits.\n\nIncludes YTD totals for:\n- Pre-tax contributions\n- Post-tax contributions\n- Company contributions\n- Compensation (YTD and prior year)\n\nAlso includes:\n- Total account balance\n- Cash balance\n- Active loan balances\n- Payroll count for the year\n\nContribution limits:\n\n- Pre-tax and post-tax contributions share a single combined\n  contribution limit.\n  This means contributions to EITH"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

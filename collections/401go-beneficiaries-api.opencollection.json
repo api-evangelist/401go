@@ -1,0 +1,226 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "401GO Beneficiaries API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Beneficiaries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "participants_beneficiaries_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/beneficiaries/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A page number within the paginated result set."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return per page."
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of a participant's beneficiaries."
+        },
+        {
+          "info": {
+            "name": "participants_beneficiaries_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.401go.com/api/participants/:participant_id/beneficiaries/",
+            "headers": [
+              {
+                "name": "Idempotent-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a single or multiple beneficiaries for a participant.\nIf a list is provided, either all or none will be created."
+        },
+        {
+          "info": {
+            "name": "participants_beneficiaries_partial_update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.401go.com/api/participants/:participant_id/beneficiaries/",
+            "params": [
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Partially update a list of beneficiaries. Each entry must include the `object_id`. The provided list must\nbe a subset of the participant's beneficiaries. Validates every entry first, then either applies all or none of\nthem."
+        },
+        {
+          "info": {
+            "name": "participants_beneficiaries_retrieve",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.401go.com/api/participants/:participant_id/beneficiaries/:beneficiary_id/",
+            "params": [
+              {
+                "name": "beneficiary_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a specific beneficiary."
+        },
+        {
+          "info": {
+            "name": "participants_beneficiaries_update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.401go.com/api/participants/:participant_id/beneficiaries/:beneficiary_id/",
+            "params": [
+              {
+                "name": "beneficiary_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fully update a specific beneficiary."
+        },
+        {
+          "info": {
+            "name": "participants_beneficiaries_partial_update_2",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.401go.com/api/participants/:participant_id/beneficiaries/:beneficiary_id/",
+            "params": [
+              {
+                "name": "beneficiary_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Partially update a single beneficiary."
+        },
+        {
+          "info": {
+            "name": "participants_beneficiaries_destroy",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.401go.com/api/participants/:participant_id/beneficiaries/:beneficiary_id/",
+            "params": [
+              {
+                "name": "beneficiary_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "participant_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a beneficiary."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
