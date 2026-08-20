@@ -25,6 +25,17 @@ tags:
 - Company
 - Retirement
 - 401k
+- Financial-Services
+- Fintech
+- Payroll
+- Human Resources
+- Benefits
+- Investments
+- Wealth Management
+tags_raw:
+- Company
+- Retirement
+- 401k
 - Financial Services
 - Fintech
 - Payroll
@@ -199,6 +210,8 @@ apis:
   humanURL: https://developer.401go.com/
   baseURL: https://app.401go.com/api
   tags:
+  - Notification
+  tags_raw:
   - Notifications
   properties:
   - type: OpenAPI
