@@ -12,6 +12,18 @@ description: 401GO is a Utah-based retirement technology provider that delivers 
   notifications and documents. Access is OAuth 2.0 (authorization code and client credentials)
   with OpenID Connect SSO, and is further gated by a per-client endpoint-plus-HTTP-method allow
   list negotiated during partner onboarding.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://401go.com/wp-content/uploads/2024/10/cropped-favicon-192x192.png
 url: https://raw.githubusercontent.com/api-evangelist/401go/refs/heads/main/apis.yml
 x-type: company
