@@ -285,6 +285,9 @@ apis:
   - type: ToolCrosswalk
     url: mcp/401go-tool-crosswalk.yml
 common:
+- type: CapabilityMap
+  url: capabilities/401go-capability-edges.yml
+  name: 401GO Business Capability Map
 - type: Website
   url: https://401go.com/
 - type: DeveloperPortal

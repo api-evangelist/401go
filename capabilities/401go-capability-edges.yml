@@ -1,0 +1,42 @@
+slug: 401go
+provider: 401GO
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Companies & Plans
+  spec_file: 401go-companies-plans-api-openapi.yml
+  capability_id: BC-300.30
+  capability_id_l1: BC-300
+  capability_name: Compensation & Benefits Management
+  confidence: 0.8
+  evidence: POST /plan-setup/ plan_setup_create; GET /companies/{company_id}/plan-provisions/
+  reason: Sets up employer retirement plans and exposes plan provisions, matches and investment options
+    — employer benefits plan administration, i.e. Compensation & Benefits Management.
+- tag: Contributions & Payroll
+  spec_file: 401go-contributions-payroll-api-openapi.yml
+  capability_id: BC-300.70
+  capability_id_l1: BC-300
+  capability_name: HR Operations Management
+  confidence: 0.8
+  evidence: POST /companies/{company_id}/submit-payroll/ companies_submit_payroll_create; GET /participants/{participant_id}/deferrals/
+  reason: Payroll submission with participant deferrals and employer matches is payroll administration
+    / HR operations; benefits contribution processing tied directly to payroll runs.
+- tag: Participants
+  spec_file: 401go-participants-api-openapi.yml
+  capability_id: BC-300.30
+  capability_id_l1: BC-300
+  capability_name: Compensation & Benefits Management
+  confidence: 0.7
+  evidence: POST /companies/{company_id}/participants/ companies_participants_create; GET /participants/{participant_id}/participant-setup/
+  reason: Enrolment and maintenance of employees as retirement-plan participants under an employer — benefits
+    enrolment administration. Some ambiguity with HR Operations employee records, hence 0.7.
