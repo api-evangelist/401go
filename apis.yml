@@ -24,6 +24,21 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  - scopes
+  - security
+  - sandbox
+  generated: '2026-09-02'
+  method: derived
 image: https://401go.com/wp-content/uploads/2024/10/cropped-favicon-192x192.png
 url: https://raw.githubusercontent.com/api-evangelist/401go/refs/heads/main/apis.yml
 x-type: company
