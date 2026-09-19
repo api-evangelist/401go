@@ -48,6 +48,9 @@ x-tier-reason: enrichment
 specificationVersion: '0.23'
 created: '2026-08-02'
 modified: '2026-08-02'
+x-docs-platform: readme
+x-docs-platform-confidence: high
+x-docs-platform-checked: 2026-09-17
 tags:
 - Company
 - Retirement
@@ -57,7 +60,7 @@ tags:
 - Payroll
 - Human Resources
 - Benefits
-- Investments
+- Investment
 - Wealth Management
 tags_raw:
 - Company
