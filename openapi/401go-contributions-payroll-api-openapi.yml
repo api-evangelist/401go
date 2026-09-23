@@ -14,8 +14,7 @@ paths:
         name: Idempotent-Key
         schema:
           type: string
-        description: Supply a key to safely retry requests without the server duplicating the action.
-          Will be remembered for 24 hours.
+        description: Supply a key to safely retry requests without the server duplicating the action. Will be remembered for 24 hours.
       - in: path
         name: company_id
         schema:
@@ -28,15 +27,12 @@ paths:
           application/json:
             schema:
               type: object
-              description: 'A Payroll File is a single payroll for a company with many pay lines, one
-                for each participant.
+              description: 'A Payroll File is a single payroll for a company with many pay lines, one for each participant.
 
 
-                There are a couple dates that can be provided for a payroll file, but check_date is the
-                only required one.
+                There are a couple dates that can be provided for a payroll file, but check_date is the only required one.
 
-                is_off_cycle can be true if this is not a regular payroll. For example, it could be a
-                one-off correction.'
+                is_off_cycle can be true if this is not a regular payroll. For example, it could be a one-off correction.'
               properties:
                 pay_period_start:
                   type:
@@ -58,12 +54,10 @@ paths:
                   type: array
                   items:
                     type: object
-                    description: 'A payroll line represents payroll for one participant and has the associated
-                      id of that participant.
+                    description: 'A payroll line represents payroll for one participant and has the associated id of that participant.
 
 
-                      It can also optionally include hours_ytd and gross_pay_ytd which will help in reporting,
-                      eligibility, etc. when provided.'
+                      It can also optionally include hours_ytd and gross_pay_ytd which will help in reporting, eligibility, etc. when provided.'
                     properties:
                       participant_id:
                         type: string
@@ -91,8 +85,7 @@ paths:
                         type: array
                         items:
                           type: object
-                          description: 'Additional payroll deductions not covered by employee contributions
-                            to 401k or company matches.
+                          description: 'Additional payroll deductions not covered by employee contributions to 401k or company matches.
 
 
                             Currently, this can only be set to Loan types.'
@@ -133,15 +126,12 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               type: object
-              description: 'A Payroll File is a single payroll for a company with many pay lines, one
-                for each participant.
+              description: 'A Payroll File is a single payroll for a company with many pay lines, one for each participant.
 
 
-                There are a couple dates that can be provided for a payroll file, but check_date is the
-                only required one.
+                There are a couple dates that can be provided for a payroll file, but check_date is the only required one.
 
-                is_off_cycle can be true if this is not a regular payroll. For example, it could be a
-                one-off correction.'
+                is_off_cycle can be true if this is not a regular payroll. For example, it could be a one-off correction.'
               properties:
                 pay_period_start:
                   type:
@@ -163,12 +153,10 @@ paths:
                   type: array
                   items:
                     type: object
-                    description: 'A payroll line represents payroll for one participant and has the associated
-                      id of that participant.
+                    description: 'A payroll line represents payroll for one participant and has the associated id of that participant.
 
 
-                      It can also optionally include hours_ytd and gross_pay_ytd which will help in reporting,
-                      eligibility, etc. when provided.'
+                      It can also optionally include hours_ytd and gross_pay_ytd which will help in reporting, eligibility, etc. when provided.'
                     properties:
                       participant_id:
                         type: string
@@ -196,8 +184,7 @@ paths:
                         type: array
                         items:
                           type: object
-                          description: 'Additional payroll deductions not covered by employee contributions
-                            to 401k or company matches.
+                          description: 'Additional payroll deductions not covered by employee contributions to 401k or company matches.
 
 
                             Currently, this can only be set to Loan types.'
@@ -238,15 +225,12 @@ paths:
           multipart/form-data:
             schema:
               type: object
-              description: 'A Payroll File is a single payroll for a company with many pay lines, one
-                for each participant.
+              description: 'A Payroll File is a single payroll for a company with many pay lines, one for each participant.
 
 
-                There are a couple dates that can be provided for a payroll file, but check_date is the
-                only required one.
+                There are a couple dates that can be provided for a payroll file, but check_date is the only required one.
 
-                is_off_cycle can be true if this is not a regular payroll. For example, it could be a
-                one-off correction.'
+                is_off_cycle can be true if this is not a regular payroll. For example, it could be a one-off correction.'
               properties:
                 pay_period_start:
                   type:
@@ -268,12 +252,10 @@ paths:
                   type: array
                   items:
                     type: object
-                    description: 'A payroll line represents payroll for one participant and has the associated
-                      id of that participant.
+                    description: 'A payroll line represents payroll for one participant and has the associated id of that participant.
 
 
-                      It can also optionally include hours_ytd and gross_pay_ytd which will help in reporting,
-                      eligibility, etc. when provided.'
+                      It can also optionally include hours_ytd and gross_pay_ytd which will help in reporting, eligibility, etc. when provided.'
                     properties:
                       participant_id:
                         type: string
@@ -301,8 +283,7 @@ paths:
                         type: array
                         items:
                           type: object
-                          description: 'Additional payroll deductions not covered by employee contributions
-                            to 401k or company matches.
+                          description: 'Additional payroll deductions not covered by employee contributions to 401k or company matches.
 
 
                             Currently, this can only be set to Loan types.'
@@ -349,15 +330,12 @@ paths:
             application/json:
               schema:
                 type: object
-                description: 'A Payroll File is a single payroll for a company with many pay lines, one
-                  for each participant.
+                description: 'A Payroll File is a single payroll for a company with many pay lines, one for each participant.
 
 
-                  There are a couple dates that can be provided for a payroll file, but check_date is
-                  the only required one.
+                  There are a couple dates that can be provided for a payroll file, but check_date is the only required one.
 
-                  is_off_cycle can be true if this is not a regular payroll. For example, it could be
-                  a one-off correction.'
+                  is_off_cycle can be true if this is not a regular payroll. For example, it could be a one-off correction.'
                 properties:
                   pay_period_start:
                     type:
@@ -385,12 +363,10 @@ paths:
                     type: array
                     items:
                       type: object
-                      description: 'A payroll line represents payroll for one participant and has the
-                        associated id of that participant.
+                      description: 'A payroll line represents payroll for one participant and has the associated id of that participant.
 
 
-                        It can also optionally include hours_ytd and gross_pay_ytd which will help in
-                        reporting, eligibility, etc. when provided.'
+                        It can also optionally include hours_ytd and gross_pay_ytd which will help in reporting, eligibility, etc. when provided.'
                       properties:
                         participant_id:
                           type: string
@@ -430,8 +406,7 @@ paths:
                           type: array
                           items:
                             type: object
-                            description: 'Additional payroll deductions not covered by employee contributions
-                              to 401k or company matches.
+                            description: 'Additional payroll deductions not covered by employee contributions to 401k or company matches.
 
 
                               Currently, this can only be set to Loan types.'
@@ -474,6 +449,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Companies submit payroll create
+      x-summary-source: derived
   /participants/{participant_id}/deferrals/:
     get:
       operationId: participants_deferrals_retrieve
@@ -506,8 +483,7 @@ paths:
                       timestamp:
                         type: string
                         format: date-time
-                        description: Timestamp for conflict resolution. If older than the last deferral
-                          update in our system, an error will be returned and deferrals will not be updated.
+                        description: Timestamp for conflict resolution. If older than the last deferral update in our system, an error will be returned and deferrals will not be updated.
                       is_percent:
                         type: boolean
                     required:
@@ -523,8 +499,7 @@ paths:
                       timestamp:
                         type: string
                         format: date-time
-                        description: Timestamp for conflict resolution. If older than the last deferral
-                          update in our system, an error will be returned and deferrals will not be updated.
+                        description: Timestamp for conflict resolution. If older than the last deferral update in our system, an error will be returned and deferrals will not be updated.
                       is_percent:
                         type: boolean
                     required:
@@ -553,17 +528,14 @@ paths:
                         timestamp:
                           type: string
                           format: date-time
-                          description: Timestamp for conflict resolution. If older than the last deferral
-                            update in our system, an error will be returned and deferrals will not be
-                            updated.
+                          description: Timestamp for conflict resolution. If older than the last deferral update in our system, an error will be returned and deferrals will not be updated.
                         is_percent:
                           type: boolean
                       required:
                       - amount
                       - timestamp
                     readOnly: true
-                    description: Currently active traditional deferrals. May be different from `traditional`
-                      field.
+                    description: Currently active traditional deferrals. May be different from `traditional` field.
                   active_roth:
                     allOf:
                     - type: object
@@ -575,9 +547,7 @@ paths:
                         timestamp:
                           type: string
                           format: date-time
-                          description: Timestamp for conflict resolution. If older than the last deferral
-                            update in our system, an error will be returned and deferrals will not be
-                            updated.
+                          description: Timestamp for conflict resolution. If older than the last deferral update in our system, an error will be returned and deferrals will not be updated.
                         is_percent:
                           type: boolean
                       required:
@@ -604,10 +574,11 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants deferrals retrieve
+      x-summary-source: derived
     post:
       operationId: participants_deferrals_create
-      description: 'Update deferrals for a participant. Submitted deferrals may not immediately become
-        active due to eligibility,
+      description: 'Update deferrals for a participant. Submitted deferrals may not immediately become active due to eligibility,
 
         maxing out for the year, or plan deferral change frequency rules.'
       parameters:
@@ -634,8 +605,7 @@ paths:
                     timestamp:
                       type: string
                       format: date-time
-                      description: Timestamp for conflict resolution. If older than the last deferral
-                        update in our system, an error will be returned and deferrals will not be updated.
+                      description: Timestamp for conflict resolution. If older than the last deferral update in our system, an error will be returned and deferrals will not be updated.
                     is_percent:
                       type: boolean
                   required:
@@ -651,8 +621,7 @@ paths:
                     timestamp:
                       type: string
                       format: date-time
-                      description: Timestamp for conflict resolution. If older than the last deferral
-                        update in our system, an error will be returned and deferrals will not be updated.
+                      description: Timestamp for conflict resolution. If older than the last deferral update in our system, an error will be returned and deferrals will not be updated.
                     is_percent:
                       type: boolean
                   required:
@@ -672,8 +641,7 @@ paths:
                     timestamp:
                       type: string
                       format: date-time
-                      description: Timestamp for conflict resolution. If older than the last deferral
-                        update in our system, an error will be returned and deferrals will not be updated.
+                      description: Timestamp for conflict resolution. If older than the last deferral update in our system, an error will be returned and deferrals will not be updated.
                     is_percent:
                       type: boolean
                   required:
@@ -689,8 +657,7 @@ paths:
                     timestamp:
                       type: string
                       format: date-time
-                      description: Timestamp for conflict resolution. If older than the last deferral
-                        update in our system, an error will be returned and deferrals will not be updated.
+                      description: Timestamp for conflict resolution. If older than the last deferral update in our system, an error will be returned and deferrals will not be updated.
                     is_percent:
                       type: boolean
                   required:
@@ -710,8 +677,7 @@ paths:
                     timestamp:
                       type: string
                       format: date-time
-                      description: Timestamp for conflict resolution. If older than the last deferral
-                        update in our system, an error will be returned and deferrals will not be updated.
+                      description: Timestamp for conflict resolution. If older than the last deferral update in our system, an error will be returned and deferrals will not be updated.
                     is_percent:
                       type: boolean
                   required:
@@ -727,8 +693,7 @@ paths:
                     timestamp:
                       type: string
                       format: date-time
-                      description: Timestamp for conflict resolution. If older than the last deferral
-                        update in our system, an error will be returned and deferrals will not be updated.
+                      description: Timestamp for conflict resolution. If older than the last deferral update in our system, an error will be returned and deferrals will not be updated.
                     is_percent:
                       type: boolean
                   required:
@@ -754,8 +719,7 @@ paths:
                       timestamp:
                         type: string
                         format: date-time
-                        description: Timestamp for conflict resolution. If older than the last deferral
-                          update in our system, an error will be returned and deferrals will not be updated.
+                        description: Timestamp for conflict resolution. If older than the last deferral update in our system, an error will be returned and deferrals will not be updated.
                       is_percent:
                         type: boolean
                     required:
@@ -771,8 +735,7 @@ paths:
                       timestamp:
                         type: string
                         format: date-time
-                        description: Timestamp for conflict resolution. If older than the last deferral
-                          update in our system, an error will be returned and deferrals will not be updated.
+                        description: Timestamp for conflict resolution. If older than the last deferral update in our system, an error will be returned and deferrals will not be updated.
                       is_percent:
                         type: boolean
                     required:
@@ -801,17 +764,14 @@ paths:
                         timestamp:
                           type: string
                           format: date-time
-                          description: Timestamp for conflict resolution. If older than the last deferral
-                            update in our system, an error will be returned and deferrals will not be
-                            updated.
+                          description: Timestamp for conflict resolution. If older than the last deferral update in our system, an error will be returned and deferrals will not be updated.
                         is_percent:
                           type: boolean
                       required:
                       - amount
                       - timestamp
                     readOnly: true
-                    description: Currently active traditional deferrals. May be different from `traditional`
-                      field.
+                    description: Currently active traditional deferrals. May be different from `traditional` field.
                   active_roth:
                     allOf:
                     - type: object
@@ -823,9 +783,7 @@ paths:
                         timestamp:
                           type: string
                           format: date-time
-                          description: Timestamp for conflict resolution. If older than the last deferral
-                            update in our system, an error will be returned and deferrals will not be
-                            updated.
+                          description: Timestamp for conflict resolution. If older than the last deferral update in our system, an error will be returned and deferrals will not be updated.
                         is_percent:
                           type: boolean
                       required:
@@ -854,6 +812,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants deferrals create
+      x-summary-source: derived
   /participants/{participant_id}/matches/:
     get:
       operationId: participants_matches_retrieve
@@ -884,15 +844,12 @@ paths:
                           type: integer
                           maximum: 2147483647
                           minimum: -2147483648
-                          description: Match rate as a whole-number percentage (e.g., 100 for 100%, 50
-                            for 50%).
+                          description: Match rate as a whole-number percentage (e.g., 100 for 100%, 50 for 50%).
                         contribution_max_percent:
                           type: integer
                           maximum: 2147483647
                           minimum: -2147483648
-                          description: Maximum percentage of employee compensation this rate applies to.
-                            Tiers are cumulative, i.e. each tier covers compensation from the previous
-                            tier's max up to this max.
+                          description: Maximum percentage of employee compensation this rate applies to. Tiers are cumulative, i.e. each tier covers compensation from the previous tier's max up to this max.
                       required:
                       - contribution_max_percent
                       - contribution_rate
@@ -905,15 +862,12 @@ paths:
                           type: integer
                           maximum: 2147483647
                           minimum: -2147483648
-                          description: Match rate as a whole-number percentage (e.g., 100 for 100%, 50
-                            for 50%).
+                          description: Match rate as a whole-number percentage (e.g., 100 for 100%, 50 for 50%).
                         contribution_max_percent:
                           type: integer
                           maximum: 2147483647
                           minimum: -2147483648
-                          description: Maximum percentage of employee compensation this rate applies to.
-                            Tiers are cumulative, i.e. each tier covers compensation from the previous
-                            tier's max up to this max.
+                          description: Maximum percentage of employee compensation this rate applies to. Tiers are cumulative, i.e. each tier covers compensation from the previous tier's max up to this max.
                       required:
                       - contribution_max_percent
                       - contribution_rate
@@ -943,6 +897,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants matches retrieve
+      x-summary-source: derived
   /participants/{participant_id}/payroll-lines/:
     get:
       operationId: participants_payroll_lines_list
@@ -998,12 +954,10 @@ paths:
                     type: array
                     items:
                       type: object
-                      description: 'A payroll line represents payroll for one participant and has the
-                        associated id of that participant.
+                      description: 'A payroll line represents payroll for one participant and has the associated id of that participant.
 
 
-                        It can also optionally include hours_ytd and gross_pay_ytd which will help in
-                        reporting, eligibility, etc. when provided.'
+                        It can also optionally include hours_ytd and gross_pay_ytd which will help in reporting, eligibility, etc. when provided.'
                       properties:
                         participant_id:
                           type: string
@@ -1043,8 +997,7 @@ paths:
                           type: array
                           items:
                             type: object
-                            description: 'Additional payroll deductions not covered by employee contributions
-                              to 401k or company matches.
+                            description: 'Additional payroll deductions not covered by employee contributions to 401k or company matches.
 
 
                               Currently, this can only be set to Loan types.'
@@ -1081,22 +1034,74 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants payroll lines list
+      x-summary-source: derived
   /participants/{participant_id}/totals/:
     get:
       operationId: participants_totals_retrieve
-      description: "Returns year-to-date contribution totals, account balances, income, loans,\nand applicable\
-        \ annual contribution limits.\n\nIncludes YTD totals for:\n- Pre-tax contributions\n- Post-tax\
-        \ contributions\n- Company contributions\n- Compensation (YTD and prior year)\n\nAlso includes:\n\
-        - Total account balance\n- Cash balance\n- Active loan balances\n- Payroll count for the year\n\
-        \nContribution limits:\n\n- Pre-tax and post-tax contributions share a single combined\n  contribution\
-        \ limit.\n  This means contributions to EITHER pre-tax OR post-tax reduce\n  the remaining limit\
-        \ for BOTH.\n\n  Example:\n  If the contribution limit is $23,000 and a participant contributes\n\
-        \  $10,000 pre-tax, they can contribute at most $13,000 more total\n  across pre-tax and post-tax\
-        \ combined.\n\n- Catch-up contributions have special eligibility rules.\n  A participant may be\
-        \ eligible for Roth (post-tax) catch-up\n  without being eligible for traditional (pre-tax) catch-up.\n\
-        \n- The `year_contribution_limit` is the absolute maximum for all\n  contributions combined:\n\
-        \  pre-tax + post-tax + all catch-up contributions.\n\n- Each contribution type may not exceed\
-        \ its own individual limit."
+      description: 'Returns year-to-date contribution totals, account balances, income, loans,
+
+        and applicable annual contribution limits.
+
+
+        Includes YTD totals for:
+
+        - Pre-tax contributions
+
+        - Post-tax contributions
+
+        - Company contributions
+
+        - Compensation (YTD and prior year)
+
+
+        Also includes:
+
+        - Total account balance
+
+        - Cash balance
+
+        - Active loan balances
+
+        - Payroll count for the year
+
+
+        Contribution limits:
+
+
+        - Pre-tax and post-tax contributions share a single combined
+
+        contribution limit.
+
+        This means contributions to EITHER pre-tax OR post-tax reduce
+
+        the remaining limit for BOTH.
+
+
+        Example:
+
+        If the contribution limit is $23,000 and a participant contributes
+
+        $10,000 pre-tax, they can contribute at most $13,000 more total
+
+        across pre-tax and post-tax combined.
+
+
+        - Catch-up contributions have special eligibility rules.
+
+        A participant may be eligible for Roth (post-tax) catch-up
+
+        without being eligible for traditional (pre-tax) catch-up.
+
+
+        - The `year_contribution_limit` is the absolute maximum for all
+
+        contributions combined:
+
+        pre-tax + post-tax + all catch-up contributions.
+
+
+        - Each contribution type may not exceed its own individual limit.'
       parameters:
       - in: path
         name: participant_id
@@ -1228,6 +1233,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants totals retrieve
+      x-summary-source: derived
 components:
   securitySchemes:
     knoxApiToken:
@@ -1238,8 +1245,4 @@ components:
     oauth2:
       type: http
       scheme: bearer
-      description: OAuth 2.0 Bearer based with an existing token. Enter a token retrieved via the regular
-        OAuth flow elsewhere.
-servers:
-- url: https://app.401go.com/api
-  description: Base URL reconciled from apis.yml
+      description: OAuth 2.0 Bearer based with an existing token. Enter a token retrieved via the regular OAuth flow elsewhere.

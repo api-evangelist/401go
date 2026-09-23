@@ -114,6 +114,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Affiliate firms list
+      x-summary-source: derived
   /affiliate-firms/{affiliate_firm_id}/affiliates/:
     get:
       operationId: affiliate_firms_affiliates_list
@@ -216,6 +218,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Affiliate firms affiliates list
+      x-summary-source: derived
   /affiliate-firms/{affiliate_firm_id}/fund-lineups/:
     get:
       operationId: affiliate_firms_fund_lineups_list
@@ -282,9 +286,7 @@ paths:
                           maxLength: 100
                         description:
                           type: string
-                          description: This short 250 char description will be shown on the 'Select Fund
-                            Lineup' page of the company questions section of plan setup. If there are
-                            fees for this lineup, they should be listed here.
+                          description: This short 250 char description will be shown on the 'Select Fund Lineup' page of the company questions section of plan setup. If there are fees for this lineup, they should be listed here.
                           maxLength: 250
                         custodian:
                           type: string
@@ -362,6 +364,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Affiliate firms fund lineups list
+      x-summary-source: derived
   /affiliate-firms/{affiliate_firm_id}/pooled-plans/:
     get:
       operationId: affiliate_firms_pooled_plans_list
@@ -456,6 +460,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Affiliate firms pooled plans list
+      x-summary-source: derived
   /affiliate-firms/{affiliate_firm_id}/pricing-tiers/:
     get:
       operationId: affiliate_firms_pricing_tiers_list
@@ -532,8 +538,7 @@ paths:
                               aum_fee:
                                 type: string
                                 format: decimal
-                                description: Fee as a decimal (e.g. 0.0100 = 1% = 100 bps). To convert
-                                  from bps, divide by 10,000.
+                                description: Fee as a decimal (e.g. 0.0100 = 1% = 100 bps). To convert from bps, divide by 10,000.
                           readOnly: true
                         per_head_tiers:
                           type: array
@@ -586,6 +591,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Affiliate firms pricing tiers list
+      x-summary-source: derived
   /affiliates/{affiliate_id}/pricing-tiers/:
     get:
       operationId: affiliates_pricing_tiers_list
@@ -662,8 +669,7 @@ paths:
                               aum_fee:
                                 type: string
                                 format: decimal
-                                description: Fee as a decimal (e.g. 0.0100 = 1% = 100 bps). To convert
-                                  from bps, divide by 10,000.
+                                description: Fee as a decimal (e.g. 0.0100 = 1% = 100 bps). To convert from bps, divide by 10,000.
                           readOnly: true
                         per_head_tiers:
                           type: array
@@ -716,6 +722,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Affiliates pricing tiers list
+      x-summary-source: derived
   /companies/{company_id}/company-affiliates/:
     get:
       operationId: companies_company_affiliates_retrieve
@@ -728,8 +736,7 @@ paths:
 
         - Advisor and firm CRD numbers may not always be available.
 
-        - If the company is working with a specific advisor from a firm, that advisor will be included
-        in the response.
+        - If the company is working with a specific advisor from a firm, that advisor will be included in the response.
 
         - If the company works with a firm but not a specific advisor, the advisor field will be null.'
       parameters:
@@ -900,6 +907,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Companies company affiliates retrieve
+      x-summary-source: derived
 components:
   securitySchemes:
     knoxApiToken:
@@ -910,8 +919,4 @@ components:
     oauth2:
       type: http
       scheme: bearer
-      description: OAuth 2.0 Bearer based with an existing token. Enter a token retrieved via the regular
-        OAuth flow elsewhere.
-servers:
-- url: https://app.401go.com/api
-  description: Base URL reconciled from apis.yml
+      description: OAuth 2.0 Bearer based with an existing token. Enter a token retrieved via the regular OAuth flow elsewhere.

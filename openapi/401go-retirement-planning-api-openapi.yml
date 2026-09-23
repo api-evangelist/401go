@@ -22,6 +22,8 @@ paths:
       responses:
         '200':
           description: No response body
+      summary: Participants advisor models retrieve
+      x-summary-source: derived
     post:
       operationId: participants_advisor_models_create
       parameters:
@@ -200,11 +202,12 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants advisor models create
+      x-summary-source: derived
   /participants/{participant_id}/retirement-planning-defaults/:
     get:
       operationId: participants_retirement_planning_defaults_retrieve
-      description: 'Get the defaults used for the estimation. Note that the defaults returned may not
-        be valid for getting an
+      description: 'Get the defaults used for the estimation. Note that the defaults returned may not be valid for getting an
 
         estimate, for example if `age > retirement_age`.'
       parameters:
@@ -237,8 +240,7 @@ paths:
                   salary:
                     type: integer
                     minimum: 0
-                    description: Defaults to participant's previous year compensation or estimation based
-                      on this year
+                    description: Defaults to participant's previous year compensation or estimation based on this year
                   current_savings:
                     type: integer
                     minimum: 0
@@ -300,14 +302,14 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants retirement planning defaults retrieve
+      x-summary-source: derived
   /participants/{participant_id}/retirement-planning-estimate/:
     get:
       operationId: participants_retirement_planning_estimate_list
-      description: 'Estimate a participant''s projected balance and target savings for retirement. Will
-        use the defaults as defined
+      description: 'Estimate a participant''s projected balance and target savings for retirement. Will use the defaults as defined
 
-        from the retirement-planning-defaults unless an override is given. Can only be used if the participant
-        has not
+        from the retirement-planning-defaults unless an override is given. Can only be used if the participant has not
 
         yet reached retirement, or the supplied `age` is less than `retirement_age`.'
       parameters:
@@ -395,8 +397,7 @@ paths:
         schema:
           type: integer
           minimum: 0
-        description: Defaults to participant's previous year compensation or estimation based on this
-          year
+        description: Defaults to participant's previous year compensation or estimation based on this year
       - in: query
         name: savings_percent
         schema:
@@ -433,8 +434,7 @@ paths:
                       - 'null'
                       format: decimal
                       pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
-                      description: Estimated annual amount of social security received. This figure is
-                        already included into the estimated_balance.
+                      description: Estimated annual amount of social security received. This figure is already included into the estimated_balance.
                   required:
                   - age
                   - estimated_balance
@@ -447,6 +447,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants retirement planning estimate list
+      x-summary-source: derived
 components:
   securitySchemes:
     knoxApiToken:
@@ -457,8 +459,4 @@ components:
     oauth2:
       type: http
       scheme: bearer
-      description: OAuth 2.0 Bearer based with an existing token. Enter a token retrieved via the regular
-        OAuth flow elsewhere.
-servers:
-- url: https://app.401go.com/api
-  description: Base URL reconciled from apis.yml
+      description: OAuth 2.0 Bearer based with an existing token. Enter a token retrieved via the regular OAuth flow elsewhere.

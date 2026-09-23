@@ -116,6 +116,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants notifications list
+      x-summary-source: derived
   /participants/{participant_id}/notifications/{notification_id}/:
     patch:
       operationId: participants_notifications_partial_update
@@ -224,6 +226,8 @@ paths:
                 - subject
                 - timestamp
           description: ''
+      summary: Participants notifications partial update
+      x-summary-source: derived
   /participants/{participant_id}/notifications/attachment/{attachment_id}/:
     get:
       operationId: participants_notifications_attachment_retrieve
@@ -262,6 +266,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants notifications attachment retrieve
+      x-summary-source: derived
 components:
   securitySchemes:
     knoxApiToken:
@@ -272,8 +278,4 @@ components:
     oauth2:
       type: http
       scheme: bearer
-      description: OAuth 2.0 Bearer based with an existing token. Enter a token retrieved via the regular
-        OAuth flow elsewhere.
-servers:
-- url: https://app.401go.com/api
-  description: Base URL reconciled from apis.yml
+      description: OAuth 2.0 Bearer based with an existing token. Enter a token retrieved via the regular OAuth flow elsewhere.

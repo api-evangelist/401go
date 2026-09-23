@@ -94,6 +94,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants beneficiaries list
+      x-summary-source: derived
     post:
       operationId: participants_beneficiaries_create
       description: 'Create a single or multiple beneficiaries for a participant.
@@ -104,8 +106,7 @@ paths:
         name: Idempotent-Key
         schema:
           type: string
-        description: Supply a key to safely retry requests without the server duplicating the action.
-          Will be remembered for 24 hours.
+        description: Supply a key to safely retry requests without the server duplicating the action. Will be remembered for 24 hours.
       - in: path
         name: participant_id
         schema:
@@ -386,13 +387,13 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants beneficiaries create
+      x-summary-source: derived
     patch:
       operationId: participants_beneficiaries_partial_update
-      description: 'Partially update a list of beneficiaries. Each entry must include the `object_id`.
-        The provided list must
+      description: 'Partially update a list of beneficiaries. Each entry must include the `object_id`. The provided list must
 
-        be a subset of the participant''s beneficiaries. Validates every entry first, then either applies
-        all or none of
+        be a subset of the participant''s beneficiaries. Validates every entry first, then either applies all or none of
 
         them.'
       parameters:
@@ -527,6 +528,8 @@ paths:
                 - name
                 - percentage
           description: ''
+      summary: Participants beneficiaries partial update
+      x-summary-source: derived
   /participants/{participant_id}/beneficiaries/{beneficiary_id}/:
     get:
       operationId: participants_beneficiaries_retrieve
@@ -586,6 +589,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants beneficiaries retrieve
+      x-summary-source: derived
     put:
       operationId: participants_beneficiaries_update
       description: Fully update a specific beneficiary.
@@ -745,6 +750,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants beneficiaries update
+      x-summary-source: derived
     patch:
       operationId: participants_beneficiaries_partial_update_2
       description: Partially update a single beneficiary.
@@ -891,6 +898,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants beneficiaries partial update 2
+      x-summary-source: derived
     delete:
       operationId: participants_beneficiaries_destroy
       description: Delete a beneficiary.
@@ -917,6 +926,8 @@ paths:
           description: 'Forbidden: Invalid permissions to delete this beneficiary'
         '401':
           description: 'Unauthorized: Missing or invalid authentication'
+      summary: Participants beneficiaries destroy
+      x-summary-source: derived
 components:
   securitySchemes:
     knoxApiToken:
@@ -927,8 +938,4 @@ components:
     oauth2:
       type: http
       scheme: bearer
-      description: OAuth 2.0 Bearer based with an existing token. Enter a token retrieved via the regular
-        OAuth flow elsewhere.
-servers:
-- url: https://app.401go.com/api
-  description: Base URL reconciled from apis.yml
+      description: OAuth 2.0 Bearer based with an existing token. Enter a token retrieved via the regular OAuth flow elsewhere.

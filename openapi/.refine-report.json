@@ -1,16 +1,7 @@
 {
   "provider": "401go",
   "sources": [
-    "401go-affiliates-firms-api-openapi.yml",
-    "401go-beneficiaries-api-openapi.yml",
-    "401go-companies-plans-api-openapi.yml",
-    "401go-contributions-payroll-api-openapi.yml",
-    "401go-documents-api-openapi.yml",
-    "401go-investments-portfolios-api-openapi.yml",
-    "401go-money-movement-api-openapi.yml",
-    "401go-notifications-api-openapi.yml",
-    "401go-participants-api-openapi.yml",
-    "401go-retirement-planning-api-openapi.yml"
+    "_original/401go-openapi-original.json"
   ],
   "outputs": [
     "401go-affiliates-firms-api-openapi.yml",
@@ -28,17 +19,30 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "401go-affiliates-firms-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "401go-beneficiaries-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "401go-companies-plans-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "401go-contributions-payroll-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "401go-documents-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "401go-investments-portfolios-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "401go-money-movement-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "401go-notifications-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "401go-participants-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "401go-retirement-planning-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "401go-openapi-original.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "401go-openapi-original.json: declared missing tag: Affiliates & Firms",
+    "401go-openapi-original.json: declared missing tag: Beneficiaries",
+    "401go-openapi-original.json: declared missing tag: Companies & Plans",
+    "401go-openapi-original.json: declared missing tag: Contributions & Payroll",
+    "401go-openapi-original.json: declared missing tag: Documents",
+    "401go-openapi-original.json: declared missing tag: Investments & Portfolios",
+    "401go-openapi-original.json: declared missing tag: Money Movement",
+    "401go-openapi-original.json: declared missing tag: Notifications",
+    "401go-openapi-original.json: declared missing tag: Participants",
+    "401go-openapi-original.json: declared missing tag: Retirement Planning",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "401go-affiliates-firms-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "401go-beneficiaries-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "401go-companies-plans-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "401go-contributions-payroll-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "401go-documents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "401go-investments-portfolios-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "401go-money-movement-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "401go-notifications-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "401go-participants-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "401go-retirement-planning-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

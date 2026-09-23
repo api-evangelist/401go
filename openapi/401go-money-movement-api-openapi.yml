@@ -61,8 +61,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      description: Convert chosen empty strings into None during serialization. Specify
-                        with the `empty_to_null_fields` Meta attribute.
+                      description: Convert chosen empty strings into None during serialization. Specify with the `empty_to_null_fields` Meta attribute.
                       properties:
                         object_id:
                           type: string
@@ -98,13 +97,11 @@ paths:
                           description: Post-tax amount to disburse.
                         pretax_memo:
                           type: string
-                          description: Payment memo for pre-tax disbursement (max 20 characters). Required
-                            when pretax_amount is provided.
+                          description: Payment memo for pre-tax disbursement (max 20 characters). Required when pretax_amount is provided.
                           maxLength: 20
                         posttax_memo:
                           type: string
-                          description: Payment memo for post-tax disbursement (max 20 characters). Required
-                            when posttax_amount is provided.
+                          description: Payment memo for post-tax disbursement (max 20 characters). Required when posttax_amount is provided.
                           maxLength: 20
                         posttax_payment_method:
                           type: string
@@ -114,24 +111,19 @@ paths:
                           - ACH Transfer
                           - Fee Transfer
                           - Forced Rollover
-                          description: Payment method for post-tax portion (if different from pre-tax).
-                            Only used in split disbursements when different from payment_method.
+                          description: Payment method for post-tax portion (if different from pre-tax). Only used in split disbursements when different from payment_method.
                         posttax_bank_name:
                           type: string
-                          description: Bank name for post-tax portion. Only used in split disbursements
-                            when different from payment_method.
+                          description: Bank name for post-tax portion. Only used in split disbursements when different from payment_method.
                         posttax_bank_routing_aba_number:
                           type: string
-                          description: Routing number for post-tax portion. Only used in split disbursements
-                            when different from payment_method. Not necessary for Check Payments.
+                          description: Routing number for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                         posttax_bank_account_number:
                           type: string
-                          description: Account number for post-tax portion. Only used in split disbursements
-                            when different from payment_method. Not necessary for Check Payments.
+                          description: Account number for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                         posttax_name_on_bank_account:
                           type: string
-                          description: Account holder for post-tax portion. Only used in split disbursements
-                            when different from payment_method. Not necessary for Check Payments.
+                          description: Account holder for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                         payment_method:
                           type: string
                           enum:
@@ -140,14 +132,11 @@ paths:
                           - ACH Transfer
                           - Fee Transfer
                           - Forced Rollover
-                          description: The payment method to use (e.g., Check, ACH, Wire). For single
-                            disbursements, use this field regardless of tax type. For split disbursements,
-                            this applies to the pre-tax portion.
+                          description: The payment method to use (e.g., Check, ACH, Wire). For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion.
                         status:
                           type: string
                           readOnly: true
-                          description: The current status of the disbursement (e.g., Pending Approval,
-                            Funds Sent, etc.)
+                          description: The current status of the disbursement (e.g., Pending Approval, Funds Sent, etc.)
                         is_rollover:
                           type: boolean
                           default: false
@@ -181,8 +170,7 @@ paths:
                             - city
                             - postal_code
                             - state
-                          description: Payment address for pre-tax portion (defaults to participant's
-                            address if not provided). Only required if different from participant's address.
+                          description: Payment address for pre-tax portion (defaults to participant's address if not provided). Only required if different from participant's address.
                         posttax_payment_address:
                           allOf:
                           - type: object
@@ -212,34 +200,24 @@ paths:
                             - city
                             - postal_code
                             - state
-                          description: Payment address for post-tax portion (defaults to participant's
-                            address if not provided).
+                          description: Payment address for post-tax portion (defaults to participant's address if not provided).
                         bank_name:
                           type: string
-                          description: Name of the bank for ACH/Wire payments (used for pre-tax portion
-                            in splits). For single disbursements, use this field regardless of tax type.
-                            For split disbursements, this applies to the pre-tax portion
+                          description: Name of the bank for ACH/Wire payments (used for pre-tax portion in splits). For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion
                         bank_routing_aba_number:
                           type: string
-                          description: Routing (ABA) number for the bank account. For single disbursements,
-                            use this field regardless of tax type. For split disbursements, this applies
-                            to the pre-tax portion. Not necessary for Check Payments.
+                          description: Routing (ABA) number for the bank account. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                         bank_account_number:
                           type: string
-                          description: Bank account number for payment. For single disbursements, use
-                            this field regardless of tax type. For split disbursements, this applies to
-                            the pre-tax portion. Not necessary for Check Payments.
+                          description: Bank account number for payment. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                         name_on_bank_account:
                           type: string
-                          description: Name of the account holder for the bank account. For single disbursements,
-                            use this field regardless of tax type. For split disbursements, this applies
-                            to the pre-tax portion. Not necessary for Check Payments.
+                          description: Name of the account holder for the bank account. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                         federal_withholding_percent:
                           type: string
                           format: decimal
                           pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
-                          description: Federal tax withholding percent (required for Hardship and RMD
-                            disbursements). Enter as percentage (e.g., 10.0 for 10%)
+                          description: Federal tax withholding percent (required for Hardship and RMD disbursements). Enter as percentage (e.g., 10.0 for 10%)
                         hardship:
                           type: string
                           enum:
@@ -308,16 +286,36 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants disbursements list
+      x-summary-source: derived
     post:
       operationId: participants_disbursements_create
-      description: "Create a new disbursement request.\nField Usage Patterns:\n1. Single Disbursement\
-        \ (pre-tax only or post-tax only):\n    - Use regular fields (payment_method, bank_name, etc.)\
-        \ for payment details\n    - Use pretax_memo for pre-tax disbursements\n    - Use posttax_memo\
-        \ for post-tax disbursements\n    - Use payment_address for pre-tax disbursements\n    - Use posttax_payment_address\
-        \ for post-tax disbursements\n\n2. Split Disbursement (both pre-tax and post-tax):\n    - Use\
-        \ regular fields (payment_method, bank_name, etc.) for pre-tax portion\n    - Use posttax_* fields\
-        \ for post-tax portion if different from pre-tax\n    - Both pretax_memo and posttax_memo are\
-        \ required\n    - Both payment_address and posttax_payment_address can be specified if different"
+      description: 'Create a new disbursement request.
+
+        Field Usage Patterns:
+
+        1. Single Disbursement (pre-tax only or post-tax only):
+
+        - Use regular fields (payment_method, bank_name, etc.) for payment details
+
+        - Use pretax_memo for pre-tax disbursements
+
+        - Use posttax_memo for post-tax disbursements
+
+        - Use payment_address for pre-tax disbursements
+
+        - Use posttax_payment_address for post-tax disbursements
+
+
+        2. Split Disbursement (both pre-tax and post-tax):
+
+        - Use regular fields (payment_method, bank_name, etc.) for pre-tax portion
+
+        - Use posttax_* fields for post-tax portion if different from pre-tax
+
+        - Both pretax_memo and posttax_memo are required
+
+        - Both payment_address and posttax_payment_address can be specified if different'
       parameters:
       - in: path
         name: participant_id
@@ -331,8 +329,7 @@ paths:
           application/json:
             schema:
               type: object
-              description: Convert chosen empty strings into None during serialization. Specify with the
-                `empty_to_null_fields` Meta attribute.
+              description: Convert chosen empty strings into None during serialization. Specify with the `empty_to_null_fields` Meta attribute.
               properties:
                 reason:
                   type: string
@@ -364,13 +361,11 @@ paths:
                   description: Post-tax amount to disburse.
                 pretax_memo:
                   type: string
-                  description: Payment memo for pre-tax disbursement (max 20 characters). Required when
-                    pretax_amount is provided.
+                  description: Payment memo for pre-tax disbursement (max 20 characters). Required when pretax_amount is provided.
                   maxLength: 20
                 posttax_memo:
                   type: string
-                  description: Payment memo for post-tax disbursement (max 20 characters). Required when
-                    posttax_amount is provided.
+                  description: Payment memo for post-tax disbursement (max 20 characters). Required when posttax_amount is provided.
                   maxLength: 20
                 posttax_payment_method:
                   type: string
@@ -380,24 +375,19 @@ paths:
                   - ACH Transfer
                   - Fee Transfer
                   - Forced Rollover
-                  description: Payment method for post-tax portion (if different from pre-tax). Only used
-                    in split disbursements when different from payment_method.
+                  description: Payment method for post-tax portion (if different from pre-tax). Only used in split disbursements when different from payment_method.
                 posttax_bank_name:
                   type: string
-                  description: Bank name for post-tax portion. Only used in split disbursements when different
-                    from payment_method.
+                  description: Bank name for post-tax portion. Only used in split disbursements when different from payment_method.
                 posttax_bank_routing_aba_number:
                   type: string
-                  description: Routing number for post-tax portion. Only used in split disbursements when
-                    different from payment_method. Not necessary for Check Payments.
+                  description: Routing number for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                 posttax_bank_account_number:
                   type: string
-                  description: Account number for post-tax portion. Only used in split disbursements when
-                    different from payment_method. Not necessary for Check Payments.
+                  description: Account number for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                 posttax_name_on_bank_account:
                   type: string
-                  description: Account holder for post-tax portion. Only used in split disbursements when
-                    different from payment_method. Not necessary for Check Payments.
+                  description: Account holder for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                 payment_method:
                   type: string
                   enum:
@@ -406,21 +396,16 @@ paths:
                   - ACH Transfer
                   - Fee Transfer
                   - Forced Rollover
-                  description: The payment method to use (e.g., Check, ACH, Wire). For single disbursements,
-                    use this field regardless of tax type. For split disbursements, this applies to the
-                    pre-tax portion.
+                  description: The payment method to use (e.g., Check, ACH, Wire). For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion.
                 hardship_proof_document:
                   type: string
                   format: byte
-                  description: Base64-encoded proof document required for hardship disbursements and death
-                    disbursements.
+                  description: Base64-encoded proof document required for hardship disbursements and death disbursements.
                   writeOnly: true
                 hardship_signature:
                   type: string
                   format: byte
-                  description: 'Base64-encoded signature image for hardship disbursements. Recommended
-                    dimensions: 500px width x 150px height (10:3 aspect ratio) to match the final document
-                    format.'
+                  description: 'Base64-encoded signature image for hardship disbursements. Recommended dimensions: 500px width x 150px height (10:3 aspect ratio) to match the final document format.'
                   writeOnly: true
                 is_rollover:
                   type: boolean
@@ -460,8 +445,7 @@ paths:
                     - city
                     - postal_code
                     - state
-                  description: Payment address for pre-tax portion (defaults to participant's address
-                    if not provided). Only required if different from participant's address.
+                  description: Payment address for pre-tax portion (defaults to participant's address if not provided). Only required if different from participant's address.
                 posttax_payment_address:
                   allOf:
                   - type: object
@@ -496,34 +480,24 @@ paths:
                     - city
                     - postal_code
                     - state
-                  description: Payment address for post-tax portion (defaults to participant's address
-                    if not provided).
+                  description: Payment address for post-tax portion (defaults to participant's address if not provided).
                 bank_name:
                   type: string
-                  description: Name of the bank for ACH/Wire payments (used for pre-tax portion in splits).
-                    For single disbursements, use this field regardless of tax type. For split disbursements,
-                    this applies to the pre-tax portion
+                  description: Name of the bank for ACH/Wire payments (used for pre-tax portion in splits). For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion
                 bank_routing_aba_number:
                   type: string
-                  description: Routing (ABA) number for the bank account. For single disbursements, use
-                    this field regardless of tax type. For split disbursements, this applies to the pre-tax
-                    portion. Not necessary for Check Payments.
+                  description: Routing (ABA) number for the bank account. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                 bank_account_number:
                   type: string
-                  description: Bank account number for payment. For single disbursements, use this field
-                    regardless of tax type. For split disbursements, this applies to the pre-tax portion.
-                    Not necessary for Check Payments.
+                  description: Bank account number for payment. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                 name_on_bank_account:
                   type: string
-                  description: Name of the account holder for the bank account. For single disbursements,
-                    use this field regardless of tax type. For split disbursements, this applies to the
-                    pre-tax portion. Not necessary for Check Payments.
+                  description: Name of the account holder for the bank account. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                 federal_withholding_percent:
                   type: string
                   format: decimal
                   pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
-                  description: Federal tax withholding percent (required for Hardship and RMD disbursements).
-                    Enter as percentage (e.g., 10.0 for 10%)
+                  description: Federal tax withholding percent (required for Hardship and RMD disbursements). Enter as percentage (e.g., 10.0 for 10%)
                 hardship:
                   type: string
                   enum:
@@ -596,8 +570,7 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               type: object
-              description: Convert chosen empty strings into None during serialization. Specify with the
-                `empty_to_null_fields` Meta attribute.
+              description: Convert chosen empty strings into None during serialization. Specify with the `empty_to_null_fields` Meta attribute.
               properties:
                 reason:
                   type: string
@@ -629,13 +602,11 @@ paths:
                   description: Post-tax amount to disburse.
                 pretax_memo:
                   type: string
-                  description: Payment memo for pre-tax disbursement (max 20 characters). Required when
-                    pretax_amount is provided.
+                  description: Payment memo for pre-tax disbursement (max 20 characters). Required when pretax_amount is provided.
                   maxLength: 20
                 posttax_memo:
                   type: string
-                  description: Payment memo for post-tax disbursement (max 20 characters). Required when
-                    posttax_amount is provided.
+                  description: Payment memo for post-tax disbursement (max 20 characters). Required when posttax_amount is provided.
                   maxLength: 20
                 posttax_payment_method:
                   type: string
@@ -645,24 +616,19 @@ paths:
                   - ACH Transfer
                   - Fee Transfer
                   - Forced Rollover
-                  description: Payment method for post-tax portion (if different from pre-tax). Only used
-                    in split disbursements when different from payment_method.
+                  description: Payment method for post-tax portion (if different from pre-tax). Only used in split disbursements when different from payment_method.
                 posttax_bank_name:
                   type: string
-                  description: Bank name for post-tax portion. Only used in split disbursements when different
-                    from payment_method.
+                  description: Bank name for post-tax portion. Only used in split disbursements when different from payment_method.
                 posttax_bank_routing_aba_number:
                   type: string
-                  description: Routing number for post-tax portion. Only used in split disbursements when
-                    different from payment_method. Not necessary for Check Payments.
+                  description: Routing number for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                 posttax_bank_account_number:
                   type: string
-                  description: Account number for post-tax portion. Only used in split disbursements when
-                    different from payment_method. Not necessary for Check Payments.
+                  description: Account number for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                 posttax_name_on_bank_account:
                   type: string
-                  description: Account holder for post-tax portion. Only used in split disbursements when
-                    different from payment_method. Not necessary for Check Payments.
+                  description: Account holder for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                 payment_method:
                   type: string
                   enum:
@@ -671,21 +637,16 @@ paths:
                   - ACH Transfer
                   - Fee Transfer
                   - Forced Rollover
-                  description: The payment method to use (e.g., Check, ACH, Wire). For single disbursements,
-                    use this field regardless of tax type. For split disbursements, this applies to the
-                    pre-tax portion.
+                  description: The payment method to use (e.g., Check, ACH, Wire). For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion.
                 hardship_proof_document:
                   type: string
                   format: byte
-                  description: Base64-encoded proof document required for hardship disbursements and death
-                    disbursements.
+                  description: Base64-encoded proof document required for hardship disbursements and death disbursements.
                   writeOnly: true
                 hardship_signature:
                   type: string
                   format: byte
-                  description: 'Base64-encoded signature image for hardship disbursements. Recommended
-                    dimensions: 500px width x 150px height (10:3 aspect ratio) to match the final document
-                    format.'
+                  description: 'Base64-encoded signature image for hardship disbursements. Recommended dimensions: 500px width x 150px height (10:3 aspect ratio) to match the final document format.'
                   writeOnly: true
                 is_rollover:
                   type: boolean
@@ -725,8 +686,7 @@ paths:
                     - city
                     - postal_code
                     - state
-                  description: Payment address for pre-tax portion (defaults to participant's address
-                    if not provided). Only required if different from participant's address.
+                  description: Payment address for pre-tax portion (defaults to participant's address if not provided). Only required if different from participant's address.
                 posttax_payment_address:
                   allOf:
                   - type: object
@@ -761,34 +721,24 @@ paths:
                     - city
                     - postal_code
                     - state
-                  description: Payment address for post-tax portion (defaults to participant's address
-                    if not provided).
+                  description: Payment address for post-tax portion (defaults to participant's address if not provided).
                 bank_name:
                   type: string
-                  description: Name of the bank for ACH/Wire payments (used for pre-tax portion in splits).
-                    For single disbursements, use this field regardless of tax type. For split disbursements,
-                    this applies to the pre-tax portion
+                  description: Name of the bank for ACH/Wire payments (used for pre-tax portion in splits). For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion
                 bank_routing_aba_number:
                   type: string
-                  description: Routing (ABA) number for the bank account. For single disbursements, use
-                    this field regardless of tax type. For split disbursements, this applies to the pre-tax
-                    portion. Not necessary for Check Payments.
+                  description: Routing (ABA) number for the bank account. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                 bank_account_number:
                   type: string
-                  description: Bank account number for payment. For single disbursements, use this field
-                    regardless of tax type. For split disbursements, this applies to the pre-tax portion.
-                    Not necessary for Check Payments.
+                  description: Bank account number for payment. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                 name_on_bank_account:
                   type: string
-                  description: Name of the account holder for the bank account. For single disbursements,
-                    use this field regardless of tax type. For split disbursements, this applies to the
-                    pre-tax portion. Not necessary for Check Payments.
+                  description: Name of the account holder for the bank account. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                 federal_withholding_percent:
                   type: string
                   format: decimal
                   pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
-                  description: Federal tax withholding percent (required for Hardship and RMD disbursements).
-                    Enter as percentage (e.g., 10.0 for 10%)
+                  description: Federal tax withholding percent (required for Hardship and RMD disbursements). Enter as percentage (e.g., 10.0 for 10%)
                 hardship:
                   type: string
                   enum:
@@ -861,8 +811,7 @@ paths:
           multipart/form-data:
             schema:
               type: object
-              description: Convert chosen empty strings into None during serialization. Specify with the
-                `empty_to_null_fields` Meta attribute.
+              description: Convert chosen empty strings into None during serialization. Specify with the `empty_to_null_fields` Meta attribute.
               properties:
                 reason:
                   type: string
@@ -894,13 +843,11 @@ paths:
                   description: Post-tax amount to disburse.
                 pretax_memo:
                   type: string
-                  description: Payment memo for pre-tax disbursement (max 20 characters). Required when
-                    pretax_amount is provided.
+                  description: Payment memo for pre-tax disbursement (max 20 characters). Required when pretax_amount is provided.
                   maxLength: 20
                 posttax_memo:
                   type: string
-                  description: Payment memo for post-tax disbursement (max 20 characters). Required when
-                    posttax_amount is provided.
+                  description: Payment memo for post-tax disbursement (max 20 characters). Required when posttax_amount is provided.
                   maxLength: 20
                 posttax_payment_method:
                   type: string
@@ -910,24 +857,19 @@ paths:
                   - ACH Transfer
                   - Fee Transfer
                   - Forced Rollover
-                  description: Payment method for post-tax portion (if different from pre-tax). Only used
-                    in split disbursements when different from payment_method.
+                  description: Payment method for post-tax portion (if different from pre-tax). Only used in split disbursements when different from payment_method.
                 posttax_bank_name:
                   type: string
-                  description: Bank name for post-tax portion. Only used in split disbursements when different
-                    from payment_method.
+                  description: Bank name for post-tax portion. Only used in split disbursements when different from payment_method.
                 posttax_bank_routing_aba_number:
                   type: string
-                  description: Routing number for post-tax portion. Only used in split disbursements when
-                    different from payment_method. Not necessary for Check Payments.
+                  description: Routing number for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                 posttax_bank_account_number:
                   type: string
-                  description: Account number for post-tax portion. Only used in split disbursements when
-                    different from payment_method. Not necessary for Check Payments.
+                  description: Account number for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                 posttax_name_on_bank_account:
                   type: string
-                  description: Account holder for post-tax portion. Only used in split disbursements when
-                    different from payment_method. Not necessary for Check Payments.
+                  description: Account holder for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                 payment_method:
                   type: string
                   enum:
@@ -936,21 +878,16 @@ paths:
                   - ACH Transfer
                   - Fee Transfer
                   - Forced Rollover
-                  description: The payment method to use (e.g., Check, ACH, Wire). For single disbursements,
-                    use this field regardless of tax type. For split disbursements, this applies to the
-                    pre-tax portion.
+                  description: The payment method to use (e.g., Check, ACH, Wire). For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion.
                 hardship_proof_document:
                   type: string
                   format: byte
-                  description: Base64-encoded proof document required for hardship disbursements and death
-                    disbursements.
+                  description: Base64-encoded proof document required for hardship disbursements and death disbursements.
                   writeOnly: true
                 hardship_signature:
                   type: string
                   format: byte
-                  description: 'Base64-encoded signature image for hardship disbursements. Recommended
-                    dimensions: 500px width x 150px height (10:3 aspect ratio) to match the final document
-                    format.'
+                  description: 'Base64-encoded signature image for hardship disbursements. Recommended dimensions: 500px width x 150px height (10:3 aspect ratio) to match the final document format.'
                   writeOnly: true
                 is_rollover:
                   type: boolean
@@ -990,8 +927,7 @@ paths:
                     - city
                     - postal_code
                     - state
-                  description: Payment address for pre-tax portion (defaults to participant's address
-                    if not provided). Only required if different from participant's address.
+                  description: Payment address for pre-tax portion (defaults to participant's address if not provided). Only required if different from participant's address.
                 posttax_payment_address:
                   allOf:
                   - type: object
@@ -1026,34 +962,24 @@ paths:
                     - city
                     - postal_code
                     - state
-                  description: Payment address for post-tax portion (defaults to participant's address
-                    if not provided).
+                  description: Payment address for post-tax portion (defaults to participant's address if not provided).
                 bank_name:
                   type: string
-                  description: Name of the bank for ACH/Wire payments (used for pre-tax portion in splits).
-                    For single disbursements, use this field regardless of tax type. For split disbursements,
-                    this applies to the pre-tax portion
+                  description: Name of the bank for ACH/Wire payments (used for pre-tax portion in splits). For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion
                 bank_routing_aba_number:
                   type: string
-                  description: Routing (ABA) number for the bank account. For single disbursements, use
-                    this field regardless of tax type. For split disbursements, this applies to the pre-tax
-                    portion. Not necessary for Check Payments.
+                  description: Routing (ABA) number for the bank account. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                 bank_account_number:
                   type: string
-                  description: Bank account number for payment. For single disbursements, use this field
-                    regardless of tax type. For split disbursements, this applies to the pre-tax portion.
-                    Not necessary for Check Payments.
+                  description: Bank account number for payment. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                 name_on_bank_account:
                   type: string
-                  description: Name of the account holder for the bank account. For single disbursements,
-                    use this field regardless of tax type. For split disbursements, this applies to the
-                    pre-tax portion. Not necessary for Check Payments.
+                  description: Name of the account holder for the bank account. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                 federal_withholding_percent:
                   type: string
                   format: decimal
                   pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
-                  description: Federal tax withholding percent (required for Hardship and RMD disbursements).
-                    Enter as percentage (e.g., 10.0 for 10%)
+                  description: Federal tax withholding percent (required for Hardship and RMD disbursements). Enter as percentage (e.g., 10.0 for 10%)
                 hardship:
                   type: string
                   enum:
@@ -1133,8 +1059,7 @@ paths:
             application/json:
               schema:
                 type: object
-                description: Convert chosen empty strings into None during serialization. Specify with
-                  the `empty_to_null_fields` Meta attribute.
+                description: Convert chosen empty strings into None during serialization. Specify with the `empty_to_null_fields` Meta attribute.
                 properties:
                   object_id:
                     type: string
@@ -1170,13 +1095,11 @@ paths:
                     description: Post-tax amount to disburse.
                   pretax_memo:
                     type: string
-                    description: Payment memo for pre-tax disbursement (max 20 characters). Required when
-                      pretax_amount is provided.
+                    description: Payment memo for pre-tax disbursement (max 20 characters). Required when pretax_amount is provided.
                     maxLength: 20
                   posttax_memo:
                     type: string
-                    description: Payment memo for post-tax disbursement (max 20 characters). Required
-                      when posttax_amount is provided.
+                    description: Payment memo for post-tax disbursement (max 20 characters). Required when posttax_amount is provided.
                     maxLength: 20
                   posttax_payment_method:
                     type: string
@@ -1186,24 +1109,19 @@ paths:
                     - ACH Transfer
                     - Fee Transfer
                     - Forced Rollover
-                    description: Payment method for post-tax portion (if different from pre-tax). Only
-                      used in split disbursements when different from payment_method.
+                    description: Payment method for post-tax portion (if different from pre-tax). Only used in split disbursements when different from payment_method.
                   posttax_bank_name:
                     type: string
-                    description: Bank name for post-tax portion. Only used in split disbursements when
-                      different from payment_method.
+                    description: Bank name for post-tax portion. Only used in split disbursements when different from payment_method.
                   posttax_bank_routing_aba_number:
                     type: string
-                    description: Routing number for post-tax portion. Only used in split disbursements
-                      when different from payment_method. Not necessary for Check Payments.
+                    description: Routing number for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                   posttax_bank_account_number:
                     type: string
-                    description: Account number for post-tax portion. Only used in split disbursements
-                      when different from payment_method. Not necessary for Check Payments.
+                    description: Account number for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                   posttax_name_on_bank_account:
                     type: string
-                    description: Account holder for post-tax portion. Only used in split disbursements
-                      when different from payment_method. Not necessary for Check Payments.
+                    description: Account holder for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                   payment_method:
                     type: string
                     enum:
@@ -1212,14 +1130,11 @@ paths:
                     - ACH Transfer
                     - Fee Transfer
                     - Forced Rollover
-                    description: The payment method to use (e.g., Check, ACH, Wire). For single disbursements,
-                      use this field regardless of tax type. For split disbursements, this applies to
-                      the pre-tax portion.
+                    description: The payment method to use (e.g., Check, ACH, Wire). For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion.
                   status:
                     type: string
                     readOnly: true
-                    description: The current status of the disbursement (e.g., Pending Approval, Funds
-                      Sent, etc.)
+                    description: The current status of the disbursement (e.g., Pending Approval, Funds Sent, etc.)
                   is_rollover:
                     type: boolean
                     default: false
@@ -1253,8 +1168,7 @@ paths:
                       - city
                       - postal_code
                       - state
-                    description: Payment address for pre-tax portion (defaults to participant's address
-                      if not provided). Only required if different from participant's address.
+                    description: Payment address for pre-tax portion (defaults to participant's address if not provided). Only required if different from participant's address.
                   posttax_payment_address:
                     allOf:
                     - type: object
@@ -1284,34 +1198,24 @@ paths:
                       - city
                       - postal_code
                       - state
-                    description: Payment address for post-tax portion (defaults to participant's address
-                      if not provided).
+                    description: Payment address for post-tax portion (defaults to participant's address if not provided).
                   bank_name:
                     type: string
-                    description: Name of the bank for ACH/Wire payments (used for pre-tax portion in splits).
-                      For single disbursements, use this field regardless of tax type. For split disbursements,
-                      this applies to the pre-tax portion
+                    description: Name of the bank for ACH/Wire payments (used for pre-tax portion in splits). For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion
                   bank_routing_aba_number:
                     type: string
-                    description: Routing (ABA) number for the bank account. For single disbursements,
-                      use this field regardless of tax type. For split disbursements, this applies to
-                      the pre-tax portion. Not necessary for Check Payments.
+                    description: Routing (ABA) number for the bank account. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                   bank_account_number:
                     type: string
-                    description: Bank account number for payment. For single disbursements, use this field
-                      regardless of tax type. For split disbursements, this applies to the pre-tax portion.
-                      Not necessary for Check Payments.
+                    description: Bank account number for payment. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                   name_on_bank_account:
                     type: string
-                    description: Name of the account holder for the bank account. For single disbursements,
-                      use this field regardless of tax type. For split disbursements, this applies to
-                      the pre-tax portion. Not necessary for Check Payments.
+                    description: Name of the account holder for the bank account. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                   federal_withholding_percent:
                     type: string
                     format: decimal
                     pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
-                    description: Federal tax withholding percent (required for Hardship and RMD disbursements).
-                      Enter as percentage (e.g., 10.0 for 10%)
+                    description: Federal tax withholding percent (required for Hardship and RMD disbursements). Enter as percentage (e.g., 10.0 for 10%)
                   hardship:
                     type: string
                     enum:
@@ -1382,6 +1286,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants disbursements create
+      x-summary-source: derived
   /participants/{participant_id}/disbursements-info/:
     get:
       operationId: participants_disbursements_info_retrieve
@@ -1433,8 +1339,7 @@ paths:
             application/json:
               schema:
                 type: object
-                description: Provides information about available disbursement options before creating
-                  a disbursement.
+                description: Provides information about available disbursement options before creating a disbursement.
                 properties:
                   available_reasons:
                     type: array
@@ -1473,6 +1378,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants disbursements info retrieve
+      x-summary-source: derived
   /participants/{participant_id}/disbursements/{disbursement_id}/:
     get:
       operationId: participants_disbursements_retrieve
@@ -1499,8 +1406,7 @@ paths:
             application/json:
               schema:
                 type: object
-                description: Convert chosen empty strings into None during serialization. Specify with
-                  the `empty_to_null_fields` Meta attribute.
+                description: Convert chosen empty strings into None during serialization. Specify with the `empty_to_null_fields` Meta attribute.
                 properties:
                   object_id:
                     type: string
@@ -1536,13 +1442,11 @@ paths:
                     description: Post-tax amount to disburse.
                   pretax_memo:
                     type: string
-                    description: Payment memo for pre-tax disbursement (max 20 characters). Required when
-                      pretax_amount is provided.
+                    description: Payment memo for pre-tax disbursement (max 20 characters). Required when pretax_amount is provided.
                     maxLength: 20
                   posttax_memo:
                     type: string
-                    description: Payment memo for post-tax disbursement (max 20 characters). Required
-                      when posttax_amount is provided.
+                    description: Payment memo for post-tax disbursement (max 20 characters). Required when posttax_amount is provided.
                     maxLength: 20
                   posttax_payment_method:
                     type: string
@@ -1552,24 +1456,19 @@ paths:
                     - ACH Transfer
                     - Fee Transfer
                     - Forced Rollover
-                    description: Payment method for post-tax portion (if different from pre-tax). Only
-                      used in split disbursements when different from payment_method.
+                    description: Payment method for post-tax portion (if different from pre-tax). Only used in split disbursements when different from payment_method.
                   posttax_bank_name:
                     type: string
-                    description: Bank name for post-tax portion. Only used in split disbursements when
-                      different from payment_method.
+                    description: Bank name for post-tax portion. Only used in split disbursements when different from payment_method.
                   posttax_bank_routing_aba_number:
                     type: string
-                    description: Routing number for post-tax portion. Only used in split disbursements
-                      when different from payment_method. Not necessary for Check Payments.
+                    description: Routing number for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                   posttax_bank_account_number:
                     type: string
-                    description: Account number for post-tax portion. Only used in split disbursements
-                      when different from payment_method. Not necessary for Check Payments.
+                    description: Account number for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                   posttax_name_on_bank_account:
                     type: string
-                    description: Account holder for post-tax portion. Only used in split disbursements
-                      when different from payment_method. Not necessary for Check Payments.
+                    description: Account holder for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                   payment_method:
                     type: string
                     enum:
@@ -1578,14 +1477,11 @@ paths:
                     - ACH Transfer
                     - Fee Transfer
                     - Forced Rollover
-                    description: The payment method to use (e.g., Check, ACH, Wire). For single disbursements,
-                      use this field regardless of tax type. For split disbursements, this applies to
-                      the pre-tax portion.
+                    description: The payment method to use (e.g., Check, ACH, Wire). For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion.
                   status:
                     type: string
                     readOnly: true
-                    description: The current status of the disbursement (e.g., Pending Approval, Funds
-                      Sent, etc.)
+                    description: The current status of the disbursement (e.g., Pending Approval, Funds Sent, etc.)
                   is_rollover:
                     type: boolean
                     default: false
@@ -1619,8 +1515,7 @@ paths:
                       - city
                       - postal_code
                       - state
-                    description: Payment address for pre-tax portion (defaults to participant's address
-                      if not provided). Only required if different from participant's address.
+                    description: Payment address for pre-tax portion (defaults to participant's address if not provided). Only required if different from participant's address.
                   posttax_payment_address:
                     allOf:
                     - type: object
@@ -1650,34 +1545,24 @@ paths:
                       - city
                       - postal_code
                       - state
-                    description: Payment address for post-tax portion (defaults to participant's address
-                      if not provided).
+                    description: Payment address for post-tax portion (defaults to participant's address if not provided).
                   bank_name:
                     type: string
-                    description: Name of the bank for ACH/Wire payments (used for pre-tax portion in splits).
-                      For single disbursements, use this field regardless of tax type. For split disbursements,
-                      this applies to the pre-tax portion
+                    description: Name of the bank for ACH/Wire payments (used for pre-tax portion in splits). For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion
                   bank_routing_aba_number:
                     type: string
-                    description: Routing (ABA) number for the bank account. For single disbursements,
-                      use this field regardless of tax type. For split disbursements, this applies to
-                      the pre-tax portion. Not necessary for Check Payments.
+                    description: Routing (ABA) number for the bank account. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                   bank_account_number:
                     type: string
-                    description: Bank account number for payment. For single disbursements, use this field
-                      regardless of tax type. For split disbursements, this applies to the pre-tax portion.
-                      Not necessary for Check Payments.
+                    description: Bank account number for payment. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                   name_on_bank_account:
                     type: string
-                    description: Name of the account holder for the bank account. For single disbursements,
-                      use this field regardless of tax type. For split disbursements, this applies to
-                      the pre-tax portion. Not necessary for Check Payments.
+                    description: Name of the account holder for the bank account. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                   federal_withholding_percent:
                     type: string
                     format: decimal
                     pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
-                    description: Federal tax withholding percent (required for Hardship and RMD disbursements).
-                      Enter as percentage (e.g., 10.0 for 10%)
+                    description: Federal tax withholding percent (required for Hardship and RMD disbursements). Enter as percentage (e.g., 10.0 for 10%)
                   hardship:
                     type: string
                     enum:
@@ -1742,6 +1627,8 @@ paths:
                 - reason
                 - status
           description: ''
+      summary: Participants disbursements retrieve
+      x-summary-source: derived
     put:
       operationId: participants_disbursements_update
       description: Update a specific disbursement request.
@@ -1763,8 +1650,7 @@ paths:
           application/json:
             schema:
               type: object
-              description: Convert chosen empty strings into None during serialization. Specify with the
-                `empty_to_null_fields` Meta attribute.
+              description: Convert chosen empty strings into None during serialization. Specify with the `empty_to_null_fields` Meta attribute.
               properties:
                 reason:
                   type: string
@@ -1796,13 +1682,11 @@ paths:
                   description: Post-tax amount to disburse.
                 pretax_memo:
                   type: string
-                  description: Payment memo for pre-tax disbursement (max 20 characters). Required when
-                    pretax_amount is provided.
+                  description: Payment memo for pre-tax disbursement (max 20 characters). Required when pretax_amount is provided.
                   maxLength: 20
                 posttax_memo:
                   type: string
-                  description: Payment memo for post-tax disbursement (max 20 characters). Required when
-                    posttax_amount is provided.
+                  description: Payment memo for post-tax disbursement (max 20 characters). Required when posttax_amount is provided.
                   maxLength: 20
                 posttax_payment_method:
                   type: string
@@ -1812,24 +1696,19 @@ paths:
                   - ACH Transfer
                   - Fee Transfer
                   - Forced Rollover
-                  description: Payment method for post-tax portion (if different from pre-tax). Only used
-                    in split disbursements when different from payment_method.
+                  description: Payment method for post-tax portion (if different from pre-tax). Only used in split disbursements when different from payment_method.
                 posttax_bank_name:
                   type: string
-                  description: Bank name for post-tax portion. Only used in split disbursements when different
-                    from payment_method.
+                  description: Bank name for post-tax portion. Only used in split disbursements when different from payment_method.
                 posttax_bank_routing_aba_number:
                   type: string
-                  description: Routing number for post-tax portion. Only used in split disbursements when
-                    different from payment_method. Not necessary for Check Payments.
+                  description: Routing number for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                 posttax_bank_account_number:
                   type: string
-                  description: Account number for post-tax portion. Only used in split disbursements when
-                    different from payment_method. Not necessary for Check Payments.
+                  description: Account number for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                 posttax_name_on_bank_account:
                   type: string
-                  description: Account holder for post-tax portion. Only used in split disbursements when
-                    different from payment_method. Not necessary for Check Payments.
+                  description: Account holder for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                 payment_method:
                   type: string
                   enum:
@@ -1838,21 +1717,16 @@ paths:
                   - ACH Transfer
                   - Fee Transfer
                   - Forced Rollover
-                  description: The payment method to use (e.g., Check, ACH, Wire). For single disbursements,
-                    use this field regardless of tax type. For split disbursements, this applies to the
-                    pre-tax portion.
+                  description: The payment method to use (e.g., Check, ACH, Wire). For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion.
                 hardship_proof_document:
                   type: string
                   format: byte
-                  description: Base64-encoded proof document required for hardship disbursements and death
-                    disbursements.
+                  description: Base64-encoded proof document required for hardship disbursements and death disbursements.
                   writeOnly: true
                 hardship_signature:
                   type: string
                   format: byte
-                  description: 'Base64-encoded signature image for hardship disbursements. Recommended
-                    dimensions: 500px width x 150px height (10:3 aspect ratio) to match the final document
-                    format.'
+                  description: 'Base64-encoded signature image for hardship disbursements. Recommended dimensions: 500px width x 150px height (10:3 aspect ratio) to match the final document format.'
                   writeOnly: true
                 is_rollover:
                   type: boolean
@@ -1892,8 +1766,7 @@ paths:
                     - city
                     - postal_code
                     - state
-                  description: Payment address for pre-tax portion (defaults to participant's address
-                    if not provided). Only required if different from participant's address.
+                  description: Payment address for pre-tax portion (defaults to participant's address if not provided). Only required if different from participant's address.
                 posttax_payment_address:
                   allOf:
                   - type: object
@@ -1928,34 +1801,24 @@ paths:
                     - city
                     - postal_code
                     - state
-                  description: Payment address for post-tax portion (defaults to participant's address
-                    if not provided).
+                  description: Payment address for post-tax portion (defaults to participant's address if not provided).
                 bank_name:
                   type: string
-                  description: Name of the bank for ACH/Wire payments (used for pre-tax portion in splits).
-                    For single disbursements, use this field regardless of tax type. For split disbursements,
-                    this applies to the pre-tax portion
+                  description: Name of the bank for ACH/Wire payments (used for pre-tax portion in splits). For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion
                 bank_routing_aba_number:
                   type: string
-                  description: Routing (ABA) number for the bank account. For single disbursements, use
-                    this field regardless of tax type. For split disbursements, this applies to the pre-tax
-                    portion. Not necessary for Check Payments.
+                  description: Routing (ABA) number for the bank account. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                 bank_account_number:
                   type: string
-                  description: Bank account number for payment. For single disbursements, use this field
-                    regardless of tax type. For split disbursements, this applies to the pre-tax portion.
-                    Not necessary for Check Payments.
+                  description: Bank account number for payment. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                 name_on_bank_account:
                   type: string
-                  description: Name of the account holder for the bank account. For single disbursements,
-                    use this field regardless of tax type. For split disbursements, this applies to the
-                    pre-tax portion. Not necessary for Check Payments.
+                  description: Name of the account holder for the bank account. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                 federal_withholding_percent:
                   type: string
                   format: decimal
                   pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
-                  description: Federal tax withholding percent (required for Hardship and RMD disbursements).
-                    Enter as percentage (e.g., 10.0 for 10%)
+                  description: Federal tax withholding percent (required for Hardship and RMD disbursements). Enter as percentage (e.g., 10.0 for 10%)
                 hardship:
                   type: string
                   enum:
@@ -2028,8 +1891,7 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               type: object
-              description: Convert chosen empty strings into None during serialization. Specify with the
-                `empty_to_null_fields` Meta attribute.
+              description: Convert chosen empty strings into None during serialization. Specify with the `empty_to_null_fields` Meta attribute.
               properties:
                 reason:
                   type: string
@@ -2061,13 +1923,11 @@ paths:
                   description: Post-tax amount to disburse.
                 pretax_memo:
                   type: string
-                  description: Payment memo for pre-tax disbursement (max 20 characters). Required when
-                    pretax_amount is provided.
+                  description: Payment memo for pre-tax disbursement (max 20 characters). Required when pretax_amount is provided.
                   maxLength: 20
                 posttax_memo:
                   type: string
-                  description: Payment memo for post-tax disbursement (max 20 characters). Required when
-                    posttax_amount is provided.
+                  description: Payment memo for post-tax disbursement (max 20 characters). Required when posttax_amount is provided.
                   maxLength: 20
                 posttax_payment_method:
                   type: string
@@ -2077,24 +1937,19 @@ paths:
                   - ACH Transfer
                   - Fee Transfer
                   - Forced Rollover
-                  description: Payment method for post-tax portion (if different from pre-tax). Only used
-                    in split disbursements when different from payment_method.
+                  description: Payment method for post-tax portion (if different from pre-tax). Only used in split disbursements when different from payment_method.
                 posttax_bank_name:
                   type: string
-                  description: Bank name for post-tax portion. Only used in split disbursements when different
-                    from payment_method.
+                  description: Bank name for post-tax portion. Only used in split disbursements when different from payment_method.
                 posttax_bank_routing_aba_number:
                   type: string
-                  description: Routing number for post-tax portion. Only used in split disbursements when
-                    different from payment_method. Not necessary for Check Payments.
+                  description: Routing number for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                 posttax_bank_account_number:
                   type: string
-                  description: Account number for post-tax portion. Only used in split disbursements when
-                    different from payment_method. Not necessary for Check Payments.
+                  description: Account number for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                 posttax_name_on_bank_account:
                   type: string
-                  description: Account holder for post-tax portion. Only used in split disbursements when
-                    different from payment_method. Not necessary for Check Payments.
+                  description: Account holder for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                 payment_method:
                   type: string
                   enum:
@@ -2103,21 +1958,16 @@ paths:
                   - ACH Transfer
                   - Fee Transfer
                   - Forced Rollover
-                  description: The payment method to use (e.g., Check, ACH, Wire). For single disbursements,
-                    use this field regardless of tax type. For split disbursements, this applies to the
-                    pre-tax portion.
+                  description: The payment method to use (e.g., Check, ACH, Wire). For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion.
                 hardship_proof_document:
                   type: string
                   format: byte
-                  description: Base64-encoded proof document required for hardship disbursements and death
-                    disbursements.
+                  description: Base64-encoded proof document required for hardship disbursements and death disbursements.
                   writeOnly: true
                 hardship_signature:
                   type: string
                   format: byte
-                  description: 'Base64-encoded signature image for hardship disbursements. Recommended
-                    dimensions: 500px width x 150px height (10:3 aspect ratio) to match the final document
-                    format.'
+                  description: 'Base64-encoded signature image for hardship disbursements. Recommended dimensions: 500px width x 150px height (10:3 aspect ratio) to match the final document format.'
                   writeOnly: true
                 is_rollover:
                   type: boolean
@@ -2157,8 +2007,7 @@ paths:
                     - city
                     - postal_code
                     - state
-                  description: Payment address for pre-tax portion (defaults to participant's address
-                    if not provided). Only required if different from participant's address.
+                  description: Payment address for pre-tax portion (defaults to participant's address if not provided). Only required if different from participant's address.
                 posttax_payment_address:
                   allOf:
                   - type: object
@@ -2193,34 +2042,24 @@ paths:
                     - city
                     - postal_code
                     - state
-                  description: Payment address for post-tax portion (defaults to participant's address
-                    if not provided).
+                  description: Payment address for post-tax portion (defaults to participant's address if not provided).
                 bank_name:
                   type: string
-                  description: Name of the bank for ACH/Wire payments (used for pre-tax portion in splits).
-                    For single disbursements, use this field regardless of tax type. For split disbursements,
-                    this applies to the pre-tax portion
+                  description: Name of the bank for ACH/Wire payments (used for pre-tax portion in splits). For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion
                 bank_routing_aba_number:
                   type: string
-                  description: Routing (ABA) number for the bank account. For single disbursements, use
-                    this field regardless of tax type. For split disbursements, this applies to the pre-tax
-                    portion. Not necessary for Check Payments.
+                  description: Routing (ABA) number for the bank account. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                 bank_account_number:
                   type: string
-                  description: Bank account number for payment. For single disbursements, use this field
-                    regardless of tax type. For split disbursements, this applies to the pre-tax portion.
-                    Not necessary for Check Payments.
+                  description: Bank account number for payment. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                 name_on_bank_account:
                   type: string
-                  description: Name of the account holder for the bank account. For single disbursements,
-                    use this field regardless of tax type. For split disbursements, this applies to the
-                    pre-tax portion. Not necessary for Check Payments.
+                  description: Name of the account holder for the bank account. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                 federal_withholding_percent:
                   type: string
                   format: decimal
                   pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
-                  description: Federal tax withholding percent (required for Hardship and RMD disbursements).
-                    Enter as percentage (e.g., 10.0 for 10%)
+                  description: Federal tax withholding percent (required for Hardship and RMD disbursements). Enter as percentage (e.g., 10.0 for 10%)
                 hardship:
                   type: string
                   enum:
@@ -2293,8 +2132,7 @@ paths:
           multipart/form-data:
             schema:
               type: object
-              description: Convert chosen empty strings into None during serialization. Specify with the
-                `empty_to_null_fields` Meta attribute.
+              description: Convert chosen empty strings into None during serialization. Specify with the `empty_to_null_fields` Meta attribute.
               properties:
                 reason:
                   type: string
@@ -2326,13 +2164,11 @@ paths:
                   description: Post-tax amount to disburse.
                 pretax_memo:
                   type: string
-                  description: Payment memo for pre-tax disbursement (max 20 characters). Required when
-                    pretax_amount is provided.
+                  description: Payment memo for pre-tax disbursement (max 20 characters). Required when pretax_amount is provided.
                   maxLength: 20
                 posttax_memo:
                   type: string
-                  description: Payment memo for post-tax disbursement (max 20 characters). Required when
-                    posttax_amount is provided.
+                  description: Payment memo for post-tax disbursement (max 20 characters). Required when posttax_amount is provided.
                   maxLength: 20
                 posttax_payment_method:
                   type: string
@@ -2342,24 +2178,19 @@ paths:
                   - ACH Transfer
                   - Fee Transfer
                   - Forced Rollover
-                  description: Payment method for post-tax portion (if different from pre-tax). Only used
-                    in split disbursements when different from payment_method.
+                  description: Payment method for post-tax portion (if different from pre-tax). Only used in split disbursements when different from payment_method.
                 posttax_bank_name:
                   type: string
-                  description: Bank name for post-tax portion. Only used in split disbursements when different
-                    from payment_method.
+                  description: Bank name for post-tax portion. Only used in split disbursements when different from payment_method.
                 posttax_bank_routing_aba_number:
                   type: string
-                  description: Routing number for post-tax portion. Only used in split disbursements when
-                    different from payment_method. Not necessary for Check Payments.
+                  description: Routing number for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                 posttax_bank_account_number:
                   type: string
-                  description: Account number for post-tax portion. Only used in split disbursements when
-                    different from payment_method. Not necessary for Check Payments.
+                  description: Account number for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                 posttax_name_on_bank_account:
                   type: string
-                  description: Account holder for post-tax portion. Only used in split disbursements when
-                    different from payment_method. Not necessary for Check Payments.
+                  description: Account holder for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                 payment_method:
                   type: string
                   enum:
@@ -2368,21 +2199,16 @@ paths:
                   - ACH Transfer
                   - Fee Transfer
                   - Forced Rollover
-                  description: The payment method to use (e.g., Check, ACH, Wire). For single disbursements,
-                    use this field regardless of tax type. For split disbursements, this applies to the
-                    pre-tax portion.
+                  description: The payment method to use (e.g., Check, ACH, Wire). For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion.
                 hardship_proof_document:
                   type: string
                   format: byte
-                  description: Base64-encoded proof document required for hardship disbursements and death
-                    disbursements.
+                  description: Base64-encoded proof document required for hardship disbursements and death disbursements.
                   writeOnly: true
                 hardship_signature:
                   type: string
                   format: byte
-                  description: 'Base64-encoded signature image for hardship disbursements. Recommended
-                    dimensions: 500px width x 150px height (10:3 aspect ratio) to match the final document
-                    format.'
+                  description: 'Base64-encoded signature image for hardship disbursements. Recommended dimensions: 500px width x 150px height (10:3 aspect ratio) to match the final document format.'
                   writeOnly: true
                 is_rollover:
                   type: boolean
@@ -2422,8 +2248,7 @@ paths:
                     - city
                     - postal_code
                     - state
-                  description: Payment address for pre-tax portion (defaults to participant's address
-                    if not provided). Only required if different from participant's address.
+                  description: Payment address for pre-tax portion (defaults to participant's address if not provided). Only required if different from participant's address.
                 posttax_payment_address:
                   allOf:
                   - type: object
@@ -2458,34 +2283,24 @@ paths:
                     - city
                     - postal_code
                     - state
-                  description: Payment address for post-tax portion (defaults to participant's address
-                    if not provided).
+                  description: Payment address for post-tax portion (defaults to participant's address if not provided).
                 bank_name:
                   type: string
-                  description: Name of the bank for ACH/Wire payments (used for pre-tax portion in splits).
-                    For single disbursements, use this field regardless of tax type. For split disbursements,
-                    this applies to the pre-tax portion
+                  description: Name of the bank for ACH/Wire payments (used for pre-tax portion in splits). For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion
                 bank_routing_aba_number:
                   type: string
-                  description: Routing (ABA) number for the bank account. For single disbursements, use
-                    this field regardless of tax type. For split disbursements, this applies to the pre-tax
-                    portion. Not necessary for Check Payments.
+                  description: Routing (ABA) number for the bank account. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                 bank_account_number:
                   type: string
-                  description: Bank account number for payment. For single disbursements, use this field
-                    regardless of tax type. For split disbursements, this applies to the pre-tax portion.
-                    Not necessary for Check Payments.
+                  description: Bank account number for payment. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                 name_on_bank_account:
                   type: string
-                  description: Name of the account holder for the bank account. For single disbursements,
-                    use this field regardless of tax type. For split disbursements, this applies to the
-                    pre-tax portion. Not necessary for Check Payments.
+                  description: Name of the account holder for the bank account. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                 federal_withholding_percent:
                   type: string
                   format: decimal
                   pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
-                  description: Federal tax withholding percent (required for Hardship and RMD disbursements).
-                    Enter as percentage (e.g., 10.0 for 10%)
+                  description: Federal tax withholding percent (required for Hardship and RMD disbursements). Enter as percentage (e.g., 10.0 for 10%)
                 hardship:
                   type: string
                   enum:
@@ -2565,8 +2380,7 @@ paths:
             application/json:
               schema:
                 type: object
-                description: Convert chosen empty strings into None during serialization. Specify with
-                  the `empty_to_null_fields` Meta attribute.
+                description: Convert chosen empty strings into None during serialization. Specify with the `empty_to_null_fields` Meta attribute.
                 properties:
                   object_id:
                     type: string
@@ -2602,13 +2416,11 @@ paths:
                     description: Post-tax amount to disburse.
                   pretax_memo:
                     type: string
-                    description: Payment memo for pre-tax disbursement (max 20 characters). Required when
-                      pretax_amount is provided.
+                    description: Payment memo for pre-tax disbursement (max 20 characters). Required when pretax_amount is provided.
                     maxLength: 20
                   posttax_memo:
                     type: string
-                    description: Payment memo for post-tax disbursement (max 20 characters). Required
-                      when posttax_amount is provided.
+                    description: Payment memo for post-tax disbursement (max 20 characters). Required when posttax_amount is provided.
                     maxLength: 20
                   posttax_payment_method:
                     type: string
@@ -2618,24 +2430,19 @@ paths:
                     - ACH Transfer
                     - Fee Transfer
                     - Forced Rollover
-                    description: Payment method for post-tax portion (if different from pre-tax). Only
-                      used in split disbursements when different from payment_method.
+                    description: Payment method for post-tax portion (if different from pre-tax). Only used in split disbursements when different from payment_method.
                   posttax_bank_name:
                     type: string
-                    description: Bank name for post-tax portion. Only used in split disbursements when
-                      different from payment_method.
+                    description: Bank name for post-tax portion. Only used in split disbursements when different from payment_method.
                   posttax_bank_routing_aba_number:
                     type: string
-                    description: Routing number for post-tax portion. Only used in split disbursements
-                      when different from payment_method. Not necessary for Check Payments.
+                    description: Routing number for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                   posttax_bank_account_number:
                     type: string
-                    description: Account number for post-tax portion. Only used in split disbursements
-                      when different from payment_method. Not necessary for Check Payments.
+                    description: Account number for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                   posttax_name_on_bank_account:
                     type: string
-                    description: Account holder for post-tax portion. Only used in split disbursements
-                      when different from payment_method. Not necessary for Check Payments.
+                    description: Account holder for post-tax portion. Only used in split disbursements when different from payment_method. Not necessary for Check Payments.
                   payment_method:
                     type: string
                     enum:
@@ -2644,14 +2451,11 @@ paths:
                     - ACH Transfer
                     - Fee Transfer
                     - Forced Rollover
-                    description: The payment method to use (e.g., Check, ACH, Wire). For single disbursements,
-                      use this field regardless of tax type. For split disbursements, this applies to
-                      the pre-tax portion.
+                    description: The payment method to use (e.g., Check, ACH, Wire). For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion.
                   status:
                     type: string
                     readOnly: true
-                    description: The current status of the disbursement (e.g., Pending Approval, Funds
-                      Sent, etc.)
+                    description: The current status of the disbursement (e.g., Pending Approval, Funds Sent, etc.)
                   is_rollover:
                     type: boolean
                     default: false
@@ -2685,8 +2489,7 @@ paths:
                       - city
                       - postal_code
                       - state
-                    description: Payment address for pre-tax portion (defaults to participant's address
-                      if not provided). Only required if different from participant's address.
+                    description: Payment address for pre-tax portion (defaults to participant's address if not provided). Only required if different from participant's address.
                   posttax_payment_address:
                     allOf:
                     - type: object
@@ -2716,34 +2519,24 @@ paths:
                       - city
                       - postal_code
                       - state
-                    description: Payment address for post-tax portion (defaults to participant's address
-                      if not provided).
+                    description: Payment address for post-tax portion (defaults to participant's address if not provided).
                   bank_name:
                     type: string
-                    description: Name of the bank for ACH/Wire payments (used for pre-tax portion in splits).
-                      For single disbursements, use this field regardless of tax type. For split disbursements,
-                      this applies to the pre-tax portion
+                    description: Name of the bank for ACH/Wire payments (used for pre-tax portion in splits). For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion
                   bank_routing_aba_number:
                     type: string
-                    description: Routing (ABA) number for the bank account. For single disbursements,
-                      use this field regardless of tax type. For split disbursements, this applies to
-                      the pre-tax portion. Not necessary for Check Payments.
+                    description: Routing (ABA) number for the bank account. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                   bank_account_number:
                     type: string
-                    description: Bank account number for payment. For single disbursements, use this field
-                      regardless of tax type. For split disbursements, this applies to the pre-tax portion.
-                      Not necessary for Check Payments.
+                    description: Bank account number for payment. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                   name_on_bank_account:
                     type: string
-                    description: Name of the account holder for the bank account. For single disbursements,
-                      use this field regardless of tax type. For split disbursements, this applies to
-                      the pre-tax portion. Not necessary for Check Payments.
+                    description: Name of the account holder for the bank account. For single disbursements, use this field regardless of tax type. For split disbursements, this applies to the pre-tax portion. Not necessary for Check Payments.
                   federal_withholding_percent:
                     type: string
                     format: decimal
                     pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
-                    description: Federal tax withholding percent (required for Hardship and RMD disbursements).
-                      Enter as percentage (e.g., 10.0 for 10%)
+                    description: Federal tax withholding percent (required for Hardship and RMD disbursements). Enter as percentage (e.g., 10.0 for 10%)
                   hardship:
                     type: string
                     enum:
@@ -2814,6 +2607,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants disbursements update
+      x-summary-source: derived
     delete:
       operationId: participants_disbursements_destroy
       description: Delete a disbursement request.
@@ -2842,6 +2637,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants disbursements destroy
+      x-summary-source: derived
   /participants/{participant_id}/loan-requests/:
     get:
       operationId: participants_loan_requests_list
@@ -3040,6 +2837,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants loan requests list
+      x-summary-source: derived
     post:
       operationId: participants_loan_requests_create
       description: Create a loan request.
@@ -3510,6 +3309,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants loan requests create
+      x-summary-source: derived
   /participants/{participant_id}/loan-requests-info/:
     get:
       operationId: participants_loan_requests_info_retrieve
@@ -3561,6 +3362,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants loan requests info retrieve
+      x-summary-source: derived
   /participants/{participant_id}/loan-requests-signature/{loan_request_id}/:
     put:
       operationId: participants_loan_requests_signature_update
@@ -3640,6 +3443,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants loan requests signature update
+      x-summary-source: derived
   /participants/{participant_id}/loan-requests/{loan_request_id}/:
     get:
       operationId: participants_loan_requests_retrieve
@@ -3808,6 +3613,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants loan requests retrieve
+      x-summary-source: derived
     put:
       operationId: participants_loan_requests_update
       description: Fully update a specific loan request.
@@ -4283,6 +4090,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants loan requests update
+      x-summary-source: derived
     delete:
       operationId: participants_loan_requests_destroy
       description: Delete a loan request.
@@ -4311,20 +4120,19 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants loan requests destroy
+      x-summary-source: derived
   /participants/{participant_id}/money-movement-history/:
     get:
       operationId: participants_money_movement_history_list
       description: 'Get a list of money movement transactions for the given participant id.
 
 
-        The account type will be Pre-tax for employee pre-tax movements, Post-tax for employee post-tax
-        movements,
+        The account type will be Pre-tax for employee pre-tax movements, Post-tax for employee post-tax movements,
 
-        Vested Contribution for any vested employer contributions, Non-vested Contribution for any non-vested
-        employer contributions.
+        Vested Contribution for any vested employer contributions, Non-vested Contribution for any non-vested employer contributions.
 
-        The tax_type field is only really useful to distinguish pre-tax or post-tax employer contributions
-        when it has a value.'
+        The tax_type field is only really useful to distinguish pre-tax or post-tax employer contributions when it has a value.'
       parameters:
       - name: page
         required: false
@@ -4416,8 +4224,7 @@ paths:
 
                             * `Dividend` - Dividend
 
-                            * `Discretionary Non Elective (Profit Sharing)` - Discretionary Non Elective
-                            (Profit Sharing)
+                            * `Discretionary Non Elective (Profit Sharing)` - Discretionary Non Elective (Profit Sharing)
 
                             * `Safe Harbor Non Elective` - Safe Harbor Non Elective
 
@@ -4485,6 +4292,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants money movement history list
+      x-summary-source: derived
   /participants/{participant_id}/rollovers/:
     get:
       operationId: participants_rollovers_list
@@ -4541,8 +4350,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      description: A rollover request for a participant that accepts all information in
-                        a single request.
+                      description: A rollover request for a participant that accepts all information in a single request.
                       properties:
                         object_id:
                           type: string
@@ -4676,6 +4484,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants rollovers list
+      x-summary-source: derived
     post:
       operationId: participants_rollovers_create
       description: Create a new rollover in one single request.
@@ -4692,8 +4502,7 @@ paths:
           application/json:
             schema:
               type: object
-              description: A rollover request for a participant that accepts all information in a single
-                request.
+              description: A rollover request for a participant that accepts all information in a single request.
               properties:
                 name:
                   type: string
@@ -4820,8 +4629,7 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               type: object
-              description: A rollover request for a participant that accepts all information in a single
-                request.
+              description: A rollover request for a participant that accepts all information in a single request.
               properties:
                 name:
                   type: string
@@ -4948,8 +4756,7 @@ paths:
           multipart/form-data:
             schema:
               type: object
-              description: A rollover request for a participant that accepts all information in a single
-                request.
+              description: A rollover request for a participant that accepts all information in a single request.
               properties:
                 name:
                   type: string
@@ -5083,8 +4890,7 @@ paths:
             application/json:
               schema:
                 type: object
-                description: A rollover request for a participant that accepts all information in a single
-                  request.
+                description: A rollover request for a participant that accepts all information in a single request.
                 properties:
                   object_id:
                     type: string
@@ -5220,6 +5026,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants rollovers create
+      x-summary-source: derived
   /participants/{participant_id}/rollovers/{rollover_id}/:
     get:
       operationId: participants_rollovers_retrieve
@@ -5246,8 +5054,7 @@ paths:
             application/json:
               schema:
                 type: object
-                description: A rollover request for a participant that accepts all information in a single
-                  request.
+                description: A rollover request for a participant that accepts all information in a single request.
                 properties:
                   object_id:
                     type: string
@@ -5381,6 +5188,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants rollovers retrieve
+      x-summary-source: derived
     put:
       operationId: participants_rollovers_update
       description: Update a specific rollover request.
@@ -5402,8 +5211,7 @@ paths:
           application/json:
             schema:
               type: object
-              description: A rollover request for a participant that accepts all information in a single
-                request.
+              description: A rollover request for a participant that accepts all information in a single request.
               properties:
                 name:
                   type: string
@@ -5530,8 +5338,7 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               type: object
-              description: A rollover request for a participant that accepts all information in a single
-                request.
+              description: A rollover request for a participant that accepts all information in a single request.
               properties:
                 name:
                   type: string
@@ -5658,8 +5465,7 @@ paths:
           multipart/form-data:
             schema:
               type: object
-              description: A rollover request for a participant that accepts all information in a single
-                request.
+              description: A rollover request for a participant that accepts all information in a single request.
               properties:
                 name:
                   type: string
@@ -5793,8 +5599,7 @@ paths:
             application/json:
               schema:
                 type: object
-                description: A rollover request for a participant that accepts all information in a single
-                  request.
+                description: A rollover request for a participant that accepts all information in a single request.
                 properties:
                   object_id:
                     type: string
@@ -5930,6 +5735,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants rollovers update
+      x-summary-source: derived
     delete:
       operationId: participants_rollovers_destroy
       description: Delete a rollover request.
@@ -5958,6 +5765,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants rollovers destroy
+      x-summary-source: derived
 components:
   securitySchemes:
     knoxApiToken:
@@ -5968,8 +5777,4 @@ components:
     oauth2:
       type: http
       scheme: bearer
-      description: OAuth 2.0 Bearer based with an existing token. Enter a token retrieved via the regular
-        OAuth flow elsewhere.
-servers:
-- url: https://app.401go.com/api
-  description: Base URL reconciled from apis.yml
+      description: OAuth 2.0 Bearer based with an existing token. Enter a token retrieved via the regular OAuth flow elsewhere.

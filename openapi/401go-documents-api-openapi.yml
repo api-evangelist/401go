@@ -58,6 +58,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: List participant documents
+      x-summary-source: derived
   /participants/{participant_id}/participant-documents/{document_name}/:
     get:
       operationId: get_signed_participant_document_url
@@ -98,6 +100,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Get signed participant document url
+      x-summary-source: derived
 components:
   securitySchemes:
     knoxApiToken:
@@ -108,8 +112,4 @@ components:
     oauth2:
       type: http
       scheme: bearer
-      description: OAuth 2.0 Bearer based with an existing token. Enter a token retrieved via the regular
-        OAuth flow elsewhere.
-servers:
-- url: https://app.401go.com/api
-  description: Base URL reconciled from apis.yml
+      description: OAuth 2.0 Bearer based with an existing token. Enter a token retrieved via the regular OAuth flow elsewhere.

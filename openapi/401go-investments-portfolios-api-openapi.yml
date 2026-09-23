@@ -77,6 +77,8 @@ paths:
                 - description
                 - object_id
           description: ''
+      summary: Investments retrieve
+      x-summary-source: derived
   /participants/{participant_id}/cancel-participant-rebalance/:
     post:
       operationId: participants_cancel_participant_rebalance_create
@@ -131,14 +133,15 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants cancel participant rebalance create
+      x-summary-source: derived
   /participants/{participant_id}/investment-history/:
     get:
       operationId: participants_investment_history_list
       description: 'Get a list of investment transactions for the given participant id.
 
 
-        You can optionally paginate by including ''page={page_num}&page_size={page_size}'' in the query
-        string.
+        You can optionally paginate by including ''page={page_num}&page_size={page_size}'' in the query string.
 
         Possible statuses: pending, confirmed, failed, dividend.'
       parameters:
@@ -316,14 +319,15 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants investment history list
+      x-summary-source: derived
   /participants/{participant_id}/investment-options/:
     get:
       operationId: participants_investment_options_list
       description: 'Get a list of investment options available to the given participant.
 
 
-        You can optionally paginate by including ''page={page_num}&page_size={page_size}'' in the query
-        string.'
+        You can optionally paginate by including ''page={page_num}&page_size={page_size}'' in the query string.'
       parameters:
       - name: page
         required: false
@@ -431,6 +435,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants investment options list
+      x-summary-source: derived
   /participants/{participant_id}/investment-performance/:
     get:
       operationId: participants_investment_performance_list
@@ -462,8 +468,7 @@ paths:
         name: start_date
         schema:
           type: string
-        description: Start date for filtering portfolios (YYYY-MM-DD format). Defaults to the first day
-          an investment transaction occurred.
+        description: Start date for filtering portfolios (YYYY-MM-DD format). Defaults to the first day an investment transaction occurred.
       tags:
       - Investments & Portfolios
       security:
@@ -547,6 +552,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants investment performance list
+      x-summary-source: derived
   /participants/{participant_id}/portfolio/:
     get:
       operationId: participants_portfolio_list
@@ -700,6 +707,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants portfolio list
+      x-summary-source: derived
     post:
       operationId: participants_portfolio_create
       description: 'Updates a participant''s target portfolio allocations.
@@ -714,8 +723,7 @@ paths:
 
         ### 0% allocations
 
-        Setting an investment target allocation to `0%` does **not** remove it from the portfolio. If
-        `auto_rebalance` is disabled,
+        Setting an investment target allocation to `0%` does **not** remove it from the portfolio. If `auto_rebalance` is disabled,
 
         no trades will occur until a manual rebalance is triggered.
 
@@ -728,8 +736,7 @@ paths:
 
         Once an investment is removed from the portfolio, the system will sell all shares of that investment
 
-        **regardless of whether `auto_rebalance` is enabled**. Removed investments enter `PENDING_SALE`
-        until liquidation is complete.'
+        **regardless of whether `auto_rebalance` is enabled**. Removed investments enter `PENDING_SALE` until liquidation is complete.'
       parameters:
       - name: page
         required: false
@@ -769,8 +776,7 @@ paths:
                     type: string
                     format: decimal
                     pattern: ^-?\d{0,6}(?:\.\d{0,6})?$
-                  description: List of investment weights. The order of weights must parallel the order
-                    of investments.
+                  description: List of investment weights. The order of weights must parallel the order of investments.
               required:
               - investments
               - weights
@@ -791,8 +797,7 @@ paths:
                     type: string
                     format: decimal
                     pattern: ^-?\d{0,6}(?:\.\d{0,6})?$
-                  description: List of investment weights. The order of weights must parallel the order
-                    of investments.
+                  description: List of investment weights. The order of weights must parallel the order of investments.
               required:
               - investments
               - weights
@@ -813,8 +818,7 @@ paths:
                     type: string
                     format: decimal
                     pattern: ^-?\d{0,6}(?:\.\d{0,6})?$
-                  description: List of investment weights. The order of weights must parallel the order
-                    of investments.
+                  description: List of investment weights. The order of weights must parallel the order of investments.
               required:
               - investments
               - weights
@@ -941,11 +945,12 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants portfolio create
+      x-summary-source: derived
   /participants/{participant_id}/portfolio-settings/:
     get:
       operationId: participants_portfolio_settings_retrieve
-      description: 'Get data points related to rebalancing, trading windows, and if a participant can
-        self direct.
+      description: 'Get data points related to rebalancing, trading windows, and if a participant can self direct.
 
 
         can_cancel_rebalance represents if the current time is in a trading window.
@@ -1002,10 +1007,11 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants portfolio settings retrieve
+      x-summary-source: derived
     post:
       operationId: participants_portfolio_settings_create
-      description: Updates a participant's option to auto rebalance, rebalance percent, and if they have
-        opted in to self direct
+      description: Updates a participant's option to auto rebalance, rebalance percent, and if they have opted in to self direct
       parameters:
       - in: path
         name: participant_id
@@ -1093,6 +1099,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants portfolio settings create
+      x-summary-source: derived
   /participants/{participant_id}/start-participant-rebalance/:
     post:
       operationId: participants_start_participant_rebalance_create
@@ -1147,6 +1155,8 @@ paths:
           description: 'Unauthorized: Missing or invalid authentication'
         '403':
           description: 'Forbidden: Insufficient permissions or scopes'
+      summary: Participants start participant rebalance create
+      x-summary-source: derived
 components:
   securitySchemes:
     knoxApiToken:
@@ -1157,8 +1167,4 @@ components:
     oauth2:
       type: http
       scheme: bearer
-      description: OAuth 2.0 Bearer based with an existing token. Enter a token retrieved via the regular
-        OAuth flow elsewhere.
-servers:
-- url: https://app.401go.com/api
-  description: Base URL reconciled from apis.yml
+      description: OAuth 2.0 Bearer based with an existing token. Enter a token retrieved via the regular OAuth flow elsewhere.
