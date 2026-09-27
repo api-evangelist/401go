@@ -55,7 +55,7 @@ tags:
 - Company
 - Retirement
 - 401k
-- Financial-Services
+- Financial Services
 - Fintech
 - Payroll
 - Human Resources
@@ -73,6 +73,7 @@ tags_raw:
 - Benefits
 - Investments
 - Wealth Management
+- Financial-Services
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
