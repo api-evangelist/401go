@@ -99,7 +99,7 @@ Model Context Protocol servers that expose the API to agents.
 
 Which operations an agent can call, which act, and which need a human in the loop.
 
-- [401Go Agentic Access](https://apis.io/agentic-access/401go/401go-agentic-access/)
+- [401GO Agentic Access](https://apis.io/agentic-access/401go/401go-agentic-access/)
 
 #### Collections (11)
 
@@ -121,20 +121,26 @@ Postman and Open Collection request collections.
 
 OpenAPI overlays, including conversational phrasing for each operation.
 
-- [401Go Api Overlay](https://apis.io/overlays/401go/401go-api-overlay/)
+- [401GO Api Overlay](https://apis.io/overlays/401go/401go-api-overlay/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [401GO API Rules](https://apis.io/rules/401go/401go-rules/)
 
 #### Security (2)
 
 Authentication, trust centre, and vulnerability disclosure.
 
-- [401Go Authentication](https://apis.io/security/401go/401go-authentication/)
-- [401Go Domain Security](https://apis.io/security/401go/401go-domain-security/)
+- [401GO Authentication](https://apis.io/security/401go/401go-authentication/)
+- [401GO Domain Security](https://apis.io/security/401go/401go-domain-security/)
 
 #### OAuth scopes (1)
 
 The permissions the API asks for.
 
-- [401Go Scopes](https://apis.io/scopes/401go/401go-scopes/)
+- [401GO Scopes](https://apis.io/scopes/401go/401go-scopes/)
 
 ## Where to find this API
 
@@ -153,18 +159,18 @@ Links to the company's own pages. This repository publishes no copy of their spe
 
 ## API Evangelist rating
 
-**Kin Score 36.5** — thin · rubric 0.25.0 · scored 2026-10-23
+**Kin Score 43.5** — developing · rubric 0.28.1 · scored 2026-11-21
 
 | Facet | Score |
 |---|---|
 | Discoverability | 75.0 |
 | Contract quality | 42.6 |
-| Contract governance | 4.5 |
+| Contract governance | 18.2 |
 | Operational transparency | 0.0 |
-| Developer ergonomics | 41.1 |
-| Access clarity | 34.2 |
+| Developer ergonomics | 66.1 |
+| Access clarity | 40.4 |
 
-**Agent readiness 47.8** — agent-ready (gated down from agent-native)
+**Agent readiness 46.8** — agent-ready (gated down from agent-native)
 
 | Agent-readiness dimension | Result |
 |---|---|
@@ -189,8 +195,12 @@ Links to the company's own pages. This repository publishes no copy of their spe
 | Agentic Commerce | — |
 | Pagination Ratio | paginated |
 | Operation Distinctiveness | distinct |
+| MCP Tool Quality | na |
+| Onboarding Descriptor | — |
+| Dns Aid Index | na |
+| Markdown Negotiation | na |
 
-**Regulatory alignment 34.3** — Employment & Payroll
+**Regulatory alignment 28.4** — Employment & Payroll
 
 The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/401go/](https://apis.io/providers/401go/).
 
